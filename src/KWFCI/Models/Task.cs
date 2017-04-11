@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 
 namespace KWFCI.Models
 {
-    public class Broker :Person
+    public class Task
     {
-        public List<Interaction> Interactions { get; set; }
-        public List<Task> Tasks { get; set; }
     }
 }
