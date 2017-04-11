@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace KWFCI.Models
 {
-    public class Broker :Person
+    public class Broker : Person
     {
         public List<Interaction> Interactions { get; set; }
-        public List<Task> Tasks { get; set; }
+        public List<Task> Requirements { get; set; }
         public string Type { get; set; }
     }
 }
