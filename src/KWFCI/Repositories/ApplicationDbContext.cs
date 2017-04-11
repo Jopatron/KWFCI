@@ -6,6 +6,8 @@ namespace KWFCI.Repositories
 {
     public class ApplicationDbContext : IdentityDbContext<StaffUser>
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
         public DbSet<StaffProfile> StaffProfiles { get; set; }
     }
 }
