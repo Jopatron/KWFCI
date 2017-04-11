@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace KWFCI.Models
+﻿namespace KWFCI.Models
 {
-    public class StaffProfile
+    public class StaffProfile : Person
     {
+        public StaffUser User { get; set; }
+        public string Role { get; set; }
+        public int StaffProfileID { get; set; }
     }
 }

@@ -7,5 +7,6 @@ namespace KWFCI.Models
 {
     public class Broker
     {
+        //public string type
     }
 }

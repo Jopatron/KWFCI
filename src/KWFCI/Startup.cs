@@ -9,12 +9,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
+using KWFCI.Repositories;
+using Microsoft.EntityFrameworkCore;
+using KWFCI.Models;
 
 namespace KWFCI
 {
     public class Startup
     {
+        public IConfigurationRoot Configuration { get; }
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -25,11 +29,13 @@ namespace KWFCI
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+                  Configuration["KWFCI_Db:ConnectionString"]));
 
+            services.AddIdentity<StaffUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Add framework services.
             services.AddMvc();
@@ -47,7 +53,6 @@ namespace KWFCI
 
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
-            //Something else
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseMvc(routes =>
@@ -57,12 +62,7 @@ namespace KWFCI
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
-
-            //Suck it Trebek
+            SeedData.EnsurePopulated(app);
         }
     }
 }
