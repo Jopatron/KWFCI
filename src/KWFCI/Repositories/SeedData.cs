@@ -23,7 +23,7 @@ namespace KWFCI.Repositories
             string email = "bloblaw@gmail.com";
             bool notify = true;
             string role = "Staff";
-            string password = "secret123";
+            string password = "Secret123!";
 
             //Create Identity User before StaffProfile, so you can add to the profile
             if (!context.StaffProfiles.Any())
@@ -31,7 +31,7 @@ namespace KWFCI.Repositories
                 StaffUser user = await userManager.FindByEmailAsync(email);
                 if (user == null)
                 {
-                    user = new StaffUser {Email = email };
+                    user = new StaffUser {UserName = email };
                     IdentityResult result = await userManager.CreateAsync(user, password);
 
                     if (await roleManager.FindByNameAsync(role) == null)

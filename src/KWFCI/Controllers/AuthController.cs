@@ -30,7 +30,7 @@ namespace KWFCI.Controllers
         {
             if (ModelState.IsValid)
             {
-                StaffUser user = await userManager.FindByEmailAsync(vm.Email);
+                StaffUser user = await userManager.FindByNameAsync(vm.UserName);
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
@@ -43,8 +43,7 @@ namespace KWFCI.Controllers
                         return Redirect("/");
                     }
                 }
-                ModelState.AddModelError(nameof(LoginVM.Email),
-                    "Invalid email or password");
+                ModelState.AddModelError("", "Invalid name or password.");
             }
             return View(vm);
         }
