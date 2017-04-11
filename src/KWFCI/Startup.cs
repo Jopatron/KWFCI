@@ -47,6 +47,7 @@ namespace KWFCI
 
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
+            //TESTING MERGE CONFLICT
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseMvc(routes =>
