@@ -9,5 +9,6 @@ namespace KWFCI.Models
     {
         public List<Interaction> Interactions { get; set; }
         public List<Task> Tasks { get; set; }
+        public string Type { get; set; }
     }
 }
