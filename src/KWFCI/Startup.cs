@@ -47,6 +47,7 @@ namespace KWFCI
 
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
+            //Something else
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseMvc(routes =>
