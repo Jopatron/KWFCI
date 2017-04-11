@@ -62,7 +62,7 @@ namespace KWFCI
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //TODO: app.EnsurePopulated
+            SeedData.EnsurePopulated(app);
         }
     }
 }
