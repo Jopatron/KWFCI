@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace KWFCI.Controllers
 {
+    
     public class AuthController : Controller
     {
         private UserManager<StaffUser> userManager;
@@ -17,7 +18,8 @@ namespace KWFCI.Controllers
             userManager = usrMgr;
             signInManager = sim;
         }
-
+        [Route("Index")]
+        [Route("/")]
         [AllowAnonymous]
         public ViewResult Login(string returnUrl)
         {
