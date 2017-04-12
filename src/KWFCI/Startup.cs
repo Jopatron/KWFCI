@@ -34,8 +34,9 @@ namespace KWFCI
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                   Configuration["KWFCI_Db:ConnectionString"]));
 
-            services.AddIdentity<StaffUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<StaffUser, IdentityRole>(opts =>
+                { opts.Cookies.ApplicationCookie.LoginPath = "/Auth/Login"; })
+            .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Add framework services.
             services.AddMvc();
@@ -59,11 +60,11 @@ namespace KWFCI
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+             {
+                 routes.MapRoute(
+                     name: "default",
+                     template: "{controller=Home}/{action=Index}/{id?}");
+             });
 
             SeedData.EnsurePopulated(app);
         }
