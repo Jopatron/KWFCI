@@ -42,6 +42,11 @@ namespace KWFCI.Controllers
             }
             return RedirectToAction("Index", brokerRepo.GetAllBrokers().ToList());
         }
+
+        public IActionResult AddBroker()
+        {
+            return View();
+        }
         [Route("Edit")]
         public IActionResult Edit(int id)
         {
