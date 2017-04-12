@@ -39,6 +39,9 @@ namespace KWFCI
 
             // Add framework services.
             services.AddMvc();
+
+            services.AddTransient<IBrokerRepository, BrokerRepository>();
+            services.AddTransient<IStaffProfileRepository, StaffProfileRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

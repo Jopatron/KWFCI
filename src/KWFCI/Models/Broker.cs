@@ -5,8 +5,13 @@ using System.Threading.Tasks;
 
 namespace KWFCI.Models
 {
-    public class Broker
+    public class Broker : Person
     {
-        //public string type
+        public int BrokerID { get; set; }
+        public List<Interaction> Interactions { get; set; }
+        public List<KWTask> Requirements { get; set; }
+        public string Type { get; set; }
+
+        //TODO Will probably have to generate the list of requirements in the constructor
     }
 }
