@@ -41,7 +41,7 @@ namespace KWFCI.Controllers
                     if (result.Succeeded)
                     {
                         //Redirects to the home index if login succeeds
-                        return RedirectToAction("/");
+                        return Redirect("/");
                     }
                 }
                 ModelState.AddModelError("", "Invalid name or password.");
