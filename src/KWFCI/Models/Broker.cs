@@ -7,8 +7,11 @@ namespace KWFCI.Models
 {
     public class Broker : Person
     {
+        public int BrokerID { get; set; }
         public List<Interaction> Interactions { get; set; }
-        public List<Task> Requirements { get; set; }
+        public List<KWTask> Requirements { get; set; }
         public string Type { get; set; }
+
+        //TODO Will probably have to generate the list of requirements in the constructor
     }
 }

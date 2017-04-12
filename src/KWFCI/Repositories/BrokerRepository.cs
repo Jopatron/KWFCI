@@ -33,6 +33,11 @@ namespace KWFCI.Repositories
             return context.Brokers.Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
         }
 
+        public Broker GetBrokerByID(int id)
+        {
+            return context.Brokers.Where(b => b.BrokerID == id) as Broker;
+        }
+
         public IQueryable<Broker> GetBrokersByType(string type)
         {
             return (from b in context.Brokers

@@ -10,6 +10,23 @@ namespace KWFCI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Brokers",
+                columns: table => new
+                {
+                    BrokerID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Email = table.Column<string>(nullable: true),
+                    EmailNotifications = table.Column<bool>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Brokers", x => x.BrokerID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -60,6 +77,44 @@ namespace KWFCI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Interaction",
+                columns: table => new
+                {
+                    InteractionID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BrokerID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Interaction", x => x.InteractionID);
+                    table.ForeignKey(
+                        name: "FK_Interaction_Brokers_BrokerID",
+                        column: x => x.BrokerID,
+                        principalTable: "Brokers",
+                        principalColumn: "BrokerID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "KWTask",
+                columns: table => new
+                {
+                    KWTaskID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BrokerID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KWTask", x => x.KWTaskID);
+                    table.ForeignKey(
+                        name: "FK_KWTask_Brokers_BrokerID",
+                        column: x => x.BrokerID,
+                        principalTable: "Brokers",
+                        principalColumn: "BrokerID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,6 +228,16 @@ namespace KWFCI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Interaction_BrokerID",
+                table: "Interaction",
+                column: "BrokerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KWTask_BrokerID",
+                table: "KWTask",
+                column: "BrokerID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StaffProfiles_UserId",
                 table: "StaffProfiles",
                 column: "UserId");
@@ -222,6 +287,12 @@ namespace KWFCI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Interaction");
+
+            migrationBuilder.DropTable(
+                name: "KWTask");
+
+            migrationBuilder.DropTable(
                 name: "StaffProfiles");
 
             migrationBuilder.DropTable(
@@ -238,6 +309,9 @@ namespace KWFCI.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Brokers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

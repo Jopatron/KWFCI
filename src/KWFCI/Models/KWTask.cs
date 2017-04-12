@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace KWFCI.Models
 {
-    public class Task
+    public class KWTask
     {
+        public int KWTaskID { get; set; }
     }
 }

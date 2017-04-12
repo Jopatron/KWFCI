@@ -1,0 +1,46 @@
+﻿@model List<Broker>
+
+@{ 
+    ViewBag.Title = "Brokers";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Email</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Broker b in Model)
+                {
+                    <tr>
+                        <th>@b.FirstName</th>
+                        <th>@b.LastName</th>
+                        <th>@b.Email</th>
+                        <th>
+                            <form asp-action="Delete" asp-route-id="@b.BrokerID" method="post">
+                                <a class="btn btn-sm btn-primary" asp-action="Edit"
+                                    asp-route-id="@b.BrokerID">Edit</a>
+                                <button type="submit"
+                                        class="btn btn-sm btn-danger">
+                                    Delete
+                                </button>
+                            </form>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    table, tr, th{
+        border: 1px solid black;
+    }
+</style>

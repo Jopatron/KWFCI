@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KWFCI.Repositories
 {
-    interface IBrokerRepository
+    public interface IBrokerRepository
     {
         IQueryable<Broker> GetAllBrokers();
         //int return value represents whether or not operation completed: 1 for True, 0 for False
@@ -14,5 +14,6 @@ namespace KWFCI.Repositories
         int AddBroker(Broker broker);
         int UpdateBroker(Broker broker);
         IQueryable<Broker> GetBrokersByType(string type);
+        Broker GetBrokerByID(int id);
     }
 }

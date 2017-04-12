@@ -2,5 +2,6 @@
 {
     public class Interaction
     {
+        public int InteractionID { get; set; }
     }
 }

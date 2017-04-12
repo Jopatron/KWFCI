@@ -8,7 +8,7 @@ using KWFCI.Repositories;
 namespace KWFCI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170411212626_initial")]
+    [Migration("20170412004815_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -16,6 +16,54 @@ namespace KWFCI.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("KWFCI.Models.Broker", b =>
+                {
+                    b.Property<int>("BrokerID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email");
+
+                    b.Property<bool>("EmailNotifications");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("BrokerID");
+
+                    b.ToTable("Brokers");
+                });
+
+            modelBuilder.Entity("KWFCI.Models.Interaction", b =>
+                {
+                    b.Property<int>("InteractionID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("BrokerID");
+
+                    b.HasKey("InteractionID");
+
+                    b.HasIndex("BrokerID");
+
+                    b.ToTable("Interaction");
+                });
+
+            modelBuilder.Entity("KWFCI.Models.KWTask", b =>
+                {
+                    b.Property<int>("KWTaskID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("BrokerID");
+
+                    b.HasKey("KWTaskID");
+
+                    b.HasIndex("BrokerID");
+
+                    b.ToTable("KWTask");
+                });
 
             modelBuilder.Entity("KWFCI.Models.StaffProfile", b =>
                 {
@@ -195,6 +243,20 @@ namespace KWFCI.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("KWFCI.Models.Interaction", b =>
+                {
+                    b.HasOne("KWFCI.Models.Broker")
+                        .WithMany("Interactions")
+                        .HasForeignKey("BrokerID");
+                });
+
+            modelBuilder.Entity("KWFCI.Models.KWTask", b =>
+                {
+                    b.HasOne("KWFCI.Models.Broker")
+                        .WithMany("Requirements")
+                        .HasForeignKey("BrokerID");
                 });
 
             modelBuilder.Entity("KWFCI.Models.StaffProfile", b =>
