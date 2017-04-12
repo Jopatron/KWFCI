@@ -27,6 +27,12 @@
                         <label asp-for="Email">Email:</label>
                         <input asp-for="Email" class="form-control" /><br />
 
+                        <label asp-for="Type">Broker Type:</label>
+                        <select class="form-control" asp-for="Type">
+                            <option>New Broker</option>
+                            <option>Broker In Transition</option>
+                        </select>
+
                         <label asp-for="EmailNotifications">EmailNotifications:</label>
                         <input asp-for="EmailNotifications" class="form-control" type="checkbox" /><br />
 

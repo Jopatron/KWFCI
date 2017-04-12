@@ -42,10 +42,22 @@ namespace KWFCI.Controllers
             }
             return RedirectToAction("Index", brokerRepo.GetAllBrokers().ToList());
         }
-
-        public IActionResult AddBroker()
+        [Route("Add")]
+        [HttpPost]
+        public IActionResult AddBroker(Broker b)
         {
-            return View();
+            var broker = new Broker {
+                FirstName = b.FirstName,
+                LastName = b.LastName,
+                Email = b.Email,
+                Type = b.Type,
+                EmailNotifications = b.EmailNotifications
+            };
+
+            brokerRepo.AddBroker(broker);
+            //TODO: See if there is a way to just close the modal and not refresh the page
+            return RedirectToAction("Index","Home");
+        
         }
         [Route("Edit")]
         public IActionResult Edit(int id)
