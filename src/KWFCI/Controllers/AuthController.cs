@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KWFCI.Controllers
 {
-    
+    [Route("Authorize")]
     public class AuthController : Controller
     {
         private UserManager<StaffUser> userManager;
@@ -18,14 +18,13 @@ namespace KWFCI.Controllers
             userManager = usrMgr;
             signInManager = sim;
         }
-        [Route("Index")]
-        [Route("/")]
+        [Route("Login")]
         [AllowAnonymous]
         public ViewResult Login(string returnUrl)
         {
             return View(new LoginVM());
         }
-
+        [Route("Login")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginVM vm)
@@ -42,7 +41,7 @@ namespace KWFCI.Controllers
                     if (result.Succeeded)
                     {
                         //Redirects to the home index if login succeeds
-                        return Redirect("/");
+                        return RedirectToAction("/");
                     }
                 }
                 ModelState.AddModelError("", "Invalid name or password.");

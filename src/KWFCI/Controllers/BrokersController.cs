@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace KWFCI.Controllers
 {
-    [Authorize(Roles = "Staff")]
+    //[Authorize(Roles = "Staff")]
     [Route("Brokers")]
     public class BrokersController : Controller
     {
