@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7508DF67-16AD-4378-884A-48F7FCFAF52D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5AB81BAA-D001-4374-A8FE-E301D8D4EF5D}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KWFCI", "src\KWFCI\KWFCI.xproj", "{C48EC967-C5EC-49B8-92E6-4213BCAE1FFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D27BEE13-2496-4123-A834-8A6C34F1EB20}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KWFCI.Tests", "test\KWFCI.Tests\KWFCI.Tests.xproj", "{44058BFE-04B6-42FC-B57B-A0490063632B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C48EC967-C5EC-49B8-92E6-4213BCAE1FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C48EC967-C5EC-49B8-92E6-4213BCAE1FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C48EC967-C5EC-49B8-92E6-4213BCAE1FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C48EC967-C5EC-49B8-92E6-4213BCAE1FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44058BFE-04B6-42FC-B57B-A0490063632B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44058BFE-04B6-42FC-B57B-A0490063632B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44058BFE-04B6-42FC-B57B-A0490063632B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44058BFE-04B6-42FC-B57B-A0490063632B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C48EC967-C5EC-49B8-92E6-4213BCAE1FFD} = {7508DF67-16AD-4378-884A-48F7FCFAF52D}
+		{44058BFE-04B6-42FC-B57B-A0490063632B} = {D27BEE13-2496-4123-A834-8A6C34F1EB20}
+	EndGlobalSection
+EndGlobal
