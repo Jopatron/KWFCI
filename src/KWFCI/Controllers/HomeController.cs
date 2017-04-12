@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace KWFCI.Controllers
 {
-    //[Authorize(Roles="Staff")]
+    [Authorize(Roles ="Staff")]
     [Route("Index")]
     [Route("/")]
     public class HomeController : Controller

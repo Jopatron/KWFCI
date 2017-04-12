@@ -37,8 +37,6 @@ namespace KWFCI.Repositories
                     if (await roleManager.FindByNameAsync(role) == null)
                     {
                         await roleManager.CreateAsync(new IdentityRole("Staff"));
-                        //await roleManager.CreateAsync(new IdentityRole("Musician"));
-                        //await roleManager.CreateAsync(new IdentityRole("Leader"));
 
                         if (result.Succeeded)
                         {
@@ -48,15 +46,45 @@ namespace KWFCI.Repositories
 
                 }
 
-                /* StaffProfile Includes:
-                * FirstName
-                * LastName
-                * Email
-                * EmailNotifications
-                * User
-                * Role */
-
                 StaffProfile profile = new StaffProfile
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    EmailNotifications = notify,
+                    User = user,
+                    Role = role
+                };
+
+                context.StaffProfiles.Add(profile);
+
+                // Second identity + person, to test Authorization
+                firstName = "Liz";
+                lastName = "Lemon";
+                email = "lizlem@gmail.com";
+                notify = true;
+                role = "Visitor";
+                password = "Secret234!";
+
+                user = await userManager.FindByEmailAsync(email);
+                if (user == null)
+                {
+                    user = new StaffUser { UserName = email };
+                    IdentityResult result = await userManager.CreateAsync(user, password);
+
+                    if (await roleManager.FindByNameAsync(role) == null)
+                    {
+                        await roleManager.CreateAsync(new IdentityRole("Visitor"));
+
+                        if (result.Succeeded)
+                        {
+                            await userManager.AddToRoleAsync(user, role);
+                        }
+                    }
+
+                }
+
+                profile = new StaffProfile
                 {
                     FirstName = firstName,
                     LastName = lastName,
