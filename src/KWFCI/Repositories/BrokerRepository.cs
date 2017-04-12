@@ -35,7 +35,9 @@ namespace KWFCI.Repositories
 
         public Broker GetBrokerByID(int id)
         {
-            return context.Brokers.Where(b => b.BrokerID == id) as Broker;
+            return (from b in context.Brokers
+                    where b.BrokerID == id
+                    select b).FirstOrDefault<Broker>();
         }
 
         public IQueryable<Broker> GetBrokersByType(string type)
