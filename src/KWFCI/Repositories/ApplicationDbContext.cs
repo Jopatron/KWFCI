@@ -10,5 +10,6 @@ namespace KWFCI.Repositories
 
         public DbSet<StaffProfile> StaffProfiles { get; set; }
         public DbSet<Broker> Brokers { get; set; }
+        public DbSet<Alert> Alerts { get; set; }
     }
 }

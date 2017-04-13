@@ -47,5 +47,12 @@ namespace KWFCI.Controllers
             }
             return View(vm);
         }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return View("Login");
+        }
     }
 }
