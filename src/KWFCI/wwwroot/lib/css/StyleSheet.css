@@ -2,10 +2,10 @@
     font-family:  Arial, Helvetica, sans-serif;
 }
 .kw-logo{                
-    margin: 10px 20px 10px 0;
+    margin: 20px 20px 5px 0;
 }
 .kw-logo a{
-    float:right;
+    margin-left:30px;
 }
 .kw-nav-wrapper{
     margin-bottom:20px;
@@ -13,7 +13,7 @@
 }
 .kw-nav-wrapper li a{
     font-size:20px;
-    margin-right: 10px;
+    margin-right: 25px;
 }
 .navbar-default .navbar-nav>li>a {
     color: black;
@@ -23,11 +23,28 @@
 }
 .kw-nav-wrapper .navbar-nav{
     position: relative;
-    top: 44px;
+    top: 55px;
+    margin-left:75px;
 }
 .navbar .container-fluid>.row{
     border-bottom: 4px solid #b40101;
 }
 .navbar-default{
     background-color: white;
+}
+.kw-nav-wrapper button{
+    position:relative;
+    top:55px;
+    left:25px;
+    background-color: #b40101;
+    color:white;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+.kw-nav-wrapper button:hover{
+    background-color: #ffebee;
+    color:#b40101;
+}
+.glyphicon-log-out{
+    padding-right: 5px;
 }
