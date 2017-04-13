@@ -1,4 +1,5 @@
 ﻿using KWFCI.Models;
+using KWFCI.Models.ViewModels;
 using KWFCI.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,13 +24,16 @@ namespace KWFCI.Controllers
         public IActionResult AllAlerts()
         {
             var allAlerts = alertRepo.GetAllAlerts().ToList();
-            return View(allAlerts);
+            var vm = new AlertVM();
+            vm.Alerts = allAlerts;
+            return View(vm);
         }
 
         [Route("Add")]
         [HttpPost]
-        public IActionResult AddAlert(Alert a)
+        public IActionResult AddAlert(AlertVM vm)
         {
+            var a = vm.AddedAlert;
             var alert = new Alert
             {
                 Priority = a.Priority,
@@ -39,7 +43,7 @@ namespace KWFCI.Controllers
 
             alertRepo.AddAlert(alert);
             //TODO: See if there is a way to just close the modal and not refresh the page
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("AllAlerts");
         }
     }
 }

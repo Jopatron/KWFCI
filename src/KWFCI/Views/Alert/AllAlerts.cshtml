@@ -1,4 +1,4 @@
-﻿@model List<Alert>
+﻿@model KWFCI.Models.ViewModels.AlertVM
 
 @{
     ViewBag.Title = "Alerts";
@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (Alert a in Model)
+                @foreach (Alert a in Model.Alerts)
                 {
                     <tr>
                         <th>@a.Priority</th>
@@ -29,7 +29,6 @@
     </div>
 </div>
 
-<!--
 <button type="button" class="newAlertBtn btn btn-default" data-toggle="modal" data-target="#newAlert">New Alert</button>
 
 <div class="modal fade" id="newAlert" tabindex="-1" role="dialog" aria-labelledby="newAlertModal">
@@ -40,12 +39,11 @@
                 <h4 class="modal-title" id="settingsLabel">New Alert: @*<em>TODO: Use JavaScript to dynamically make this the broker name while being typed</em>*@</h4>
             </div>
             <div class="modal-body">
-
                 <form asp-controller="Alert" asp-action="AddAlert" method="post">
                     <div class="form-group center-block">
 
-                        <label asp-for="Priority">Priority:</label>
-                        <select class="form-control" asp-for="Priority">
+                        <label asp-for="AddedAlert.Priority">Priority:</label>
+                        <select class="form-control" asp-for="AddedAlert.Priority">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -53,11 +51,11 @@
                             <option>5</option>
                         </select>
 
-                        <label asp-for="AlertDate">Alert Date:</label>
-                        <input asp-for="AlertDate" class="form-control" /><br />
+                        <label asp-for="AddedAlert.AlertDate">Alert Date:</label>
+                        <input asp-for="AddedAlert.AlertDate" class="form-control" /><br />
 
-                        <label asp-for="Message">Message:</label>
-                        <input asp-for="Message" class="form-control" /><br />
+                        <label asp-for="AddedAlert.Message">Message:</label>
+                        <input asp-for="AddedAlert.Message" class="form-control" /><br />
 
                         <button type="submit" class="btn btn-primary pull-right">Create Alert</button>
                     </div>
@@ -66,7 +64,6 @@
         </div>
     </div>
 </div>
-    -->
 
 <style>
     table, tr, th {
