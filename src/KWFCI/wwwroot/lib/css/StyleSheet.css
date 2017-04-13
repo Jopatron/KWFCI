@@ -1,0 +1,33 @@
+﻿body{
+    font-family:  Arial, Helvetica, sans-serif;
+}
+.kw-logo{                
+    margin: 10px 20px 10px 0;
+}
+.kw-logo a{
+    float:right;
+}
+.kw-nav-wrapper{
+    margin-bottom:20px;
+    text-transform: uppercase;
+}
+.kw-nav-wrapper li a{
+    font-size:20px;
+    margin-right: 10px;
+}
+.navbar-default .navbar-nav>li>a {
+    color: black;
+}
+.navbar-default .navbar-nav>li>a:hover {
+    color: #b40101;
+}
+.kw-nav-wrapper .navbar-nav{
+    position: relative;
+    top: 44px;
+}
+.navbar .container-fluid>.row{
+    border-bottom: 4px solid #b40101;
+}
+.navbar-default{
+    background-color: white;
+}
