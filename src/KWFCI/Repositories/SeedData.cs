@@ -26,6 +26,7 @@ namespace KWFCI.Repositories
             string password = "Secret123!";
 
             //Create Identity User before StaffProfile, so you can add to the profile
+            //Populates staff members
             if (!context.StaffProfiles.Any())
             {
                 StaffUser user = await userManager.FindByEmailAsync(email);
@@ -99,6 +100,7 @@ namespace KWFCI.Repositories
                 context.SaveChanges();
             }
 
+            //Populates Brokers
             if (!context.Brokers.Any())
             {
                 Broker broker = new Broker { FirstName = "Lonny", LastName = "Jenkins", Email = "ljenkins@kw.com", EmailNotifications = true, Type = "New Broker" };
@@ -112,6 +114,21 @@ namespace KWFCI.Repositories
                 broker = new Broker { FirstName = "Brooke", LastName = "Schelling", Email = "bschelling@kw.com", EmailNotifications = true, Type = "New Broker" };
 
                 context.Brokers.Add(broker);
+
+                context.SaveChanges();
+            }
+
+            //Populates Alerts
+            if (!context.Alerts.Any())
+            {
+                Alert alert = new Alert { Priority = 1, AlertDate = DateTime.Parse("4/12/2017"), Message = "Get Brooke Key Fob" };
+                context.Alerts.Add(alert);
+
+                alert = new Alert { Priority = 2, AlertDate = DateTime.Parse("5/21/2017"), Message = "Call Samantha About Paperwork" };
+                context.Alerts.Add(alert);
+
+                alert = new Alert { Priority = 3, AlertDate = DateTime.Parse("9/1/2017"), Message = "Verify Lonnie Paperwork Complete" };
+                context.Alerts.Add(alert);
 
                 context.SaveChanges();
             }
