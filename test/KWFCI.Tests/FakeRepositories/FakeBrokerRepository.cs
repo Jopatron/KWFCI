@@ -13,13 +13,13 @@ namespace KWFCI.Tests.FakeRepositories
 
         public FakeBrokerRepository()
         {
-            Broker broker = new Broker { FirstName = "Lonny", LastName = "Jenkins", Email = "ljenkins@kw.com", EmailNotifications = true, Type = "New Broker" };
+            Broker broker = new Broker { FirstName = "Lonny", LastName = "Jenkins", Email = "ljenkins@kw.com", EmailNotifications = true, Type = "New Broker", BrokerID=1 };
             brokers.Add(broker);
 
-            broker = new Broker { FirstName = "Samantha", LastName = "Coldwater", Email = "scoldwater@kw.com", EmailNotifications = true, Type = "In Transition" };
+            broker = new Broker { FirstName = "Samantha", LastName = "Coldwater", Email = "scoldwater@kw.com", EmailNotifications = true, Type = "In Transition", BrokerID = 2 };
             brokers.Add(broker);
 
-            broker = new Broker { FirstName = "Brooke", LastName = "Schelling", Email = "bschelling@kw.com", EmailNotifications = true, Type = "New Broker" };
+            broker = new Broker { FirstName = "Brooke", LastName = "Schelling", Email = "bschelling@kw.com", EmailNotifications = true, Type = "New Broker", BrokerID = 3 };
             brokers.Add(broker);
         }
 
@@ -58,20 +58,24 @@ namespace KWFCI.Tests.FakeRepositories
             return brokers.Where(b => b.Type == type).AsQueryable();
         }
 
-        public int UpdateBroker(Broker newBroker)
+        public int UpdateBroker(Broker broker)
         {
-            Broker oldBroker = brokers.Where(b => b.BrokerID == newBroker.BrokerID) as Broker;
-            oldBroker.Type = newBroker.Type;
-            oldBroker.FirstName = newBroker.FirstName;
-            oldBroker.LastName = newBroker.LastName;
-            oldBroker.Email = newBroker.Email;
-            oldBroker.EmailNotifications = newBroker.EmailNotifications;
+            int index = brokers.IndexOf(broker);
+            //Broker b1 = brokers.Where(b => b.BrokerID == broker.BrokerID) as Broker;
+            Broker b1 = (from b in brokers
+                         where b.BrokerID == broker.BrokerID
+                         select b).FirstOrDefault<Broker>();
+            brokers.Remove(b1);
 
-            int index = brokers.IndexOf(oldBroker);
-            brokers.Remove(oldBroker);
-            brokers.Insert(index, oldBroker);
+            b1.Type = broker.Type;
+            b1.FirstName = broker.FirstName;
+            b1.LastName = broker.LastName;
+            b1.Email = broker.Email;
+            b1.EmailNotifications = broker.EmailNotifications;
+            
+            brokers.Insert(index, b1);
 
-            if (brokers.IndexOf(oldBroker) == index)
+            if (brokers.IndexOf(b1) == index)
                 return 1;
             else
                 return 0;
