@@ -21,7 +21,7 @@ namespace KWFCI.Controllers
             brokerRepo = repo;
         }
         
-        public IActionResult AllBrokers()
+        public ViewResult AllBrokers()
         {
             var allBrokers = brokerRepo.GetAllBrokers().ToList();
             return View(allBrokers);

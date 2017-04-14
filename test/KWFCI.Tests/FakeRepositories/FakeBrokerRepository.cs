@@ -50,7 +50,11 @@ namespace KWFCI.Tests.FakeRepositories
 
         public Broker GetBrokerByID(int id)
         {
-            return brokers.Where(b => b.BrokerID == id) as Broker;
+            //var broker = brokers.Where(b => b.BrokerID == id) as Broker;
+            var broker = (from b in brokers
+                          where b.BrokerID == id
+                          select b).FirstOrDefault();
+            return broker;
         }
 
         public IQueryable<Broker> GetBrokersByType(string type)
