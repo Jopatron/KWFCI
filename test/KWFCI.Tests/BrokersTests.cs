@@ -109,22 +109,48 @@ namespace KWFCI.Tests
         }
 
         [Fact]
-        public void TestControllerEditBroker()
+        public void TestControllerGETEditBroker()
         {
-            //Ensure there are only 3 brokers to start
-            Assert.Equal(repo.GetAllBrokers().Count(), 3);
-            //Get a broker
+            //Make sure I have a real broker and I know who it is
             var broker = repo.GetAllBrokers().First();
-            //Get the base object
-            var result = controller.AddBroker(broker);
+            Assert.Equal("Lonny", broker.FirstName);
+            Assert.Equal("Jenkins", broker.LastName);
 
-            //Make sure it is returning as a IActionResult
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            //If we have a valid ID, we should get a ViewResult returned
+            var result1 = controller.Edit(broker.BrokerID);
+            var viewResult = Assert.IsType<ViewResult>(result1);
 
-            Assert.Equal("Home", redirectToActionResult.ControllerName);
+            //If we have an invalid ID, we should get a RedirectToAction returned
+            var result2 = controller.Edit(999);
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result2);
+
+            //Lastly, make sure Index is where the Redirect is going
             Assert.Equal("Index", redirectToActionResult.ActionName);
-            //Ensure the broker was actually added
-            Assert.Equal(repo.GetAllBrokers().Count(), 4);
+        }
+
+        [Fact]
+        public void TestControllerPOSTEditBroker()
+        {
+            //Make sure I have a real broker and I know who it is
+            var broker = repo.GetAllBrokers().First();
+            Assert.Equal("Lonny", broker.FirstName);
+            Assert.Equal("Jenkins", broker.LastName);
+
+            broker.FirstName = "Bob";
+            broker.LastName = "Drescher";
+
+            //If we have a valid ID, we should get a RedirectToActionResult returned
+            var result1 = controller.Edit(broker);
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result1);
+
+            Assert.Equal(repo.GetAllBrokers().First().FirstName, "Bob");
+            Assert.Equal(repo.GetAllBrokers().First().LastName, "Drescher");
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+
+            //But if we don't have a real broker, we should get an error
+            var result2 = controller.Edit(null);
+
+            Assert.IsType<ViewResult>(result2);
         }
     }
 }
