@@ -21,7 +21,7 @@ namespace KWFCI.Controllers
             brokerRepo = repo;
         }
         
-        public IActionResult AllBrokers()
+        public ViewResult AllBrokers()
         {
             var allBrokers = brokerRepo.GetAllBrokers().ToList();
             return View(allBrokers);
@@ -60,7 +60,7 @@ namespace KWFCI.Controllers
         
         }
         [Route("Edit")]
-        public IActionResult Edit(int id)
+        public ActionResult Edit(int id)
         {
             Broker broker = brokerRepo.GetBrokerByID(id);
             if (broker != null)
@@ -77,9 +77,9 @@ namespace KWFCI.Controllers
         [HttpPost]
         public IActionResult Edit(Broker b)
         {
-            Broker broker = brokerRepo.GetBrokerByID(b.BrokerID);
-            if (broker != null)
+            if (b != null)
             {
+                Broker broker = brokerRepo.GetBrokerByID(b.BrokerID);
                 broker.Email = b.Email;
                 broker.FirstName = b.FirstName;
                 broker.LastName = b.LastName;
@@ -96,12 +96,11 @@ namespace KWFCI.Controllers
                     //TODO add feedback for error
                 }
             }
-            
             else
             {
                 ModelState.AddModelError("", "User Not Found");
             }
-            return View(broker);
+            return View(b);
         }
     }
 }
