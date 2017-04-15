@@ -47,8 +47,9 @@ namespace KWFCI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(Alert alert)
+        public IActionResult Delete(int id)
         {
+            Alert alert = alertRepo.GetAlertByID(id);
             if (alert != null)
             {
                 alertRepo.DeleteAlert(alert);
@@ -61,18 +62,17 @@ namespace KWFCI.Controllers
             return RedirectToAction("AllAlerts");
         }
 
-        /*
         [Route("Edit")]
         public ActionResult Edit(int id)
         {
-            Broker broker = brokerRepo.GetBrokerByID(id);
-            if (broker != null)
+            Alert alert = alertRepo.GetAlertByID(id);
+            if (alert != null)
             {
-                return View(broker);
+                return View(alert);
             }
             else
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("AllAlerts");
             }
         }
 
@@ -82,13 +82,12 @@ namespace KWFCI.Controllers
         {
             if (a != null)
             {
-                Alert alert = alertRepo.GetBrokerByID(b.BrokerID);
-                broker.Email = b.Email;
-                broker.FirstName = b.FirstName;
-                broker.LastName = b.LastName;
-                //broker.UserName = member.UserName;
+                Alert alert = alertRepo.GetAlertByID(a.AlertID);
+                alert.AlertDate = a.AlertDate;
+                alert.Priority = a.Priority;
+                alert.Message = a.Message;
 
-                int verify = brokerRepo.UpdateBroker(broker);
+                int verify = alertRepo.UpdateAlert(alert);
                 if (verify == 1)
                 {
                     //TODO add feedback of success
@@ -101,10 +100,9 @@ namespace KWFCI.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "User Not Found");
+                ModelState.AddModelError("", "Alert Not Found");
             }
-            return View(b);
+            return View(a);
         }
-        */
     }
 }

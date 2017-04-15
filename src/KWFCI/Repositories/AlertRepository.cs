@@ -38,5 +38,12 @@ namespace KWFCI.Repositories
         {
             return context.Alerts;
         }
+
+        public Alert GetAlertByID(int id)
+        {
+            return (from a in context.Alerts
+                    where a.AlertID == id
+                    select a).FirstOrDefault<Alert>();
+        }
     }
 }

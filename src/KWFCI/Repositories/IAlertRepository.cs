@@ -10,5 +10,6 @@ namespace KWFCI.Repositories
         int AddAlert(Alert alert);
         int DeleteAlert(Alert alert);
         int UpdateAlert(Alert alert);
+        Alert GetAlertByID(int id);
     }
 }
