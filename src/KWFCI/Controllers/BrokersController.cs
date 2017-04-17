@@ -28,12 +28,12 @@ namespace KWFCI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(int id)
+        public IActionResult Archive(int id)
         {
             Broker broker = brokerRepo.GetBrokerByID(id);
             if (broker != null)
             {
-                brokerRepo.DeleteBroker(broker);
+                brokerRepo.ChangeStatus(broker, "Archived");
                 return RedirectToAction("Index");
             }
             else
@@ -83,6 +83,7 @@ namespace KWFCI.Controllers
                 broker.Email = b.Email;
                 broker.FirstName = b.FirstName;
                 broker.LastName = b.LastName;
+                broker.Status = b.Status;
                 //broker.UserName = member.UserName;
 
                 int verify = brokerRepo.UpdateBroker(broker);

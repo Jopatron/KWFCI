@@ -22,9 +22,28 @@ namespace KWFCI.Repositories
             return context.SaveChanges();
         }
 
+        public int DeleteAlert(Alert alert)
+        {
+            context.Alerts.Remove(alert);
+            return context.SaveChanges();
+        }
+
+        public int UpdateAlert(Alert alert)
+        {
+            context.Alerts.Update(alert);
+            return context.SaveChanges();
+        }
+
         public IQueryable<Alert> GetAllAlerts()
         {
             return context.Alerts;
+        }
+
+        public Alert GetAlertByID(int id)
+        {
+            return (from a in context.Alerts
+                    where a.AlertID == id
+                    select a).FirstOrDefault<Alert>();
         }
     }
 }
