@@ -75,7 +75,7 @@ namespace KWFCI.Repositories
 
                     if (await roleManager.FindByNameAsync(role) == null)
                     {
-                        await roleManager.CreateAsync(new IdentityRole("Visitor"));
+                        await roleManager.CreateAsync(new IdentityRole("Admin"));
 
                         if (result.Succeeded)
                         {
