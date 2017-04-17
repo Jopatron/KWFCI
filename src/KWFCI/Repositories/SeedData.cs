@@ -64,7 +64,7 @@ namespace KWFCI.Repositories
                 lastName = "Lemon";
                 email = "lizlem@gmail.com";
                 notify = true;
-                role = "Visitor";
+                role = "Admin";
                 password = "Secret234!";
 
                 user = await userManager.FindByEmailAsync(email);
@@ -129,6 +129,19 @@ namespace KWFCI.Repositories
 
                 alert = new Alert { Priority = 3, AlertDate = DateTime.Parse("9/1/2017"), Message = "Verify Lonnie Paperwork Complete" };
                 context.Alerts.Add(alert);
+
+                context.SaveChanges();
+            }
+
+            //Populate Messages
+            if (!context.Messages.Any())
+            {
+                StaffProfile profile = new StaffProfile { FirstName = "Wyatt", LastName = "Earp" };
+                Message message = new Message { Subject = "Staff Meeting", Body = "Don't forget we have a morning meeting tomorrow", From = profile, DateSent = DateTime.Now };
+                Message message2 = new Message { Subject = "Broker Meeting", Body = "All Brokers please make sure you meet us at the office tomorrow", From = profile, DateSent = DateTime.Parse("May 4, 2017") };
+
+                context.Messages.Add(message);
+                context.Messages.Add(message2);
 
                 context.SaveChanges();
             }
