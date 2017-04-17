@@ -23,12 +23,12 @@
                         <th>@b.LastName</th>
                         <th>@b.Email</th>
                         <th>
-                            <form asp-action="Delete" asp-route-id="@b.BrokerID" method="post">
+                            <form asp-action="Archive" asp-route-id="@b.BrokerID" method="post">
                                 <a class="btn btn-sm btn-primary" asp-action="Edit"
                                     asp-route-id="@b.BrokerID">Edit</a>
                                 <button type="submit"
                                         class="btn btn-sm btn-danger">
-                                    Delete
+                                    Archive
                                 </button>
                             </form>
                         </th>
