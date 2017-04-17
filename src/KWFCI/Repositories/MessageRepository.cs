@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KWFCI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace KWFCI.Repositories
 {
@@ -16,7 +17,7 @@ namespace KWFCI.Repositories
         }
         public IQueryable<Message> GetAllMessages()
         {
-            return context.Messages.AsQueryable();
+            return context.Messages.Include(p => p.From).AsQueryable();
         }
     }
 }
