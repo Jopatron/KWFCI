@@ -15,5 +15,6 @@ namespace KWFCI.Repositories
         int UpdateBroker(Broker broker);
         IQueryable<Broker> GetBrokersByType(string type);
         Broker GetBrokerByID(int id);
+        int ChangeStatus(Broker broker);
     }
 }

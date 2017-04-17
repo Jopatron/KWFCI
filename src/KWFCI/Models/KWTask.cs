@@ -8,5 +8,6 @@ namespace KWFCI.Models
     public class KWTask
     {
         public int KWTaskID { get; set; }
+        public string Description { get; set; }
     }
 }
