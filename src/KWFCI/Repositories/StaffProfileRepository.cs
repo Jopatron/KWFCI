@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KWFCI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace KWFCI.Repositories
 {
@@ -17,7 +18,7 @@ namespace KWFCI.Repositories
 
         public IQueryable<StaffProfile> GetAllStaffProfiles()
         {
-            throw new NotImplementedException();
+            return context.StaffProfiles.Include(u => u.User).AsQueryable();
         }
 
         public StaffProfile GetStaffProfileByFullName(string firstName, string lastName)
