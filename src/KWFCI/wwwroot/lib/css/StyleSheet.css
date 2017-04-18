@@ -5,15 +5,15 @@
     margin: 20px 0px 5px 0;
 }
 .kw-logo a{
-    !margin-left:30px;
+    float:right;
 }
 .kw-nav-wrapper{
     margin-bottom:20px;
     text-transform: uppercase;
 }
 .kw-nav-wrapper li a{
-    font-size:20px;
-    margin-right: 25px;
+    font-size:15px;
+    margin-right: 10px;
 }
 .navbar-default .navbar-nav>li>a {
     color: black;
@@ -40,7 +40,7 @@
     top:55px;
     background-color: #b40101;
     color:white;
-    font-size: 20px;
+    font-size: 15px;
     text-transform: uppercase;
     float:right;
 }
