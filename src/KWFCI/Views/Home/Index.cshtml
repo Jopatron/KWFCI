@@ -1,47 +1,6 @@
 ﻿@model KWFCI.Models.Broker
 <h1> Home Page </h1>
 
- <button type="button" class="newBrokerBtn btn btn-default" data-toggle="modal" data-target="#newBroker">New Broker</button>
+@Html.Partial("Modals/_AddBrokerModal")
 
-
-
-
-<div class="modal fade" id="newBroker" tabindex="-1" role="dialog" aria-labelledby="newBrokerModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="settingsLabel">New Broker: @*<em>TODO: Use JavaScript to dynamically make this the broker name while being typed</em>*@</h4>
-            </div>
-            <div class="modal-body">
-
-                <form asp-controller="Brokers" asp-action="AddBroker" method="post">
-                    <div class="form-group center-block">
-
-                        <label asp-for="FirstName">First Name:</label>
-                        <input asp-for="FirstName" class="form-control" /><br />
-
-                        <label asp-for="LastName">Last Name:</label>
-                        <input asp-for="LastName" class="form-control" /><br />
-
-                        <label asp-for="Email">Email:</label>
-                        <input asp-for="Email" class="form-control" /><br />
-
-                        <label asp-for="Type">Broker Type:</label>
-                        <select class="form-control" asp-for="Type">
-                            <option>New Broker</option>
-                            <option>Broker In Transition</option>
-                        </select>
-
-                        <label asp-for="EmailNotifications">EmailNotifications:</label>
-                        <input asp-for="EmailNotifications" class="form-control" type="checkbox" /><br />
-
-
-
-                        <button type="submit" class="btn btn-primary pull-right">Create Broker</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+ 
