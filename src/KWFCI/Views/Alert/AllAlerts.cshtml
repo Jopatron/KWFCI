@@ -38,42 +38,7 @@
         </table>
     </div>
 </div>
-
-<button type="button" class="newAlertBtn btn btn-default" data-toggle="modal" data-target="#newAlert">New Alert</button>
-
-<div class="modal fade" id="newAlert" tabindex="-1" role="dialog" aria-labelledby="newAlertModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="settingsLabel">New Alert: @*<em>TODO: Use JavaScript to dynamically make this the broker name while being typed</em>*@</h4>
-            </div>
-            <div class="modal-body">
-                <form asp-controller="Alert" asp-action="AddAlert" method="post">
-                    <div class="form-group center-block">
-
-                        <label asp-for="AddedAlert.Priority">Priority:</label>
-                        <select class="form-control" asp-for="AddedAlert.Priority">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-
-                        <label asp-for="AddedAlert.AlertDate">Alert Date:</label>
-                        <input asp-for="AddedAlert.AlertDate" class="form-control" /><br />
-
-                        <label asp-for="AddedAlert.Message">Message:</label>
-                        <input asp-for="AddedAlert.Message" class="form-control" /><br />
-
-                        <button type="submit" class="btn btn-primary pull-right">Create Alert</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("_AddAlertModal", Model.AddedAlert)
 
 <style>
     table, tr, th {
