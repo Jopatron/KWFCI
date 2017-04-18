@@ -30,7 +30,14 @@ namespace KWFCI.Repositories
 
         public IQueryable<Interaction> GetAllInteractions()
         {
-            return context.Interactions.Include(i => i.StaffProfile).Include(i => i.Broker).AsQueryable();
+            return context.Interactions.Where(i => i.Status == "Active").Include(i => i.StaffProfile).Include(i => i.Broker).AsQueryable();
+        }
+
+        public Interaction GetInteractionById(int id)
+        {
+            return (from i in context.Interactions
+                    where i.InteractionID == id
+                    select i).FirstOrDefault<Interaction>();
         }
 
         public IQueryable<Interaction> GetInteractionsByBroker(Broker broker)
@@ -38,6 +45,17 @@ namespace KWFCI.Repositories
             return (from i in context.Interactions
                     where i.Broker.BrokerID == broker.BrokerID
                     select i);
+        }
+        public int ChangeStatus(Interaction interaction, string status)
+        {
+            interaction.Status = status;
+            int updateSuccess = UpdateInteraction(interaction);
+            if (updateSuccess == 1)
+            {
+                return 1;
+            }
+            else
+                return 0;
         }
 
         public IQueryable<Interaction> GetInteractionsByStaff(StaffProfile stafProf)
@@ -52,5 +70,7 @@ namespace KWFCI.Repositories
             context.Interactions.Update(interaction);
             return context.SaveChanges();
         }
+
+        
     }
 }

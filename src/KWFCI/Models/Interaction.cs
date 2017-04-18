@@ -11,11 +11,13 @@ namespace KWFCI.Models
         public DateTime DateCreated { get; set; }
         public string NextStep { get; set; }
         public Broker Broker { get; set; }
+        public string Status { get; set; }
 
         public Interaction()
         {
             StaffProfile = Helper.StaffProfileLoggedIn;
             DateCreated = DateTime.Now;
+            Status = "Active";
         }
     }
 }

@@ -15,5 +15,7 @@ namespace KWFCI.Repositories
         int DeleteInteraction(Interaction interaction);
         int AddInteraction(Interaction interaction);
         int UpdateInteraction(Interaction interaction);
+        Interaction GetInteractionById(int id);
+        int ChangeStatus(Interaction interaction, string status);
     }
 }
