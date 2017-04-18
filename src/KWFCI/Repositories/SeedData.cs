@@ -103,11 +103,12 @@ namespace KWFCI.Repositories
             //Populates Brokers
             if (!context.Brokers.Any())
             {
-                Broker broker = new Broker { FirstName = "Lonny", LastName = "Jenkins", Email = "ljenkins@kw.com", EmailNotifications = true, Type = "New Broker", Status = "Active" };
+                //Not specifying a status shoudl default to active
+                Broker broker = new Broker { FirstName = "Lonny", LastName = "Jenkins", Email = "ljenkins@kw.com", EmailNotifications = true, Type = "New Broker" };
 
                 context.Brokers.Add(broker);
-
-                broker = new Broker { FirstName = "Samantha", LastName = "Coldwater", Email = "scoldwater@kw.com", EmailNotifications = true, Type = "In Transition", Status = "Active" };
+                //Not specifying a status shoudl default to active
+                broker = new Broker { FirstName = "Samantha", LastName = "Coldwater", Email = "scoldwater@kw.com", EmailNotifications = true, Type = "In Transition" };
 
                 context.Brokers.Add(broker);
 
