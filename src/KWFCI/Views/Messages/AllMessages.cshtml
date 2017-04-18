@@ -1,0 +1,39 @@
+﻿@model List<Message>
+
+@{
+    ViewBag.Title = "Messages";
+}
+<br /><br />
+<h3 class="text-center">Messages</h3>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Body</th>
+                    <th>Date Sent</th>
+                    <th>From</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Message m in Model)
+                {
+                    <tr>
+                        <th>@m.Subject</th>
+                        <th>@m.Body</th>
+                        <th>@m.DateSent</th>
+                        <th>@m.From.FirstName @m.From.LastName</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    table, tr, th {
+        border: 1px solid black;
+    }
+</style>
