@@ -22,15 +22,31 @@ namespace KWFCI.Repositories
             return context.SaveChanges();
         }
 
+        public int ChangeStatus(Broker broker, string status)
+        {
+            broker.Status = status;
+            int updateSuccess = UpdateBroker(broker);
+            if(updateSuccess == 1)
+            {
+                return 1;
+            }
+            else
+                return 0;
+            
+        }
+
         public int DeleteBroker(Broker broker)
         {
             context.Brokers.Remove(broker);
             return context.SaveChanges();
         }
 
-        public IQueryable<Broker> GetAllBrokers()
+        public IQueryable<Broker> GetAllBrokers(bool getInactive = false)
         {
-            return context.Brokers.Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
+            if (getInactive == true)
+                return context.Brokers.Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
+            else
+                return context.Brokers.Where(b => b.Status == "Active").Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
         }
 
         public Broker GetBrokerByID(int id)

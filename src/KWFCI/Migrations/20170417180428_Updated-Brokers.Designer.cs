@@ -8,9 +8,10 @@ using KWFCI.Repositories;
 namespace KWFCI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170417180428_Updated-Brokers")]
+    partial class UpdatedBrokers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -82,26 +83,6 @@ namespace KWFCI.Migrations
                     b.HasIndex("BrokerID");
 
                     b.ToTable("KWTask");
-                });
-
-            modelBuilder.Entity("KWFCI.Models.Message", b =>
-                {
-                    b.Property<int>("MessageID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Body");
-
-                    b.Property<DateTime>("DateSent");
-
-                    b.Property<int?>("FromStaffProfileID");
-
-                    b.Property<string>("Subject");
-
-                    b.HasKey("MessageID");
-
-                    b.HasIndex("FromStaffProfileID");
-
-                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("KWFCI.Models.StaffProfile", b =>
@@ -296,13 +277,6 @@ namespace KWFCI.Migrations
                     b.HasOne("KWFCI.Models.Broker")
                         .WithMany("Requirements")
                         .HasForeignKey("BrokerID");
-                });
-
-            modelBuilder.Entity("KWFCI.Models.Message", b =>
-                {
-                    b.HasOne("KWFCI.Models.StaffProfile", "From")
-                        .WithMany()
-                        .HasForeignKey("FromStaffProfileID");
                 });
 
             modelBuilder.Entity("KWFCI.Models.StaffProfile", b =>

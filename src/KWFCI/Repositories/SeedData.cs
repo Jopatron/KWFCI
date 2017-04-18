@@ -75,7 +75,7 @@ namespace KWFCI.Repositories
 
                     if (await roleManager.FindByNameAsync(role) == null)
                     {
-                        await roleManager.CreateAsync(new IdentityRole("Visitor"));
+                        await roleManager.CreateAsync(new IdentityRole("Admin"));
 
                         if (result.Succeeded)
                         {
@@ -103,15 +103,15 @@ namespace KWFCI.Repositories
             //Populates Brokers
             if (!context.Brokers.Any())
             {
-                Broker broker = new Broker { FirstName = "Lonny", LastName = "Jenkins", Email = "ljenkins@kw.com", EmailNotifications = true, Type = "New Broker" };
+                Broker broker = new Broker { FirstName = "Lonny", LastName = "Jenkins", Email = "ljenkins@kw.com", EmailNotifications = true, Type = "New Broker", Status = "Active" };
 
                 context.Brokers.Add(broker);
 
-                broker = new Broker { FirstName = "Samantha", LastName = "Coldwater", Email = "scoldwater@kw.com", EmailNotifications = true, Type = "In Transition" };
+                broker = new Broker { FirstName = "Samantha", LastName = "Coldwater", Email = "scoldwater@kw.com", EmailNotifications = true, Type = "In Transition", Status = "Active" };
 
                 context.Brokers.Add(broker);
 
-                broker = new Broker { FirstName = "Brooke", LastName = "Schelling", Email = "bschelling@kw.com", EmailNotifications = true, Type = "New Broker" };
+                broker = new Broker { FirstName = "Brooke", LastName = "Schelling", Email = "bschelling@kw.com", EmailNotifications = true, Type = "New Broker", Status = "Inactive" };
 
                 context.Brokers.Add(broker);
 
