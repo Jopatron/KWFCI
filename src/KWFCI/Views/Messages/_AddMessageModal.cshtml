@@ -1,0 +1,31 @@
+﻿@model KWFCI.Models.Message
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#newMessage">Create Message</button>
+
+
+
+
+<div class="modal fade" id="newMessage" tabindex="-1" role="dialog" aria-labelledby="newMessageModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="settingsLabel">New Message: </h4>
+            </div>
+            <div class="modal-body">
+
+                <form asp-controller="Message" asp-action="SendMessage" method="post">
+                    <div class="form-group center-block">
+
+                        <label asp-for="Subject">Subject:</label>
+                        <input asp-for="Subject" class="form-control" /><br />
+
+                        <label asp-for="Body">Body:</label>
+                        <textarea asp-for="Body" class="form-control"></textarea><br />
+
+                        <button type="submit" class="btn btn-primary pull-right">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
