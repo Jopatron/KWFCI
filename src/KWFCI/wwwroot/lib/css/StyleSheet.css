@@ -5,7 +5,7 @@
     margin: 20px 0px 5px 0;
 }
 .kw-logo a{
-    margin-left:30px;
+    !margin-left:30px;
 }
 .kw-nav-wrapper{
     margin-bottom:20px;
@@ -24,9 +24,9 @@
 .kw-nav-wrapper .navbar-nav{
     position: relative;
     top: 55px;
-    margin: 0 auto;
-    float: unset;
-    width: 70%;  
+    margin-right:20px;
+    float: right;
+    width: 86%;  
 }
 
 .navbar .container-fluid>.row{
