@@ -1,5 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<KWFCI.Models.Interaction>
+
 @{
+    ViewBag.Title = "Interactions";
 }
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Staff</th>
+                    <th>Notes</th>
+                    <th>Date</th>
+                    <th>Next Step</th>
+                    <th>Broker</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Interaction a in Model)
+                {
+                    <tr>
+                        <th>@a.StaffProfile.Email</th>
+                        <th>@a.Notes</th>
+                        <th>@a.DateCreated</th>
+                        <th>@a.NextStep</th>
+                        <th>@a.Broker.Email</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    table, tr, th {
+        border: 1px solid black;
+    }
+</style>

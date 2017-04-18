@@ -103,7 +103,7 @@ namespace KWFCI.Repositories
             //Populates Brokers
             if (!context.Brokers.Any())
             {
-                //Not specifying a status shoudl default to active
+                //Not specifying a status should default to active
                 Broker broker = new Broker { FirstName = "Lonny", LastName = "Jenkins", Email = "ljenkins@kw.com", EmailNotifications = true, Type = "New Broker" };
 
                 context.Brokers.Add(broker);
@@ -143,6 +143,23 @@ namespace KWFCI.Repositories
 
                 context.Messages.Add(message);
                 context.Messages.Add(message2);
+
+                context.SaveChanges();
+            }
+
+            //Populates Interactions
+            if (!context.Interactions.Any())
+            {
+                StaffProfile profile = context.StaffProfiles.First();
+                if (Helper.StaffProfileLoggedIn == null)
+                {
+                    Helper.StaffProfileLoggedIn = profile;
+                }
+                Interaction interaction = new Interaction { Notes = "Interaction Numero Uno", NextStep = "Do the thing", Broker = context.Brokers.First() };
+                Interaction interaction1 = new Interaction { Notes = "Interaction: The seconding", NextStep = "Do the other thing", Broker = context.Brokers.First() };
+
+                context.Interactions.Add(interaction);
+                context.Interactions.Add(interaction1);
 
                 context.SaveChanges();
             }
