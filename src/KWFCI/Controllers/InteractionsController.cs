@@ -15,11 +15,13 @@ namespace KWFCI.Controllers
     {
         private IInteractionsRepository intRepo;
         private IBrokerRepository brokerRepo;
+        private IStaffProfileRepository staffRepo;
 
-        public InteractionsController(IInteractionsRepository repo, IBrokerRepository repo2)
+        public InteractionsController(IInteractionsRepository repo, IBrokerRepository repo2, IStaffProfileRepository repo3)
         {
             intRepo = repo;
             brokerRepo = repo2;
+            staffRepo = repo3;
         }
         //[Route("Test")]
         //public ActionResult TestBroker()
@@ -72,11 +74,15 @@ namespace KWFCI.Controllers
             var NewInteraction = new Interaction();
             
             broker.Interactions.Add(NewInteraction);
-            Helper.StaffProfileLoggedIn.Interactions.Add(NewInteraction);
-            intRepo.AddInteraction(NewInteraction);
+            
+            var profile = staffRepo.GetStaffProfileByFullName(Helper.StaffProfileLoggedIn.FirstName, Helper.StaffProfileLoggedIn.LastName);
+            profile.Interactions.Add(NewInteraction);
 
+
+            intRepo.AddInteraction(NewInteraction);
+            
             //TODO: See if there is a way to just close the modal and not refresh the page
-            return RedirectToAction("BrokerInteractions", broker.BrokerID);
+            return RedirectToAction("BrokerInteractions", new {BrokerID = BrokerID });
 
         }
         //[Route("Edit")]

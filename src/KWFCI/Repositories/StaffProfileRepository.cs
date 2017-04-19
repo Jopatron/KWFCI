@@ -23,7 +23,9 @@ namespace KWFCI.Repositories
 
         public StaffProfile GetStaffProfileByFullName(string firstName, string lastName)
         {
-            throw new NotImplementedException();
+            return (from sp in context.StaffProfiles
+                    where sp.FirstName + sp.LastName == firstName + lastName
+                    select sp).Include(sp => sp.Interactions).Include(sp => sp.User).FirstOrDefault();
         }
     }
 }
