@@ -9,5 +9,7 @@ namespace KWFCI.Repositories
     public interface IMessageRepository
     {
         IQueryable<Message> GetAllMessages();
+        int AddMessage(Message message);
+
     }
 }
