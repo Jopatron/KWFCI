@@ -27,21 +27,12 @@
                             <th>@a.Notes</th>
                             <th>@a.DateCreated</th>
                             <th>@a.NextStep</th>
-                            
                             <th>
-                                <form asp-action="Archive" asp-route-id="@a.InteractionID" method="post">
-                                    <a class="btn btn-sm btn-primary" asp-action="AddInteraction"
-                                       asp-route-id="@a.InteractionID">Add</a>
-                                    <button type="submit"
-                                            class="btn btn-sm btn-danger">
-                                        Archive
-                                    </button>
-                                </form>
+                                @ViewBag.BrokerName
                             </th>
                         }
                     </tr>
                 }
-
             </tbody>
         </table>
     </div>

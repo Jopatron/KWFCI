@@ -32,6 +32,7 @@ namespace KWFCI.Controllers
         public IActionResult BrokerInteractions(int BrokerID)
         {
             var broker = brokerRepo.GetBrokerByID(BrokerID);
+            ViewBag.BrokerName = broker.FirstName + " " + broker.LastName;
             var allInteractions = broker.Interactions;
             var vm = new InteractionVM();
             vm.Interactions = allInteractions;
