@@ -1,0 +1,33 @@
+﻿@model KWFCI.Models.Broker
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Email</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <th>@Model.FirstName</th>
+                        <th>@Model.LastName</th>
+                        <th>@Model.Email</th>
+                        <th>
+                            @Html.ActionLink("Test Interactions", "BrokerInteractions", "Interactions", new { BrokerID = Model.BrokerID });
+                            
+                        </th>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    table, tr, th {
+        border: 1px solid black;
+    }
+</style>

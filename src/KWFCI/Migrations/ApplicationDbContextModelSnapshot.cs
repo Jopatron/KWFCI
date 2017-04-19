@@ -61,11 +61,23 @@ namespace KWFCI.Migrations
 
                     b.Property<int?>("BrokerID");
 
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("NextStep");
+
+                    b.Property<string>("Notes");
+
+                    b.Property<int?>("StaffProfileID");
+
+                    b.Property<string>("Status");
+
                     b.HasKey("InteractionID");
 
                     b.HasIndex("BrokerID");
 
-                    b.ToTable("Interaction");
+                    b.HasIndex("StaffProfileID");
+
+                    b.ToTable("Interactions");
                 });
 
             modelBuilder.Entity("KWFCI.Models.KWTask", b =>
@@ -289,6 +301,10 @@ namespace KWFCI.Migrations
                     b.HasOne("KWFCI.Models.Broker")
                         .WithMany("Interactions")
                         .HasForeignKey("BrokerID");
+
+                    b.HasOne("KWFCI.Models.StaffProfile")
+                        .WithMany("Interactions")
+                        .HasForeignKey("StaffProfileID");
                 });
 
             modelBuilder.Entity("KWFCI.Models.KWTask", b =>

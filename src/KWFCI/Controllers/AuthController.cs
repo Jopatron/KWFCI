@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using KWFCI.Repositories;
 
 namespace KWFCI.Controllers
 {
@@ -11,11 +12,13 @@ namespace KWFCI.Controllers
     {
         private UserManager<StaffUser> userManager;
         private SignInManager<StaffUser> signInManager;
+        private IStaffProfileRepository staffProfRepo;
 
-        public AuthController(UserManager<StaffUser> usrMgr, SignInManager<StaffUser> sim)
+        public AuthController(UserManager<StaffUser> usrMgr, SignInManager<StaffUser> sim, IStaffProfileRepository repo)
         {
             userManager = usrMgr;
             signInManager = sim;
+            staffProfRepo = repo;
         }
 
         [AllowAnonymous]
@@ -39,6 +42,8 @@ namespace KWFCI.Controllers
                                 user, vm.Password, false, false);
                     if (result.Succeeded)
                     {
+                        Helper.StaffUserLoggedIn = user;
+                        Helper.StaffProfileLoggedIn = Helper.DetermineProfile(staffProfRepo);
                         //Redirects to the home index if login succeeds
                         return Redirect("/");
                     }

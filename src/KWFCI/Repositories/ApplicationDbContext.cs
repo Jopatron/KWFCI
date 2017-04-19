@@ -12,5 +12,6 @@ namespace KWFCI.Repositories
         public DbSet<Broker> Brokers { get; set; }
         public DbSet<Alert> Alerts { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Interaction> Interactions { get; set; }
     }
 }
