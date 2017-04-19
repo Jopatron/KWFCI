@@ -156,14 +156,14 @@ namespace KWFCI.Repositories
                 {
                     Helper.StaffProfileLoggedIn = profile;
                 }
-                Interaction interaction = new Interaction { Notes = "Interaction Numero Uno", NextStep = "Do the thing" };
-                Interaction interaction1 = new Interaction { Notes = "Interaction: The seconding", NextStep = "Do the other thing" };
+                Interaction i = new Interaction { Notes = "Interaction Numero Uno", NextStep = "Do the thing" };
+                Interaction i1 = new Interaction { Notes = "Interaction: The seconding", NextStep = "Do the other thing" };
 
-                lonny.Interactions.Add(interaction);
-                lonny.Interactions.Add(interaction1);
+                context.Interactions.Add(i);
+                context.Interactions.Add(i1);
 
-                context.Interactions.Add(interaction);
-                context.Interactions.Add(interaction1);
+                lonny.Interactions.Add(i);
+                lonny.Interactions.Add(i1);
 
                 context.SaveChanges();
             }

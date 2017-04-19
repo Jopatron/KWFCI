@@ -15,6 +15,7 @@ namespace KWFCI.Models
 
         public Broker()
         {
+            Interactions = new List<Interaction>();
             Status = "Active";
             if (Type == "New Broker")
                 Requirements = CreateRequirementsList();
