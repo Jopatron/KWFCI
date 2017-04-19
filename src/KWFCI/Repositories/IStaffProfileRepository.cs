@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace KWFCI.Repositories
 {
-    interface IStaffProfileRepository
+    public interface IStaffProfileRepository
     {
         IQueryable<StaffProfile> GetAllStaffProfiles();
         StaffProfile GetStaffProfileByFullName(string firstName, string lastName);

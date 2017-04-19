@@ -1,0 +1,43 @@
+﻿@model KWFCI.Models.ViewModels.InteractionVM
+
+@{
+    ViewBag.Title = "Interactions";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Staff</th>
+                    <th>Notes</th>
+                    <th>Date</th>
+                    <th>Next Step</th>
+                    <th>Broker</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Interaction a in Model.Interactions)
+                {
+                    <tr>
+                        <th>@ViewBag.StaffEmail</th>
+                        <th>@a.Notes</th>
+                        <th>@a.DateCreated</th>
+                        <th>@a.NextStep</th>
+                        <th>
+                            @ViewBag.BrokerName
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@Html.ActionLink("New Interaction", "AddInteraction", "Interactions", new { BrokerID = Model.Broker.BrokerID })
+
+<style>
+    table, tr, th {
+        border: 1px solid black;
+    }
+</style>

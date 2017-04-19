@@ -5,10 +5,25 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace KWFCI.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Alerts",
+                columns: table => new
+                {
+                    AlertID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AlertDate = table.Column<DateTime>(nullable: false),
+                    Message = table.Column<string>(nullable: true),
+                    Priority = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Alerts", x => x.AlertID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Brokers",
                 columns: table => new
@@ -19,6 +34,7 @@ namespace KWFCI.Migrations
                     EmailNotifications = table.Column<bool>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -80,31 +96,13 @@ namespace KWFCI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Interaction",
-                columns: table => new
-                {
-                    InteractionID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BrokerID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Interaction", x => x.InteractionID);
-                    table.ForeignKey(
-                        name: "FK_Interaction_Brokers_BrokerID",
-                        column: x => x.BrokerID,
-                        principalTable: "Brokers",
-                        principalColumn: "BrokerID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "KWTask",
                 columns: table => new
                 {
                     KWTaskID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BrokerID = table.Column<int>(nullable: true)
+                    BrokerID = table.Column<int>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -227,15 +225,77 @@ namespace KWFCI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Interactions",
+                columns: table => new
+                {
+                    InteractionID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BrokerID = table.Column<int>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    NextStep = table.Column<string>(nullable: true),
+                    Notes = table.Column<string>(nullable: true),
+                    StaffProfileID = table.Column<int>(nullable: true),
+                    Status = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Interactions", x => x.InteractionID);
+                    table.ForeignKey(
+                        name: "FK_Interactions_Brokers_BrokerID",
+                        column: x => x.BrokerID,
+                        principalTable: "Brokers",
+                        principalColumn: "BrokerID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Interactions_StaffProfiles_StaffProfileID",
+                        column: x => x.StaffProfileID,
+                        principalTable: "StaffProfiles",
+                        principalColumn: "StaffProfileID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    MessageID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Body = table.Column<string>(nullable: true),
+                    DateSent = table.Column<DateTime>(nullable: false),
+                    FromStaffProfileID = table.Column<int>(nullable: true),
+                    Subject = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.MessageID);
+                    table.ForeignKey(
+                        name: "FK_Messages_StaffProfiles_FromStaffProfileID",
+                        column: x => x.FromStaffProfileID,
+                        principalTable: "StaffProfiles",
+                        principalColumn: "StaffProfileID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Interaction_BrokerID",
-                table: "Interaction",
+                name: "IX_Interactions_BrokerID",
+                table: "Interactions",
                 column: "BrokerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Interactions_StaffProfileID",
+                table: "Interactions",
+                column: "StaffProfileID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_KWTask_BrokerID",
                 table: "KWTask",
                 column: "BrokerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_FromStaffProfileID",
+                table: "Messages",
+                column: "FromStaffProfileID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffProfiles_UserId",
@@ -287,13 +347,16 @@ namespace KWFCI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Interaction");
+                name: "Alerts");
+
+            migrationBuilder.DropTable(
+                name: "Interactions");
 
             migrationBuilder.DropTable(
                 name: "KWTask");
 
             migrationBuilder.DropTable(
-                name: "StaffProfiles");
+                name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -312,6 +375,9 @@ namespace KWFCI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Brokers");
+
+            migrationBuilder.DropTable(
+                name: "StaffProfiles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
