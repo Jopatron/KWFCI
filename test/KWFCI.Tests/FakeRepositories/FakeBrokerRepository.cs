@@ -34,6 +34,11 @@ namespace KWFCI.Tests.FakeRepositories
                 return 0;
         }
 
+        public int ChangeStatus(Broker broker, string status)
+        {
+            throw new NotImplementedException();
+        }
+
         public int DeleteBroker(Broker broker)
         {
             brokers.Remove(broker);
@@ -46,6 +51,11 @@ namespace KWFCI.Tests.FakeRepositories
         public IQueryable<Broker> GetAllBrokers()
         {
             return brokers.AsQueryable();
+        }
+
+        public IQueryable<Broker> GetAllBrokers(bool getInactive = false)
+        {
+            throw new NotImplementedException();
         }
 
         public Broker GetBrokerByID(int id)
