@@ -298,7 +298,7 @@ namespace KWFCI.Migrations
 
             modelBuilder.Entity("KWFCI.Models.Interaction", b =>
                 {
-                    b.HasOne("KWFCI.Models.Broker", "Broker")
+                    b.HasOne("KWFCI.Models.Broker")
                         .WithMany("Interactions")
                         .HasForeignKey("BrokerID");
 

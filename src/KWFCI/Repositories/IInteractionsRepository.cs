@@ -10,7 +10,7 @@ namespace KWFCI.Repositories
     {
         IQueryable<Interaction> GetAllInteractions();
         IQueryable<Interaction> GetInteractionsByStaff(StaffProfile stafProf);
-        IQueryable<Interaction> GetInteractionsByBroker(Broker broker);
+        //IQueryable<Interaction> GetInteractionsByBroker(Broker broker);
         //int return value represents whether or not operation completed: 1 for True, 0 for False
         int DeleteInteraction(Interaction interaction);
         int AddInteraction(Interaction interaction);

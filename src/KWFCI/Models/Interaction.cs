@@ -10,7 +10,6 @@ namespace KWFCI.Models
         public string Notes { get; set; }
         public DateTime DateCreated { get; set; }
         public string NextStep { get; set; }
-        public Broker Broker { get; set; }
         public string Status { get; set; }
 
         public Interaction()

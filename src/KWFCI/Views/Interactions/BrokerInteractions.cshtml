@@ -1,4 +1,4 @@
-﻿@model List<KWFCI.Models.Interaction>
+﻿@model KWFCI.Models.ViewModels.InteractionVM
 
 @{
     ViewBag.Title = "Interactions";
@@ -6,6 +6,7 @@
 
 <div class="row">
     <div class="col-xs-12">
+        
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -17,20 +18,35 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (Interaction a in Model)
+                @foreach (Interaction a in Model.Interactions)
                 {
                     <tr>
-                        <th>@a.StaffProfile.Email</th>
-                        <th>@a.Notes</th>
-                        <th>@a.DateCreated</th>
-                        <th>@a.NextStep</th>
-                        <th>@a.Broker.Email</th>
+                        @if (a.StaffProfile != null)
+                        {
+                            <th>@a.StaffProfile.Email</th>
+                            <th>@a.Notes</th>
+                            <th>@a.DateCreated</th>
+                            <th>@a.NextStep</th>
+                            <th>@a.Broker.Email</th>
+                            <th>
+                                <form asp-action="Archive" asp-route-id="@a.InteractionID" method="post">
+                                    <a class="btn btn-sm btn-primary" asp-action="AddInteraction"
+                                       asp-route-id="@a.InteractionID">Add</a>
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger">
+                                        Archive
+                                    </button>
+                                </form>
+                            </th>
+                        }
                     </tr>
                 }
+
             </tbody>
         </table>
     </div>
 </div>
+@Html.ActionLink("New Interaction", "AddInteraction", "Interactions", Model.Broker)
 
 <style>
     table, tr, th {

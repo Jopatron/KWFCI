@@ -6,23 +6,39 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using KWFCI.Repositories;
 using KWFCI.Models;
+using KWFCI.Models.ViewModels;
 
 namespace KWFCI.Controllers
 {
+    [Route("Interactions")]
     public class InteractionsController : Controller
     {
         private IInteractionsRepository intRepo;
+        private IBrokerRepository brokerRepo;
 
-        public InteractionsController(IInteractionsRepository repo)
+        public InteractionsController(IInteractionsRepository repo, IBrokerRepository repo2)
         {
             intRepo = repo;
+            brokerRepo = repo2;
         }
-
-        public IActionResult BrokerInteractions()
+        [Route("Test")]
+        public ActionResult TestBroker()
         {
-            //TODO Ensure user is rerouted if not logged in
-            return View(intRepo.GetAllInteractions().ToList());
+            ViewBag.Email = Helper.StaffProfileLoggedIn.Email;
+            Broker broker = brokerRepo.GetAllBrokers().First();
+            return View(broker);
         }
+        [Route("Brokers")]
+        public IActionResult BrokerInteractions(Broker broker)
+        {
+            var allInteractions = broker.Interactions;
+            var vm = new InteractionVM();
+            vm.Interactions = allInteractions;
+            vm.Broker = broker;
+            //TODO Ensure user is rerouted if not logged in
+            return View(vm);
+        }
+        [Route("Staff")]
         public IActionResult StaffInteractions()
         {
             //TODO Ensure user is rerouted if not logged in
@@ -45,18 +61,15 @@ namespace KWFCI.Controllers
             return RedirectToAction("Index", intRepo.GetAllInteractions().ToList());
         }
         [Route("Add")]
-        [HttpPost]
-        public IActionResult AddInteraction(Interaction i)
+        //[HttpPost]
+        public IActionResult AddInteraction(Broker b)
         {
-            Interaction interaction = new Interaction
-            {
-                Notes = i.Notes,
-                NextStep = i.NextStep
-            };
-
-            intRepo.AddInteraction(i);
+            var NewInteraction = new Interaction();
+            
+            b.Interactions.Add(NewInteraction);
+            intRepo.AddInteraction(NewInteraction);
             //TODO: See if there is a way to just close the modal and not refresh the page
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("BrokerInteractions", b);
 
         }
         //[Route("Edit")]
@@ -84,7 +97,7 @@ namespace KWFCI.Controllers
                 interaction.NextStep = i.NextStep;
                 interaction.Notes = i.Notes;
                 interaction.Status = i.Status;
-                interaction.Broker = i.Broker;
+                
 
                 int verify = intRepo.UpdateInteraction(i);
                 if (verify == 1)

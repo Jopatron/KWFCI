@@ -150,13 +150,17 @@ namespace KWFCI.Repositories
             //Populates Interactions
             if (!context.Interactions.Any())
             {
+                Broker lonny = context.Brokers.First();
                 StaffProfile profile = context.StaffProfiles.First();
                 if (Helper.StaffProfileLoggedIn == null)
                 {
                     Helper.StaffProfileLoggedIn = profile;
                 }
-                Interaction interaction = new Interaction { Notes = "Interaction Numero Uno", NextStep = "Do the thing", Broker = context.Brokers.First() };
-                Interaction interaction1 = new Interaction { Notes = "Interaction: The seconding", NextStep = "Do the other thing", Broker = context.Brokers.First() };
+                Interaction interaction = new Interaction { Notes = "Interaction Numero Uno", NextStep = "Do the thing" };
+                Interaction interaction1 = new Interaction { Notes = "Interaction: The seconding", NextStep = "Do the other thing" };
+
+                lonny.Interactions.Add(interaction);
+                lonny.Interactions.Add(interaction1);
 
                 context.Interactions.Add(interaction);
                 context.Interactions.Add(interaction1);
