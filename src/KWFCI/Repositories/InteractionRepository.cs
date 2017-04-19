@@ -30,7 +30,7 @@ namespace KWFCI.Repositories
 
         public IQueryable<Interaction> GetAllInteractions()
         {
-            return context.Interactions.Where(i => i.Status == "Active").Include(i => i.StaffProfile).AsQueryable();
+            return context.Interactions.Where(i => i.Status == "Active").AsQueryable();
         }
 
         public Interaction GetInteractionById(int id)
@@ -58,12 +58,12 @@ namespace KWFCI.Repositories
                 return 0;
         }
 
-        public IQueryable<Interaction> GetInteractionsByStaff(StaffProfile stafProf)
-        {
-            return (from i in context.Interactions
-                    where i.StaffProfile.StaffProfileID == stafProf.StaffProfileID
-                    select i);
-        }
+        //public IQueryable<Interaction> GetInteractionsByStaff(StaffProfile stafProf)
+        //{
+        //    return (from i in context.Interactions
+        //            where i.StaffProfile.StaffProfileID == stafProf.StaffProfileID
+        //            select i);
+        //}
 
         public int UpdateInteraction(Interaction interaction)
         {

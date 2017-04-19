@@ -6,7 +6,6 @@ namespace KWFCI.Models
     public class Interaction
     {
         public int InteractionID { get; set; }
-        public StaffProfile StaffProfile { get; set; }
         public string Notes { get; set; }
         public DateTime DateCreated { get; set; }
         public string NextStep { get; set; }
@@ -14,7 +13,6 @@ namespace KWFCI.Models
 
         public Interaction()
         {
-            StaffProfile = Helper.StaffProfileLoggedIn;
             DateCreated = DateTime.Now;
             Status = "Active";
         }

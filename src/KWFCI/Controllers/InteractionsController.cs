@@ -21,18 +21,19 @@ namespace KWFCI.Controllers
             intRepo = repo;
             brokerRepo = repo2;
         }
-        [Route("Test")]
-        public ActionResult TestBroker()
-        {
-            ViewBag.Email = Helper.StaffProfileLoggedIn.Email;
-            Broker broker = brokerRepo.GetAllBrokers().First();
-            return View(broker);
-        }
+        //[Route("Test")]
+        //public ActionResult TestBroker()
+        //{
+        //    ViewBag.Email = Helper.StaffProfileLoggedIn.Email;
+        //    Broker broker = brokerRepo.GetAllBrokers().First();
+        //    return View(broker);
+        //}
         [Route("Brokers")]
         public IActionResult BrokerInteractions(int BrokerID)
         {
             var broker = brokerRepo.GetBrokerByID(BrokerID);
             ViewBag.BrokerName = broker.FirstName + " " + broker.LastName;
+            ViewBag.StaffEmail = Helper.StaffProfileLoggedIn.Email;
             var allInteractions = broker.Interactions;
             var vm = new InteractionVM();
             vm.Interactions = allInteractions;
@@ -64,14 +65,18 @@ namespace KWFCI.Controllers
         }
         [Route("Add")]
         //[HttpPost]
-        public IActionResult AddInteraction(Broker b)
+        public IActionResult AddInteraction(int BrokerID)
         {
+            var broker = brokerRepo.GetBrokerByID(BrokerID);
+
             var NewInteraction = new Interaction();
             
-            b.Interactions.Add(NewInteraction);
+            broker.Interactions.Add(NewInteraction);
+            Helper.StaffProfileLoggedIn.Interactions.Add(NewInteraction);
             intRepo.AddInteraction(NewInteraction);
+
             //TODO: See if there is a way to just close the modal and not refresh the page
-            return RedirectToAction("BrokerInteractions", b);
+            return RedirectToAction("BrokerInteractions", broker.BrokerID);
 
         }
         //[Route("Edit")]

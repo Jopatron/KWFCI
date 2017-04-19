@@ -18,7 +18,7 @@ namespace KWFCI.Repositories
 
         public IQueryable<StaffProfile> GetAllStaffProfiles()
         {
-            return context.StaffProfiles.Include(u => u.User).AsQueryable();
+            return context.StaffProfiles.Include(u => u.User).Include(u => u.Interactions).AsQueryable();
         }
 
         public StaffProfile GetStaffProfileByFullName(string firstName, string lastName)

@@ -162,6 +162,9 @@ namespace KWFCI.Repositories
                 context.Interactions.Add(i);
                 context.Interactions.Add(i1);
 
+                profile.Interactions.Add(i);
+                profile.Interactions.Add(i1);
+
                 lonny.Interactions.Add(i);
                 lonny.Interactions.Add(i1);
 

@@ -21,16 +21,13 @@
                 @foreach (Interaction a in Model.Interactions)
                 {
                     <tr>
-                        @if (a.StaffProfile != null)
-                        {
-                            <th>@a.StaffProfile.Email</th>
-                            <th>@a.Notes</th>
-                            <th>@a.DateCreated</th>
-                            <th>@a.NextStep</th>
-                            <th>
-                                @ViewBag.BrokerName
-                            </th>
-                        }
+                        <th>@ViewBag.StaffEmail</th>
+                        <th>@a.Notes</th>
+                        <th>@a.DateCreated</th>
+                        <th>@a.NextStep</th>
+                        <th>
+                            @ViewBag.BrokerName
+                        </th>
                     </tr>
                 }
             </tbody>

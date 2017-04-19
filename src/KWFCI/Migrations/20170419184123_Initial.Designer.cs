@@ -8,8 +8,8 @@ using KWFCI.Repositories;
 namespace KWFCI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170419171021_initial")]
-    partial class initial
+    [Migration("20170419184123_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -303,8 +303,8 @@ namespace KWFCI.Migrations
                         .WithMany("Interactions")
                         .HasForeignKey("BrokerID");
 
-                    b.HasOne("KWFCI.Models.StaffProfile", "StaffProfile")
-                        .WithMany()
+                    b.HasOne("KWFCI.Models.StaffProfile")
+                        .WithMany("Interactions")
                         .HasForeignKey("StaffProfileID");
                 });
 

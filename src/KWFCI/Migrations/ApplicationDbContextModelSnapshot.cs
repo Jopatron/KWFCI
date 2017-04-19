@@ -302,8 +302,8 @@ namespace KWFCI.Migrations
                         .WithMany("Interactions")
                         .HasForeignKey("BrokerID");
 
-                    b.HasOne("KWFCI.Models.StaffProfile", "StaffProfile")
-                        .WithMany()
+                    b.HasOne("KWFCI.Models.StaffProfile")
+                        .WithMany("Interactions")
                         .HasForeignKey("StaffProfileID");
                 });
 
