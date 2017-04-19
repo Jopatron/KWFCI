@@ -53,7 +53,7 @@ namespace KWFCI.Repositories
         {
             return (from b in context.Brokers
                     where b.BrokerID == id
-                    select b).FirstOrDefault<Broker>();
+                    select b).FirstOrDefault<Broker>().Include(b);
         }
 
         public IQueryable<Broker> GetBrokersByType(string type)

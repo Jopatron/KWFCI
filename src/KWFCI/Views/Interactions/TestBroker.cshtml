@@ -17,7 +17,8 @@
                         <th>@Model.LastName</th>
                         <th>@Model.Email</th>
                         <th>
-                            <a class="btn btn-primary" href="@Url.Action("BrokerInteractions", "Interactions", Model)">Test Interactions</a>
+                            @Html.ActionLink("Test Interactions", "BrokerInteractions", "Interactions", new { BrokerID = Model.BrokerID });
+                            
                         </th>
                     </tr>
             </tbody>

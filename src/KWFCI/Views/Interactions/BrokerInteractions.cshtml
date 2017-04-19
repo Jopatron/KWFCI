@@ -27,7 +27,7 @@
                             <th>@a.Notes</th>
                             <th>@a.DateCreated</th>
                             <th>@a.NextStep</th>
-                            <th>@a.Broker.Email</th>
+                            
                             <th>
                                 <form asp-action="Archive" asp-route-id="@a.InteractionID" method="post">
                                     <a class="btn btn-sm btn-primary" asp-action="AddInteraction"
@@ -46,7 +46,7 @@
         </table>
     </div>
 </div>
-@Html.ActionLink("New Interaction", "AddInteraction", "Interactions", Model.Broker)
+@Html.ActionLink("New Interaction", "AddInteraction", "Interactions", new { BrokerID = Model.Broker.BrokerID })
 
 <style>
     table, tr, th {

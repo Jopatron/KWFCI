@@ -29,8 +29,9 @@ namespace KWFCI.Controllers
             return View(broker);
         }
         [Route("Brokers")]
-        public IActionResult BrokerInteractions(Broker broker)
+        public IActionResult BrokerInteractions(int BrokerID)
         {
+            var broker = brokerRepo.GetBrokerByID(BrokerID);
             var allInteractions = broker.Interactions;
             var vm = new InteractionVM();
             vm.Interactions = allInteractions;
