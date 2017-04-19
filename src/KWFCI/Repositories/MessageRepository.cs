@@ -15,6 +15,13 @@ namespace KWFCI.Repositories
         {
             context = ctx;
         }
+
+        public int AddMessage(Message message)
+        {
+            context.Messages.Add(message);
+            return context.SaveChanges(); 
+        }
+
         public IQueryable<Message> GetAllMessages()
         {
             return context.Messages.Include(p => p.From).AsQueryable();
