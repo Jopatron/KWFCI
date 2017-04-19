@@ -53,14 +53,14 @@ namespace KWFCI.Repositories
         {
             return (from b in context.Brokers
                     where b.BrokerID == id
-                    select b).FirstOrDefault<Broker>().Include(b);
+                    select b).Include(b => b.Interactions).Include(b => b.Requirements).FirstOrDefault<Broker>();
         }
 
         public IQueryable<Broker> GetBrokersByType(string type)
         {
             return (from b in context.Brokers
                     where b.Type == type
-                    select b).AsQueryable();
+                    select b).Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
         }
 
         public int UpdateBroker(Broker broker)
