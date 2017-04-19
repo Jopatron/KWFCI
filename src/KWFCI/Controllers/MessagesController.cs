@@ -31,10 +31,22 @@ namespace KWFCI.Controllers
             vm.NewMessage = new Message();
             return View(vm);
         }
-        [Route("Messages/New")]
-        public ViewResult SendMessage()
+        [Route("Add")]
+        [HttpPost]
+        public IActionResult SendMessage(Message m)
         {
-            return View();
+
+            var message = new Message
+            {
+                Subject = m.Subject,
+                Body = m.Body,
+                DateSent = DateTime.Now,
+                
+        };
+
+            messageRepo.AddMessage(message);
+             //TODO: See if there is a way to just close the modal and not refresh the page
+            return RedirectToAction("AllMessages", "Messages");
         }
     }
 }

@@ -18,6 +18,9 @@ namespace KWFCI.Repositories
 
         public int AddMessage(Message message)
         {
+            //TODO: change this to add the logged in staff profile
+            message.From = context.StaffProfiles.First();
+
             context.Messages.Add(message);
             return context.SaveChanges(); 
         }
