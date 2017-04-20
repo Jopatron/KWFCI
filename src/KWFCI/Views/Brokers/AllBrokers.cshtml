@@ -9,9 +9,10 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>FirstName</th>
-                    <th>LastName</th>
+                    <th>Name</th>
                     <th>Email</th>
+                    <th>Type</th>
+
                     
                 </tr>
             </thead>
@@ -19,22 +20,24 @@
                 @foreach (Broker b in Model)
                 {
                     <tr>
-                        <th>@b.FirstName</th>
-                        <th>@b.LastName</th>
-                        <th>@b.Email</th>
-                        <th>
+                            <td><a 
+                                href="@Url.Action("BrokerInteractions", "Interactions", b)">
+                             @b.FirstName @b.LastName
+                            </a></td>
+                        <td>@b.Email</td>
+                        <td>@b.Type</td>
+                        <td>
                             <form asp-action="Archive" asp-route-id="@b.BrokerID" method="post">
                                 <a class="btn btn-sm btn-primary" asp-action="Edit"
-                                    asp-route-id="@b.BrokerID">Edit</a>
+                                   asp-route-id="@b.BrokerID">Edit</a>
                                 <button type="submit"
                                         class="btn btn-sm btn-danger">
                                     Archive
                                 </button>
                             </form>
-                        </th>
-                        <th>
-                            <a class="btn btn-primary" href="@Url.Action("BrokerInteractions", "Interactions", b)" >Test Interactions</a>
-                        </th>
+
+
+
                     </tr>
                 }
             </tbody>
