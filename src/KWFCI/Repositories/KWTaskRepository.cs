@@ -1,8 +1,6 @@
 ﻿using KWFCI.Models;
-using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace KWFCI.Repositories
 {
@@ -35,7 +33,7 @@ namespace KWFCI.Repositories
 
         public IQueryable<KWTask> GetAllKWTasks()
         {
-            return context.KWTasks;
+            return context.KWTasks.Include(kwt => kwt.StaffProfile).Include(kwt => kwt.Alert).AsQueryable();
         }
 
         public KWTask GetKWTaskByID(int id)

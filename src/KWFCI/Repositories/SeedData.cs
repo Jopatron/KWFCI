@@ -170,6 +170,21 @@ namespace KWFCI.Repositories
 
                 context.SaveChanges();
             }
+
+            //Populates KWTasks
+            if (!context.KWTasks.Any())
+            {
+                Alert alert = context.Alerts.First();
+                StaffProfile profile = context.StaffProfiles.First();
+
+                KWTask kwt1 = new KWTask { Description = "A task to be accomplished", Alert = alert, StaffProfile = profile };
+                KWTask kwt2 = new KWTask { Description = "Enjoy your day", Alert = alert, StaffProfile = profile };
+
+                context.KWTasks.Add(kwt1);
+                context.KWTasks.Add(kwt2);
+
+                context.SaveChanges();
+            }
         }
     }
 }

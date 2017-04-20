@@ -1,7 +1,7 @@
 ﻿@model KWFCI.Models.KWTask
-<button type="button" class="newAlertBtn btn btn-default" data-toggle="modal" data-target="#newAlert">New Alert</button>
+<button type="button" class="newKWTaskBtn btn btn-default" data-toggle="modal" data-target="#newKWTask">New Task</button>
 
-<div class="modal fade" id="newAlert" tabindex="-1" role="dialog" aria-labelledby="newAlertModal">
+<div class="modal fade" id="newKWTask" tabindex="-1" role="dialog" aria-labelledby="newKWTaskModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,25 +9,13 @@
                 <h4 class="modal-title" id="settingsLabel">New Alert: @*<em>TODO: Use JavaScript to dynamically make this the broker name while being typed</em>*@</h4>
             </div>
             <div class="modal-body">
-                <form asp-controller="Alert" asp-action="AddAlert" method="post">
+                <form asp-controller="KWTasks" asp-action="AddKWTask" method="post">
                     <div class="form-group center-block">
 
-                        <label asp-for="Priority">Priority:</label>
-                        <select class="form-control" asp-for="Priority">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
+                        <label asp-for="Description">Description:</label>
+                        <input asp-for="Description" class="form-control" /><br />
 
-                        <label asp-for="AlertDate">Alert Date:</label>
-                        <input asp-for="AlertDate" class="form-control" /><br />
-
-                        <label asp-for="Message">Message:</label>
-                        <input asp-for="Message" class="form-control" /><br />
-
-                        <button type="submit" class="btn btn-primary pull-right">Create Alert</button>
+                        <button type="submit" class="btn btn-primary pull-right">Create Task</button>
                     </div>
                 </form>
             </div>

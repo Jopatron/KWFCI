@@ -9,23 +9,23 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Priority</th>
-                    <th>Date</th>
-                    <th>Message</th>
+                    <th>Description</th>
+                    <th>Staff</th>
+                    <th>Alert</th>
 
                 </tr>
             </thead>
             <tbody>
-                @foreach (Alert a in Model.Alerts)
+                @foreach (KWTask kwt in Model.KWTasks)
                 {
                     <tr>
-                        <th>@a.Priority</th>
-                        <th>@a.AlertDate</th>
-                        <th>@a.Message</th>
+                        <th>@kwt.Description</th>
+                        <th>@kwt.StaffProfile.Email</th>
+                        <th>@kwt.Alert.Message</th>
                         <th>
-                            <form asp-action="Delete" asp-route-id="@a.AlertID" method="post">
+                            <form asp-action="Delete" asp-route-id="@kwt.KWTaskID" method="post">
                                 <a class="btn btn-sm btn-primary" asp-action="Edit"
-                                   asp-route-id="@a.AlertID">Edit</a>
+                                   asp-route-id="@kwt.KWTaskID">Edit</a>
                                 <button type="submit"
                                         class="btn btn-sm btn-danger">
                                     Delete
@@ -38,7 +38,7 @@
         </table>
     </div>
 </div>
-@Html.Partial("_AddAlertModal", Model.AddedAlert)
+@Html.Partial("_AddKWTaskModal", Model.NewKWTask)
 
 <style>
     table, tr, th {
