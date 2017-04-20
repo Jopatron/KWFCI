@@ -20,8 +20,14 @@
                 {
                     <tr>
                         <th>@kwt.Description</th>
-                        <th>@kwt.StaffProfile.Email</th>
-                        <th>@kwt.Alert.Message</th>
+                        @if (kwt.StaffProfile != null)
+                        {
+                            <th>@kwt.StaffProfile.Email</th>
+                        }
+                        @if (kwt.Alert != null)
+                        {
+                            <th>@kwt.Alert.Message</th>
+                        }
                         <th>
                             <form asp-action="Delete" asp-route-id="@kwt.KWTaskID" method="post">
                                 <a class="btn btn-sm btn-primary" asp-action="Edit"
