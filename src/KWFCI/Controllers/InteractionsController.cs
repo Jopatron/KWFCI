@@ -114,7 +114,7 @@ namespace KWFCI.Controllers
                 interaction.Status = i.Status;
                 
 
-                int verify = intRepo.UpdateInteraction(i);
+                int verify = intRepo.UpdateInteraction(interaction);
                 if (verify == 1)
                 {
                     //TODO add feedback of success

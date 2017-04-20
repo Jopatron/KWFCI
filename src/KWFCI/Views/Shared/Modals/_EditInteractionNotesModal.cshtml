@@ -13,7 +13,8 @@
                     <div class="form-group center-block modal-form">
 
                         <textarea asp-for="@Model.NewInteraction.Notes" class="form-control" rows="7" cols="10"></textarea>
-                        <input class="addInteractionID" name="@Model.NewInteraction.InteractionID" value=""/>
+                        <input type="hidden" class="addInteractionID" asp-for="@Model.NewInteraction.InteractionID" value=""/>
+                        <input type="hidden" asp-for="@Model.NewInteraction.InteractionID" value="" />
 
                         <button type="submit" class="btn btn-primary pull-right">Save Changes</button>
                     </div>
