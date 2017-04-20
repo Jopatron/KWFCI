@@ -5,12 +5,13 @@
 }
 
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-8 col-xs-offset-2">
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Edit</th>
                     <th>Name</th>
+                    <th>Interactions</th>
                     <th>Email</th>
                     <th>Type</th>
                     <th>Archive</th>
@@ -30,6 +31,7 @@
                                 href="@Url.Action("BrokerInteractions", "Interactions", b)">
                              @b.FirstName @b.LastName
                             </a></td>
+                        <td>@b.Interactions.Count/10</td>
                         <td>@b.Email</td>
                         <td>@b.Type</td>
                         <td>
