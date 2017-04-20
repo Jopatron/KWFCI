@@ -29,6 +29,23 @@
     width: 86%;  
 }
 
+.mw-50p{
+    max-width:50%;
+}
+.mw-170px{
+    min-width:170px;
+}
+.mh-20px{
+    max-height:20px;
+}
+.w-100p{
+    width:100%;
+}
+
+.table.table-bordered{
+    width: 70%;
+    margin: 0 auto;
+}
 .navbar .container-fluid>.row{
     border-bottom: 4px solid #b40101;
 }
