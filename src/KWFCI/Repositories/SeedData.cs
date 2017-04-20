@@ -116,6 +116,65 @@ namespace KWFCI.Repositories
 
                 context.Brokers.Add(broker);
 
+                broker = new Broker {
+                    FirstName = "Jack",
+                    LastName = "Johnson",
+                    Email = "jjohnson@kw.com",
+                    EmailNotifications = false,
+                    Type = "In Transition",
+
+                };
+
+                context.Brokers.Add(broker);
+
+                broker = new Broker
+                {
+                    FirstName = "Janet",
+                    LastName = "Schwimmer",
+                    Email = "jschwimmer@kw.com",
+                    EmailNotifications = true,
+                    Type = "In Transition",
+
+                };
+
+                context.Brokers.Add(broker);
+
+                broker = new Broker
+                {
+                    FirstName = "Wyatt",
+                    LastName = "Earp",
+                    Email = "wearp@kw.com",
+                    EmailNotifications = false,
+                    Type = "In Transition",
+
+                };
+
+                context.Brokers.Add(broker);
+
+                broker = new Broker
+                {
+                    FirstName = "Richard",
+                    LastName = "Kimble",
+                    Email = "rkimble@kw.com",
+                    EmailNotifications = false,
+                    Type = "New Broker",
+
+                };
+
+                context.Brokers.Add(broker);
+
+                broker = new Broker
+                {
+                    FirstName = "Ty",
+                    LastName = "Burrell",
+                    Email = "tburrell@kw.com",
+                    EmailNotifications = true,
+                    Type = "New Broker",
+
+                };
+
+                context.Brokers.Add(broker);
+
                 context.SaveChanges();
             }
 
