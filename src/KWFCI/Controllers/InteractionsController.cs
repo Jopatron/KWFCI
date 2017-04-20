@@ -118,7 +118,7 @@ namespace KWFCI.Controllers
                 if (verify == 1)
                 {
                     //TODO add feedback of success
-                    return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.Broker.BrokerID });
+                    return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.BrokerID });
                 }
                 else
                 {
@@ -129,7 +129,7 @@ namespace KWFCI.Controllers
             {
                 ModelState.AddModelError("", "Interaction Not Found");
             }
-            return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.Broker.BrokerID});
+            return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.BrokerID});
         }
     }
 }
