@@ -14,7 +14,11 @@
 
                         <textarea asp-for="@Model.NewInteraction.Notes" class="form-control" rows="7" cols="10"></textarea>
                         <input type="hidden" class="addInteractionID" asp-for="@Model.NewInteraction.InteractionID" value=""/>
+
+                        <input type="hidden" asp-for="@Model.BrokerID" />
+
                         <input type="hidden" asp-for="@Model.NewInteraction.InteractionID" value="" />
+
 
                         <button type="submit" class="btn btn-primary pull-right">Save Changes</button>
                     </div>
