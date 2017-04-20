@@ -16,6 +16,7 @@
                     <th>Type</th>
                     <th>Archive</th>
 
+
                     
                 </tr>
             </thead>
@@ -23,19 +24,26 @@
                 @foreach (Broker b in Model)
                 {
                     <tr>
+
                         <td>
                             <a class="btn btn-primary btn-md" asp-action="Edit"
                                asp-route-id="@b.BrokerID"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                         </td>
+
                             <td><a 
                                 href="@Url.Action("BrokerInteractions", "Interactions", b)">
                              @b.FirstName @b.LastName
                             </a></td>
                         <td>@b.Interactions.Count/10</td>
+
                         <td>@b.Email</td>
                         <td>@b.Type</td>
                         <td>
                             <form asp-action="Archive" asp-route-id="@b.BrokerID" method="post">
+
+                                <a class="btn btn-sm btn-primary" asp-action="Edit"
+                                   asp-route-id="@b.BrokerID">Edit</a>
+
                                 <button type="submit"
                                         class="btn btn-sm btn-danger">
                                     <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
