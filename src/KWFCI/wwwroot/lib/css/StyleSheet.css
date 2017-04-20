@@ -29,6 +29,15 @@
     width: 86%;  
 }
 
+.modal-header.no-border-bottom{
+    border-bottom: unset;
+    padding-bottom:unset;
+}
+
+.modal-form button{
+    margin-top:10px;
+}
+
 .mw-50p{
     max-width:50%;
 }

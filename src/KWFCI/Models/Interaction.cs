@@ -15,6 +15,8 @@ namespace KWFCI.Models
         {
             DateCreated = DateTime.Now;
             Status = "Active";
+            Notes = "";
+            NextStep = "";
         }
     }
 }
