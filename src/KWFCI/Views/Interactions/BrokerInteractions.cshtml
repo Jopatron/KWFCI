@@ -22,7 +22,8 @@
                 {
                     <tr>
                         <th>@ViewBag.StaffEmail</th>
-                        <th class="mw-50p"><a href="#" class="inactive" data-toggle="modal" data-target="#newInteraction">
+                        <th class="mw-50p" id="interaction@{+@a.InteractionID} "><a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes">
+
                             @if(a.Notes != null)
                             {
                                 @a.Notes
@@ -54,8 +55,11 @@
         </table>
     </div>
 </div>
+
+
 @Html.ActionLink("New Interaction", "AddInteraction", "Interactions", new { BrokerID = Model.Broker.BrokerID })
-@Html.Partial("_AddInteractionModal", Model.NewInteraction)
+
+@Html.Partial("Modals/_EditInteractionNotesModal")
 <style>
     table, tr, th {
         border: 1px solid black;

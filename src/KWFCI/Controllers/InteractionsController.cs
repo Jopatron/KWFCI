@@ -101,8 +101,9 @@ namespace KWFCI.Controllers
 
         [Route("Edit")]
         [HttpPost]
-        public IActionResult Edit(Interaction i)
+        public ActionResult Edit(InteractionVM iVM)
         {
+            var i = iVM.NewInteraction;
             if (i != null)
             {
                 Interaction interaction = intRepo.GetInteractionById(i.InteractionID);
@@ -116,7 +117,7 @@ namespace KWFCI.Controllers
                 if (verify == 1)
                 {
                     //TODO add feedback of success
-                    return RedirectToAction("Index");
+                    return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.Broker.BrokerID });
                 }
                 else
                 {
@@ -127,7 +128,7 @@ namespace KWFCI.Controllers
             {
                 ModelState.AddModelError("", "Interaction Not Found");
             }
-            return View(i);
+            return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.Broker.BrokerID});
         }
     }
 }
