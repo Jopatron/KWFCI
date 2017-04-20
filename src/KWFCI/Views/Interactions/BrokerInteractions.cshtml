@@ -17,25 +17,29 @@
                     <th>Broker</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="interactionTable">
                 @foreach (Interaction a in Model.Interactions)
                 {
+                    var interactionID = a.InteractionID;
+                    
                     <tr>
                         <th>@ViewBag.StaffEmail</th>
-                        <th class="mw-50p" id="interaction@{+@a.InteractionID} "><a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes">
-
-                            @if(a.Notes != null)
-                            {
+                        <th class="mw-50p" >
+                            <a href="#" class="inactive interAction-@interactionID" data-toggle="modal" data-target="#editInteractionNotes" data-id="@interactionID">
+                                @if (a.Notes != null)
+                                {
+                                    @a.Notes
+                                }
+                                else
+                                {
+                                    <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" />
+                                }
                                 @a.Notes
-                            }
-                            else
-                            {
-                                <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" />
-                            }
-                            @a.Notes</a></th>
+                            </a>
+                        </th>
                         <th class="mw-170px">@a.DateCreated</th>
-                        <th class="mw-50p">
-                            <a href="#" class="inactive" data-toggle="modal" data-target="#newInteraction">
+                        <th class="mw-50p" >
+                            <a href="#" class="inactive interAction-@interactionID" data-toggle="modal" data-target="#newInteraction" data-id="@interactionID">
                                 @if (a.NextStep != null)
                                 {
                                     @a.NextStep
@@ -50,7 +54,7 @@
                             @ViewBag.BrokerName
                         </th>
                     </tr>
-                }
+             }
             </tbody>
         </table>
     </div>

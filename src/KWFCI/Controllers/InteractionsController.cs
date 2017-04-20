@@ -40,6 +40,7 @@ namespace KWFCI.Controllers
             var vm = new InteractionVM();
             vm.Interactions = allInteractions;
             vm.Broker = broker;
+            vm.NewInteraction = new Interaction();
             //TODO Ensure user is rerouted if not logged in
             return View(vm);
         }
