@@ -137,7 +137,7 @@ namespace KWFCI.Repositories
             //Populate Messages
             if (!context.Messages.Any())
             {
-                StaffProfile profile = new StaffProfile { FirstName = "Wyatt", LastName = "Earp" };
+                StaffProfile profile = context.StaffProfiles.First();
                 Message message = new Message { Subject = "Staff Meeting", Body = "Don't forget we have a morning meeting tomorrow", From = profile, DateSent = DateTime.Now };
                 Message message2 = new Message { Subject = "Broker Meeting", Body = "All Brokers please make sure you meet us at the office tomorrow", From = profile, DateSent = DateTime.Parse("May 4, 2017") };
 
