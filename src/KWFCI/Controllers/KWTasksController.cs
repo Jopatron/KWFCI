@@ -31,13 +31,13 @@ namespace KWFCI.Controllers
 
         [Route("Add")]
         [HttpPost]
-        public IActionResult AddKWTask(KWTaskVM vm)
+        public IActionResult AddKWTask(KWTask kwt)
         {
-            var kwt = vm.NewKWTask;
             var kwtask = new KWTask
             {
                 Description = kwt.Description
-                //TODO: enable to have alert and staffprofile added
+                //TODO: enable alert and staffprofile to be added
+
             };
 
             kwtRepo.AddKWTask(kwtask);
