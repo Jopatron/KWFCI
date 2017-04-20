@@ -1,4 +1,4 @@
-﻿@model KWFCI.Models.Alert
+﻿@model KWFCI.Models.ViewModels.AlertVM
 <button type="button" class="newAlertBtn btn btn-default" data-toggle="modal" data-target="#newAlert">New Alert</button>
 
 <div class="modal fade" id="newAlert" tabindex="-1" role="dialog" aria-labelledby="newAlertModal">
@@ -12,8 +12,8 @@
                 <form asp-controller="Alert" asp-action="AddAlert" method="post">
                     <div class="form-group center-block">
 
-                        <label asp-for="Priority">Priority:</label>
-                        <select class="form-control" asp-for="Priority">
+                        <label asp-for="@Model.AddedAlert.Priority">Priority:</label>
+                        <select class="form-control" asp-for="@Model.AddedAlert.Priority">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -21,11 +21,11 @@
                             <option>5</option>
                         </select>
 
-                        <label asp-for="AlertDate">Alert Date:</label>
-                        <input asp-for="AlertDate" class="form-control" /><br />
+                        <label asp-for="@Model.AddedAlert.AlertDate">Alert Date:</label>
+                        <input asp-for="@Model.AddedAlert.AlertDate" class="form-control" /><br />
 
-                        <label asp-for="Message">Message:</label>
-                        <input asp-for="Message" class="form-control" /><br />
+                        <label asp-for="@Model.AddedAlert.Message">Message:</label>
+                        <input asp-for="@Model.AddedAlert.Message" class="form-control" /><br />
 
                         <button type="submit" class="btn btn-primary pull-right">Create Alert</button>
                     </div>

@@ -36,9 +36,8 @@ namespace KWFCI.Controllers
             var kwt = vm.NewKWTask;
             var kwtask = new KWTask
             {
-                Description = kwt.Description,
-                StaffProfile = kwt.StaffProfile,
-                Alert = kwt.Alert
+                Description = kwt.Description
+                //TODO: enable to have alert and staffprofile added
             };
 
             kwtRepo.AddKWTask(kwtask);
