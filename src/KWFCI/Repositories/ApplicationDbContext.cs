@@ -13,5 +13,6 @@ namespace KWFCI.Repositories
         public DbSet<Alert> Alerts { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Interaction> Interactions { get; set; }
+        public DbSet<KWTask> KWTasks { get; set; }
     }
 }
