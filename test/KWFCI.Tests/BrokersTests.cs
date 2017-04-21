@@ -80,7 +80,7 @@ namespace KWFCI.Tests
             Assert.Equal(repo.GetAllBrokers().Count(), 3);
             //Get the base object
             var brokerID = repo.GetAllBrokers().First().BrokerID;
-            var result = controller.Delete(brokerID);
+            var result = controller.Archive(brokerID);
 
             //Make sure it is returning as a RedirectToActionResult
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);

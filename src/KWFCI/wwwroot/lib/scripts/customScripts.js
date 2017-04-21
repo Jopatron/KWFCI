@@ -6,9 +6,11 @@ $(document).ready(function(){
 
     $("#interactionTable").click(function (event) {
         var target = $(event.target);
+
+        //console.log(target);
+        var entityID = target.attr("data-id");
         
-        var interactionID = target.attr("data-id");
-        
-        $(".addInteractionID").attr("value", interactionID);
+        $(".addID").attr("value", entityID);
+
     });
 });
