@@ -11,5 +11,6 @@ namespace KWFCI.Models.ViewModels
         public Interaction NewInteraction { get; set; }
         public Broker Broker { get; set; }
         public int BrokerID { get; set; }
+        public string Field { get; set; }
     }
 }

@@ -38,8 +38,11 @@
     margin-top:10px;
 }
 
-.mw-50p{
-    max-width:50%;
+.maxw-380px{
+    max-width:380px;
+}
+.minw-380px{
+    min-width:380px;
 }
 .mw-170px{
     min-width:170px;

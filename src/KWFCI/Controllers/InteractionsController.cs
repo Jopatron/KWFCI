@@ -108,11 +108,13 @@ namespace KWFCI.Controllers
             if (i != null)
             {
                 Interaction interaction = intRepo.GetInteractionById(i.InteractionID);
-                interaction.DateCreated = i.DateCreated;
-                interaction.NextStep = i.NextStep;
-                interaction.Notes = i.Notes;
-                interaction.Status = i.Status;
-                
+
+                if(iVM.Field == "Notes")
+                    interaction.Notes = i.Notes;
+                else if(iVM.Field == "NextStep")
+                    interaction.NextStep = i.NextStep;
+                //interaction.DateCreated = i.DateCreated;
+                //interaction.Status = i.Status;
 
                 int verify = intRepo.UpdateInteraction(interaction);
                 if (verify == 1)
@@ -132,7 +134,6 @@ namespace KWFCI.Controllers
             }
 
             return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.BrokerID});
-
         }
     }
 }
