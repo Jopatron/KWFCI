@@ -31,9 +31,8 @@ namespace KWFCI.Controllers
 
         [Route("Add")]
         [HttpPost]
-        public IActionResult AddAlert(AlertVM vm)
+        public IActionResult AddAlert(Alert a)
         {
-            var a = vm.AddedAlert;
             var alert = new Alert
             {
                 Priority = a.Priority,
