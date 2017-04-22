@@ -1,0 +1,27 @@
+﻿@model KWFCI.Models.ViewModels.InteractionVM
+
+<div class="modal fade" id="editInteractionNotes" tabindex="-1" role="dialog" aria-labelledby="editInteractionNotes">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header no-border-bottom">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title settingsLabel">Notes: @*<em>TODO: Use JavaScript to dynamically make this the broker name while being typed</em>*@</h4>
+            </div>
+            <div class="modal-body clearfix">
+
+                <form asp-controller="Interactions" asp-action="Edit" method="post">
+                    <div class="form-group center-block modal-form">
+
+                        <textarea asp-for="@Model.NewInteraction.Notes" class="form-control" rows="7" cols="10"></textarea>
+
+                        <input type="hidden" class="addID" asp-for="@Model.NewInteraction.InteractionID" value=""/>
+                        <input type="hidden" asp-for="@Model.BrokerID" />
+                        <input type="hidden" asp-for="@Model.Field" value="Notes" />
+
+                        <button type="submit" class="btn btn-primary pull-right">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

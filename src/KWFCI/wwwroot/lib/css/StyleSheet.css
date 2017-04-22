@@ -29,8 +29,20 @@
     width: 86%;  
 }
 
-.mw-50p{
-    max-width:50%;
+.modal-header.no-border-bottom{
+    border-bottom: unset;
+    padding-bottom:unset;
+}
+
+.modal-form button{
+    margin-top:10px;
+}
+
+.maxw-380px{
+    max-width:380px;
+}
+.minw-380px{
+    min-width:380px;
 }
 .mw-170px{
     min-width:170px;
@@ -82,3 +94,4 @@
 .modal-form{
     padding: 20px;
 }
+

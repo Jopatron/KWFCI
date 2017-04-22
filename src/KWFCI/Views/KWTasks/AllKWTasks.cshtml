@@ -1,0 +1,53 @@
+﻿@model KWFCI.Models.ViewModels.KWTaskVM
+
+@{
+    ViewBag.Title = "KWTasks";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Staff</th>
+                    <th>Alert</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (KWTask kwt in Model.KWTasks)
+                {
+                    <tr>
+                        <th>@kwt.Description</th>
+                        @if (kwt.StaffProfile != null)
+                        {
+                            <th>@kwt.StaffProfile.Email</th>
+                        }
+                        @if (kwt.Alert != null)
+                        {
+                            <th>@kwt.Alert.Message</th>
+                        }
+                        <th>
+                            <form asp-action="Delete" asp-route-id="@kwt.KWTaskID" method="post">
+                                <a class="btn btn-sm btn-primary" asp-action="Edit"
+                                   asp-route-id="@kwt.KWTaskID">Edit</a>
+                                <button type="submit"
+                                        class="btn btn-sm btn-danger">
+                                    Delete
+                                </button>
+                            </form>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@Html.Partial("_AddKWTaskModal", Model.NewKWTask)
+
+<style>
+    table, tr, th {
+        border: 1px solid black;
+    }
+</style>

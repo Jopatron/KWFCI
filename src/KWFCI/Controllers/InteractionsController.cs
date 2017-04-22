@@ -40,6 +40,7 @@ namespace KWFCI.Controllers
             var vm = new InteractionVM();
             vm.Interactions = allInteractions;
             vm.Broker = broker;
+            vm.NewInteraction = new Interaction();
             //TODO Ensure user is rerouted if not logged in
             return View(vm);
         }
@@ -101,22 +102,26 @@ namespace KWFCI.Controllers
 
         [Route("Edit")]
         [HttpPost]
-        public IActionResult Edit(Interaction i)
+        public ActionResult Edit(InteractionVM iVM)
         {
+            var i = iVM.NewInteraction;
             if (i != null)
             {
                 Interaction interaction = intRepo.GetInteractionById(i.InteractionID);
-                interaction.DateCreated = i.DateCreated;
-                interaction.NextStep = i.NextStep;
-                interaction.Notes = i.Notes;
-                interaction.Status = i.Status;
-                
 
-                int verify = intRepo.UpdateInteraction(i);
+                if(iVM.Field == "Notes")
+                    interaction.Notes = i.Notes;
+                else if(iVM.Field == "NextStep")
+                    interaction.NextStep = i.NextStep;
+                //interaction.DateCreated = i.DateCreated;
+                //interaction.Status = i.Status;
+
+                int verify = intRepo.UpdateInteraction(interaction);
                 if (verify == 1)
                 {
                     //TODO add feedback of success
-                    return RedirectToAction("Index");
+                    return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.BrokerID });
+
                 }
                 else
                 {
@@ -127,7 +132,8 @@ namespace KWFCI.Controllers
             {
                 ModelState.AddModelError("", "Interaction Not Found");
             }
-            return View(i);
+
+            return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.BrokerID});
         }
     }
 }
