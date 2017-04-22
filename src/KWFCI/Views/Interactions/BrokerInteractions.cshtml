@@ -17,15 +17,15 @@
                     <th>Broker</th>
                 </tr>
             </thead>
-            <tbody id="interactionTable">
+            <tbody class="editTable">
                 @foreach (Interaction a in Model.Interactions)
                 {
                     var entityID = a.InteractionID;
                     Model.NewInteraction = a;
                     
                     <tr>
-                        <th>@ViewBag.StaffEmail</th>
-                        <th class="maxw-380px minw-380px" >
+                        <td>@ViewBag.StaffEmail</td>
+                        <td style="width:380px;">
 
                             <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID">
                                 @if (a.Notes != null && a.Notes != "")
@@ -34,15 +34,33 @@
                                 }
                                 else
                                 {
-
                                     <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
-
                                 }
-                               
+
                             </a>
-                        </th>
-                        <th class="mw-170px">@a.DateCreated</th>
-                        <th class="mw-50p" >
+                        </td>
+
+                        
+                        <td style="width:110px;" asp-for="@Model.NewInteraction.DateCreated">
+                            <!--Attribute necessary for datepicker to function: data-provide="datepicker"
+                                Attributes that server as configuration options: all attributes that start with data-date- -->
+                            <input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" class="form-control" data-id="@entityID"
+                            @if (a.DateCreated != null)
+                            {
+                                //Remove the time from the display
+                                string[] splitDate = a.DateCreated.ToString().Split(' ');
+                                string date = splitDate[0];
+
+                                @:value="@date" />
+                            }
+                            else
+                            {
+                                @:value="" />
+                            }
+                        </td>
+
+
+                        <td style="width:380px;">
                             <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID">
                                 @if (a.NextStep != null && a.NextStep != "")
 
@@ -51,19 +69,29 @@
                                 }
                                 else
                                 {
-                                    <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID"/>
+                                    <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
                                 }
                             </a>
-                        </th>
-                        <th class="mw-170px">
+                        </td>
+                        <td class="mw-170px">
                             @ViewBag.BrokerName
-                        </th>
+                        </td>
                     </tr>
              }
             </tbody>
         </table>
     </div>
 </div>
+
+<form class="hidden" asp-action="Edit" asp-controller="Interactions">
+    <!--Value is populated with jQuery based on what value was entered into the date box-->
+    <input type="hidden" class="addDate" asp-for="@Model.NewInteraction.DateCreated" value=""/>
+    <input type="hidden" class="addID" asp-for="@Model.NewInteraction.InteractionID" value="" />
+    <input type="hidden" asp-for="@Model.Field" value="Date Created" />
+    <input type="hidden" asp-for="@Model.BrokerID" />
+    <!--Triggered with jQuery-->
+    <button type="submit" class="hidden submitButton"></button>
+</form>
 
 
 @Html.ActionLink("New Interaction", "AddInteraction", "Interactions", new { BrokerID = Model.Broker.BrokerID })

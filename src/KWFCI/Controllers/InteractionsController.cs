@@ -23,13 +23,7 @@ namespace KWFCI.Controllers
             brokerRepo = repo2;
             staffRepo = repo3;
         }
-        //[Route("Test")]
-        //public ActionResult TestBroker()
-        //{
-        //    ViewBag.Email = Helper.StaffProfileLoggedIn.Email;
-        //    Broker broker = brokerRepo.GetAllBrokers().First();
-        //    return View(broker);
-        //}
+        
         [Route("Brokers")]
         public IActionResult BrokerInteractions(int BrokerID)
         {
@@ -86,19 +80,6 @@ namespace KWFCI.Controllers
             return RedirectToAction("BrokerInteractions", new {BrokerID = BrokerID });
 
         }
-        //[Route("Edit")]
-        //public ActionResult Edit(int id)
-        //{
-        //    Interaction interaction = intRepo.GetInteractionById(id);
-        //    if (interaction != null)
-        //    {
-        //        return View(interaction);
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-        //}
 
         [Route("Edit")]
         [HttpPost]
@@ -109,11 +90,13 @@ namespace KWFCI.Controllers
             {
                 Interaction interaction = intRepo.GetInteractionById(i.InteractionID);
 
-                if(iVM.Field == "Notes")
+                if (iVM.Field == "Notes")
                     interaction.Notes = i.Notes;
-                else if(iVM.Field == "NextStep")
+                else if (iVM.Field == "NextStep")
                     interaction.NextStep = i.NextStep;
-                //interaction.DateCreated = i.DateCreated;
+                else if (iVM.Field == "Date Created")
+                    interaction.DateCreated = i.DateCreated;
+                
                 //interaction.Status = i.Status;
 
                 int verify = intRepo.UpdateInteraction(interaction);
