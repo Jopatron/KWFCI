@@ -29,6 +29,9 @@
     width: 86%;  
 }
 
+.datepicker table tr, .datepicker table{
+    border: unset;
+}
 .modal-header.no-border-bottom{
     border-bottom: unset;
     padding-bottom:unset;
@@ -52,6 +55,16 @@
 }
 .w-100p{
     width:100%;
+}
+
+.table .editTable>tr>td{
+    font-weight: bold;
+    padding: 0px 8px 0px 8px;
+    vertical-align:middle;
+}
+
+.table tr th{
+    text-align:center;
 }
 
 .table.table-bordered{
