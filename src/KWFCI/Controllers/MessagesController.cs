@@ -19,14 +19,19 @@ namespace KWFCI.Controllers
     {
         private IMessageRepository messageRepo;
         private IBrokerRepository brokerRepo;
+        private IStaffProfileRepository staffRepo;
+        private IEnumerable<Broker> brokers;
+        private IEnumerable<StaffProfile> staff;
 
-        public MessagesController(IMessageRepository repo, IBrokerRepository bRepo)
+        public MessagesController(IMessageRepository repo, IBrokerRepository bRepo, IStaffProfileRepository sRepo)
         {
             messageRepo = repo;
             brokerRepo = bRepo;
+            staffRepo = sRepo;
         }
 
-        
+       
+
         public ViewResult AllMessages()
         {
             var vm = new MessageVM();
@@ -49,12 +54,18 @@ namespace KWFCI.Controllers
                 
         };
 
-            messageRepo.AddMessage(message);
+
+        messageRepo.AddMessage(message);
 
             if (checkMail == "AllBrokers")
+            
+                brokers = brokerRepo.GetAllBrokers();
+            else if (checkMail == "All")
             {
-                var brokers = brokerRepo.GetAllBrokers();
-
+                brokers = brokerRepo.GetAllBrokers();
+                staff = staffRepo.GetAllStaffProfiles();
+            }
+            
                 foreach (var b in brokers)
                 {
                     var email = new MimeMessage();
@@ -80,7 +91,33 @@ namespace KWFCI.Controllers
                         client.Disconnect(true);
                     }
                 }
+
+            foreach (var st in staff)
+            {
+                var email = new MimeMessage();
+                email.From.Add(new MailboxAddress("KWFCI", "do-not-reply@kw.com"));
+                email.To.Add(new MailboxAddress(st.FirstName + " " + st.LastName, st.Email));
+                email.Subject = message.Subject;
+
+                email.Body = new TextPart("plain")
+                {
+                    Text = message.Body
+                };
+
+                using (var client = new SmtpClient())
+                {
+                    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+                    client.Connect("smtp.gmail.com", 587, false);
+
+                    client.AuthenticationMechanisms.Remove("XOAUTH2");
+                    client.Authenticate("kwfamilycheckin", "Fancy123!");
+
+                    client.Send(email);
+                    client.Disconnect(true);
+                }
             }
+        
 
             return RedirectToAction("AllMessages", "Messages");
         }
