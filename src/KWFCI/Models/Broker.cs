@@ -24,16 +24,16 @@ namespace KWFCI.Models
         public List<KWTask> CreateRequirementsList()
         {
             return new List<KWTask>() {
-                new KWTask() { Description = "Requirement 1"},
-                new KWTask() { Description = "Requirement 2"},
-                new KWTask() { Description = "Requirement 3"},
-                new KWTask() { Description = "Requirement 4"},
-                new KWTask() { Description = "Requirement 5"},
-                new KWTask() { Description = "Requirement 6"},
-                new KWTask() { Description = "Requirement 7"},
-                new KWTask() { Description = "Requirement 8"},
-                new KWTask() { Description = "Requirement 9"},
-                new KWTask() { Description = "Requirement 10"}
+                new KWTask() { Message = "Requirement 1"},
+                new KWTask() { Message = "Requirement 2"},
+                new KWTask() { Message = "Requirement 3"},
+                new KWTask() { Message = "Requirement 4"},
+                new KWTask() { Message = "Requirement 5"},
+                new KWTask() { Message = "Requirement 6"},
+                new KWTask() { Message = "Requirement 7"},
+                new KWTask() { Message = "Requirement 8"},
+                new KWTask() { Message = "Requirement 9"},
+                new KWTask() { Message = "Requirement 10"}
             };
         }
     }

@@ -84,9 +84,11 @@ namespace KWFCI.Controllers
             if (kwt != null)
             {
                 KWTask kwtask = kwtRepo.GetKWTaskByID(kwt.KWTaskID);
-                kwtask.Description = kwt.Description;
-                kwtask.StaffProfile = kwt.StaffProfile;
-                kwtask.Alert = kwt.Alert;
+                kwtask.Message = kwt.Message;
+                kwtask.AlertDate = kwt.AlertDate;
+                //kwtask.DateCreated = kwt.DateCreated;
+                kwtask.DateDue = kwt.DateDue;
+                kwtask.Priority = kwt.Priority;
 
                 int verify = kwtRepo.UpdateKWTask(kwtask);
                 if (verify == 1)

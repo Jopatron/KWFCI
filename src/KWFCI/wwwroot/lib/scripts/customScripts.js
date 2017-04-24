@@ -12,9 +12,23 @@ $(document).ready(function(){
         $(".addID").attr("value", entityID);
 
 
-        $(".editTable input").on("change", function () {
+        $(".editTable .interactionDate").on("change", function () {
             $(".addDate").attr("value", $(this).val());
             $(".submitButton").trigger("click");
         });
+    });
+    var $dateDue = $("#taskDateDue");
+    $dateDue.on("change", function () {
+        if ($dateDue.val() != "")
+        {
+            if($("#taskPriority").hasClass("hidden"))
+            {
+                $("#taskPriority").removeClass("hidden");
+            }
+            else
+            {
+                $("#taskPriority").addClass("hidden");
+            }
+        }
     });
 });

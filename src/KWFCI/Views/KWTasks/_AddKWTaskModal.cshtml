@@ -17,6 +17,27 @@
                         <label asp-for="Description">Description:</label>
                         <input asp-for="Description" class="form-control" /><br />
 
+                        <label asp-for="DateDue">Date Due:</label>
+                        <input id="taskDateDue" asp-for="DateDue" class="form-control" /><br />
+
+                        <label asp-for="AlertDate">Alert Date:</label>
+                        <input asp-for="AlertDate" class="form-control" /><br />
+
+                        @*Hide Priority unless a date is entered into AlertDate*@
+                        <div id="taskPriority" class="hidden ">
+                            <label asp-for="Priority">Priority:</label>
+                            <select class="form-control" asp-for="Priority">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+
+                        <input type="hidden" asp-for="DateCreated" />
+                        <input type="hidden" class="addID" asp-for="KWTaskID" />
+
                         <button type="submit" class="btn btn-primary pull-right">Create Task</button>
                     </div>
                 </form>
