@@ -33,7 +33,7 @@ namespace KWFCI.Controllers
         }
         [Route("Add")]
         [HttpPost]
-        public IActionResult SendMessage(Message m)
+        public IActionResult SendMessage(Message m, bool allBrokers = false)
         {
 
             var message = new Message
