@@ -11,6 +11,8 @@ using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
 
+//TODO: Change all the repos to grab only staff and brokers who have true on email notification
+// Possible solution - add a repo method to grab those objects
 namespace KWFCI.Controllers
 {
     [Authorize(Roles = "Staff")]
