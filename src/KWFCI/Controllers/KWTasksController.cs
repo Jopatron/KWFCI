@@ -35,9 +35,11 @@ namespace KWFCI.Controllers
         {
             var kwtask = new KWTask
             {
-                Description = kwt.Description
-                //TODO: enable alert and staffprofile to be added
-
+                Message = kwt.Message,
+                AlertDate = kwt.AlertDate,
+                DateCreated = kwt.DateCreated,
+                DateDue = kwt.DateDue,
+                Priority = kwt.Priority
             };
 
             kwtRepo.AddKWTask(kwtask);
