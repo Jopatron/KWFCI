@@ -10,7 +10,7 @@ namespace KWFCI.Models
         public int BrokerID { get; set; }
         public List<Interaction> Interactions { get; set; }
         public List<KWTask> Requirements { get; set; }
-        public string Type { get; set; } //New Broker or In Transition
+        public string Type { get; set; } //New Broker, In Transition, or Transfer
         public string Status { get; set; } //Active or Inactive
 
         public Broker()
@@ -36,7 +36,6 @@ namespace KWFCI.Models
                 new KWTask() { Description = "Requirement 10"}
             };
         }
-        //TODO Will probably have to generate the list of requirements in the constructor
     }
 
 }

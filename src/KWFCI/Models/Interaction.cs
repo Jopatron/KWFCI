@@ -10,6 +10,7 @@ namespace KWFCI.Models
         public DateTime? DateCreated { get; set; }
         public string NextStep { get; set; }
         public string Status { get; set; }
+        public KWTask Task { get; set; }
 
         public Interaction()
         {

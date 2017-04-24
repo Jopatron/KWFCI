@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace KWFCI.Controllers
 {
     [Authorize(Roles = "Staff")]
-    [Route("KWTasks")]
+    [Route("Tasks")]
     public class KWTasksController : Controller
     {
         private IKWTaskRepository kwtRepo;
