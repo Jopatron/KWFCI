@@ -17,9 +17,15 @@
 
                     <div class="form-group center-block modal-form">
                         <label>All: </label>
-                        <input id="all" name="checkMail" value="All" type="checkbox" /><br />
+                        <input id="all" name="checkAll" value="true" type="checkbox" /><br />
                         <label>All Brokers: </label>
-                        <input id="allBrokers" name="checkMail" value="AllBrokers" type="checkbox" /><br /><br /><br />
+                        <input id="allBrokers" name="checkAllBrokers" value="true" type="checkbox" /><br />
+                        <label>Staff: </label>
+                        <input id="staff" name="checkStaff" value="true" type="checkbox" /><br />
+                        <label>New Brokers: </label>
+                        <input id="newBrokers" name="checkNewBrokers" value="true" type="checkbox" /><br />
+                        <label>Brokers In Transition: </label>
+                        <input id="inTransition" name="checkBrokersInTransition" value="true" type="checkbox" /><br />
 
 
                         <label asp-for="Subject">Subject:</label>
