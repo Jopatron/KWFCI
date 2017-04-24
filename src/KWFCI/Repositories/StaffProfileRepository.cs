@@ -16,9 +16,16 @@ namespace KWFCI.Repositories
             context = ctx;
         }
 
-        public IQueryable<StaffProfile> GetAllStaffProfiles()
+        public IQueryable<StaffProfile> GetAllStaffProfiles(bool getNotifications = false)
         {
-            return context.StaffProfiles.Include(u => u.User).Include(u => u.Interactions).AsQueryable();
+             if (getNotifications == true)
+            {
+                return (from s in context.StaffProfiles
+                        where s.EmailNotifications == true
+                        select s).Include(u => u.User).Include(u => u.Interactions).AsQueryable();
+            }
+             else
+                return context.StaffProfiles.Include(u => u.User).Include(u => u.Interactions).AsQueryable();
         }
 
         public StaffProfile GetStaffProfileByFullName(string firstName, string lastName)

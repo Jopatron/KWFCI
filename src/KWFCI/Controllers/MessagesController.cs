@@ -11,8 +11,7 @@ using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
 
-//TODO: Change all the repos to grab only staff and brokers who have true on email notification
-// Possible solution - add a repo method to grab those objects
+
 namespace KWFCI.Controllers
 {
     [Authorize(Roles = "Staff")]
@@ -48,6 +47,7 @@ namespace KWFCI.Controllers
         public IActionResult SendMessage(Message m, bool checkAll = false, bool checkAllBrokers = false, bool checkStaff = false,
             bool checkNewBrokers = false, bool checkBrokersInTransition = false, bool checkTransferBrokers = false)
         {
+           
 
             var message = new Message
             {
@@ -62,15 +62,15 @@ namespace KWFCI.Controllers
 
             if (checkAll == true)
             {
-                brokers = brokerRepo.GetAllBrokers();
-                staff = staffRepo.GetAllStaffProfiles();
+                brokers = brokerRepo.GetAllBrokers(false,true);
+                staff = staffRepo.GetAllStaffProfiles(true);
 
             }
             else
             {
                 if (checkAllBrokers == true)
 
-                    brokers = brokerRepo.GetAllBrokers();
+                    brokers = brokerRepo.GetAllBrokers(false,true);
                 else
                 {
 
@@ -78,39 +78,39 @@ namespace KWFCI.Controllers
                     {
                         if (brokers != null)
                         {
-                            var newBrokers = brokerRepo.GetBrokersByType("New Broker");
+                            var newBrokers = brokerRepo.GetBrokersByType("New Broker",true);
                             foreach (var b in newBrokers)
                                 brokers.Append(b);
                         }
                         else
-                            brokers = brokerRepo.GetBrokersByType("New Broker");
+                            brokers = brokerRepo.GetBrokersByType("New Broker",true);
                     }
 
                     if (checkBrokersInTransition == true)
                     {
                         if (brokers != null)
                         {
-                            var transitionBrokers = brokerRepo.GetBrokersByType("In Transition");
+                            var transitionBrokers = brokerRepo.GetBrokersByType("In Transition",true);
                             foreach (var b in transitionBrokers)
                                 brokers.Append(b);
                         }
                         else 
-                            brokers = brokerRepo.GetBrokersByType("In Transition");
+                            brokers = brokerRepo.GetBrokersByType("In Transition",true);
                     }
                     if (checkTransferBrokers == true)
                     {
                         if (brokers != null)
                         {
-                            var transferBrokers = brokerRepo.GetBrokersByType("Transfer");
+                            var transferBrokers = brokerRepo.GetBrokersByType("Transfer",true);
                             foreach (var b in transferBrokers)
                                 brokers.Append(b);
                         }
                         else
-                            brokers = brokerRepo.GetBrokersByType("Transfer");
+                            brokers = brokerRepo.GetBrokersByType("Transfer",true);
                     }
                 }
                     if (checkStaff == true)
-                        staff = staffRepo.GetAllStaffProfiles();
+                        staff = staffRepo.GetAllStaffProfiles(true);
                 
                 
             }
