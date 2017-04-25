@@ -1,5 +1,12 @@
 ﻿
-$(document).ready(function(){
+$(document).ready(function () {
+    //This code is to remove carriage returns from the beginning line when adding the clicked-on text to the modal textarea in interactions
+    $.valHooks.textarea = {
+        get: function (elem) {
+            return elem.value.replace(/\r?\n/g, "\r\n");
+        }
+    };
+
     $(".inactive").on("click", function () {
         preventDefault();
     });
@@ -10,25 +17,30 @@ $(document).ready(function(){
         var entityID = target.attr("data-id");
         
         $(".addID").attr("value", entityID);
-
+        
+        if(target.attr("data-target") == "#editInteractionNextStep")
+        {
+            var text = target.html().replace(/\n/g, "");
+            $('#editInteractionNextStep textarea').val(text);
+        }
 
         $(".editTable .interactionDate").on("change", function () {
             $(".addDate").attr("value", $(this).val());
             $(".submitButton").trigger("click");
         });
     });
-    var $dateDue = $("#taskDateDue");
-    $dateDue.on("change", function () {
-        if ($dateDue.val() != "")
-        {
-            if($("#taskPriority").hasClass("hidden"))
-            {
-                $("#taskPriority").removeClass("hidden");
-            }
-            else
-            {
-                $("#taskPriority").addClass("hidden");
-            }
-        }
-    });
+    //var $dateDue = $("#taskDateDue");
+    //$dateDue.on("change", function () {
+    //    if ($dateDue.val() != "")
+    //    {
+    //        if($("#taskPriority").hasClass("hidden"))
+    //        {
+    //            $("#taskPriority").removeClass("hidden");
+    //        }
+    //        else
+    //        {
+    //            $("#taskPriority").addClass("hidden");
+    //        }
+    //    }
+    //});
 });

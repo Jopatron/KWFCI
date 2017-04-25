@@ -59,8 +59,10 @@
 
 .table .editTable>tr>td{
     font-weight: bold;
-    padding: 0px 8px 0px 8px;
     vertical-align:middle;
+}
+.table .editTable a:hover{
+    text-decoration: none;
 }
 
 .table tr th{

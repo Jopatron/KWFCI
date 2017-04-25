@@ -218,16 +218,18 @@ namespace KWFCI.Repositories
             //Populates KWTasks
             if (!context.KWTasks.Any())
             {
-                
-                //StaffProfile profile = context.StaffProfiles.First();
 
-                //KWTask kwt1 = new KWTask { Description = "A task to be accomplished", Alert = alert, StaffProfile = profile };
-                //KWTask kwt2 = new KWTask { Description = "Enjoy your day", Alert = alert, StaffProfile = profile };
+                StaffProfile profile = context.StaffProfiles.First();
 
-                //context.KWTasks.Add(kwt1);
-                //context.KWTasks.Add(kwt2);
+                KWTask kwt1 = new KWTask { Message = "A task to be accomplished", Priority = 3, DateDue = Convert.ToDateTime("4/22/2017") };
+                KWTask kwt2 = new KWTask { Message = "Enjoy your day", Priority = 6, DateDue = Convert.ToDateTime("4/12/2017") };
 
-                //context.SaveChanges();
+                context.KWTasks.Add(kwt1);
+                context.KWTasks.Add(kwt2);
+
+                profile.Tasks.Add(kwt1);
+
+                context.SaveChanges();
             }
         }
     }

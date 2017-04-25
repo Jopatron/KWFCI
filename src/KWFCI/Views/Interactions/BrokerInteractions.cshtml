@@ -25,8 +25,7 @@
                     
                     <tr>
                         <td>@ViewBag.StaffEmail</td>
-                        <td style="width:380px;">
-
+                        <td style="min-width:380px;max-width:380px;">
                             <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID">
                                 @if (a.Notes != null && a.Notes != "")
                                 {
@@ -36,12 +35,11 @@
                                 {
                                     <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
                                 }
-
                             </a>
                         </td>
 
                         
-                        <td style="width:110px;" asp-for="@Model.NewInteraction.DateCreated">
+                        <td style="min-width:110px;max-width:110px;" asp-for="@Model.NewInteraction.DateCreated">
                             <!--Attribute necessary for datepicker to function: data-provide="datepicker"
                                 Attributes that server as configuration options: all attributes that start with data-date- -->
                             <input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" class="form-control interactionDate" data-id="@entityID"
@@ -59,21 +57,27 @@
                             }
                         </td>
 
-
-                        <td style="width:380px;">
-                            <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID">
-                                @if (a.NextStep != null && a.NextStep != "")
-
-                                {
-                                    @a.NextStep
-                                }
-                                else
-                                {
-                                    <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
-                                }
-                            </a>
+                        
+                        <td style="min-width:380px;max-width:380px;">
+                            <div class="col-xs-9">
+                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID">
+                                    @if (a.NextStep != null && a.NextStep != "")
+                                    {
+                                        @a.NextStep
+                                    }
+                                    else
+                                    {
+                                        <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
+                                    }
+                                </a>
+                            </div>
+                            <div class="col-xs-3">
+                                <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;" data-target="#newKWTask"><div>Add</div><div>Alert</div></button>
+                            </div>
                         </td>
-                        <td class="mw-170px">
+                        
+                        
+                        <td style="min-width:170px;max-width:170px;">
                             @ViewBag.BrokerName
                         </td>
                     </tr>
@@ -96,6 +100,7 @@
 
 @Html.ActionLink("New Interaction", "AddInteraction", "Interactions", new { BrokerID = Model.Broker.BrokerID })
 
+@Html.Partial("Modals/_AddKWTaskModal", Model)
 @Html.Partial("Modals/_EditInteractionNotesModal", Model)
 @Html.Partial("Modals/_EditInteractionNextStepModal", Model)
 <style>

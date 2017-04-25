@@ -16,22 +16,6 @@ namespace KWFCI.Migrations
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("KWFCI.Models.Alert", b =>
-                {
-                    b.Property<int>("AlertID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("AlertDate");
-
-                    b.Property<string>("Message");
-
-                    b.Property<int>("Priority");
-
-                    b.HasKey("AlertID");
-
-                    b.ToTable("Alerts");
-                });
-
             modelBuilder.Entity("KWFCI.Models.Broker", b =>
                 {
                     b.Property<int>("BrokerID")
@@ -71,11 +55,15 @@ namespace KWFCI.Migrations
 
                     b.Property<string>("Status");
 
+                    b.Property<int?>("TaskKWTaskID");
+
                     b.HasKey("InteractionID");
 
                     b.HasIndex("BrokerID");
 
                     b.HasIndex("StaffProfileID");
+
+                    b.HasIndex("TaskKWTaskID");
 
                     b.ToTable("Interactions");
                 });
@@ -85,17 +73,23 @@ namespace KWFCI.Migrations
                     b.Property<int>("KWTaskID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AlertID");
+                    b.Property<DateTime>("AlertDate");
 
                     b.Property<int?>("BrokerID");
 
-                    b.Property<string>("Description");
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime>("DateDue");
+
+                    b.Property<string>("Message");
+
+                    b.Property<int>("Priority");
 
                     b.Property<int?>("StaffProfileID");
 
-                    b.HasKey("KWTaskID");
+                    b.Property<string>("Type");
 
-                    b.HasIndex("AlertID");
+                    b.HasKey("KWTaskID");
 
                     b.HasIndex("BrokerID");
 
@@ -313,20 +307,20 @@ namespace KWFCI.Migrations
                     b.HasOne("KWFCI.Models.StaffProfile")
                         .WithMany("Interactions")
                         .HasForeignKey("StaffProfileID");
+
+                    b.HasOne("KWFCI.Models.KWTask", "Task")
+                        .WithMany()
+                        .HasForeignKey("TaskKWTaskID");
                 });
 
             modelBuilder.Entity("KWFCI.Models.KWTask", b =>
                 {
-                    b.HasOne("KWFCI.Models.Alert", "Alert")
-                        .WithMany()
-                        .HasForeignKey("AlertID");
-
                     b.HasOne("KWFCI.Models.Broker")
                         .WithMany("Requirements")
                         .HasForeignKey("BrokerID");
 
-                    b.HasOne("KWFCI.Models.StaffProfile", "StaffProfile")
-                        .WithMany()
+                    b.HasOne("KWFCI.Models.StaffProfile")
+                        .WithMany("Tasks")
                         .HasForeignKey("StaffProfileID");
                 });
 
