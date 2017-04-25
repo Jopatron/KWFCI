@@ -18,5 +18,10 @@ $(document).ready(function(){
         });
     });
 
+    $("#buttonSelector").click(function () {
+        $(this).button('loading');
+    });
+  
     $('.editTable').DataTable();
+
 });
