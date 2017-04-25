@@ -18,5 +18,5 @@ $(document).ready(function(){
         });
     });
 
-    $('#brokerTable1').DataTable();
+    $('.editTable').DataTable();
 });
