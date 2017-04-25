@@ -14,6 +14,7 @@
                     <th>Interactions</th>
                     <th>Email</th>
                     <th>Type</th>
+                    <th>Notifications</th>
                     <th>Archive</th>
 
 
@@ -40,6 +41,14 @@
 
                         <td>@b.Email</td>
                         <td>@b.Type</td>
+                        @if (b.EmailNotifications == true)
+                        {
+                            <td>Yes</td>
+                        }
+                        else
+                        {
+                            <td>No</td>
+                        }
                         <td>
                             <form asp-action="Archive" asp-route-id="@b.BrokerID" method="post">
                                 <button type="submit"
