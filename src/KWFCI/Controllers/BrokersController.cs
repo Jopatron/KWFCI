@@ -87,6 +87,8 @@ namespace KWFCI.Controllers
                 broker.FirstName = b.FirstName;
                 broker.LastName = b.LastName;
                 broker.Status = b.Status;
+                broker.EmailNotifications = b.EmailNotifications;
+                broker.Type = b.Type;
                 //broker.UserName = member.UserName;
 
                 int verify = brokerRepo.UpdateBroker(broker);
