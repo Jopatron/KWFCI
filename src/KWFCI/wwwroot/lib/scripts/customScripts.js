@@ -17,4 +17,8 @@ $(document).ready(function(){
             $(".submitButton").trigger("click");
         });
     });
+    $("#buttonSelector").click(function () {
+        $(this).button('loading');
+
+    });
 });

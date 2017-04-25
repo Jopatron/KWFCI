@@ -34,7 +34,12 @@
                         <label asp-for="Body">Body:</label>
                         <textarea asp-for="Body" class="form-control"></textarea><br />
 
-                        <button type="submit" class="btn btn-primary pull-right">Send</button>
+                        <button id="buttonSelector" 
+                                type="submit" 
+                                class="btn btn-primary pull-right"
+                                data-loading-text="<span class='glyphicon-left glyphicon glyphicon-refresh spinning'></span>... Sending ...">
+                        Send</button>
+
                     </div>
                 </form>
             </div>
