@@ -71,9 +71,18 @@
                                     }
                                 </a>
                             </div>
-                            <div class="col-xs-3">
-                                <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;" data-target="#newKWTask"><div>Add</div><div>Alert</div></button>
-                            </div>
+                            @if (a.Task == null)
+                            {
+                                <div class="col-xs-3">
+                                    <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#newKWTaskModal" data-id="@entityID"><div>Add</div><div>Alert</div></button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-xs-3">
+                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#editKWTaskModal" data-id="@entityID"><div>Edit</div><div>Alert</div></button>
+                                </div>
+                            }
                         </td>
                         
                         
@@ -100,6 +109,7 @@
 
 @Html.ActionLink("New Interaction", "AddInteraction", "Interactions", new { BrokerID = Model.Broker.BrokerID })
 
+@Html.Partial("Modals/_EditKWTaskModal", Model)
 @Html.Partial("Modals/_AddKWTaskModal", Model)
 @Html.Partial("Modals/_EditInteractionNotesModal", Model)
 @Html.Partial("Modals/_EditInteractionNextStepModal", Model)

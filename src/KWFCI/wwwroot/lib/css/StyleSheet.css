@@ -37,10 +37,12 @@
     padding-bottom:unset;
 }
 
-.modal-form button{
+.modal-form button, .modal-form .row{
     margin-top:10px;
 }
-
+.modal-form .row:first-child{
+    margin-top:unset;
+}
 .maxw-380px{
     max-width:380px;
 }
@@ -61,7 +63,7 @@
     font-weight: bold;
     vertical-align:middle;
 }
-.table .editTable a:hover{
+.table .editTable a:hover, .table .editTable a:active, .table .editTable a:focus{
     text-decoration: none;
 }
 

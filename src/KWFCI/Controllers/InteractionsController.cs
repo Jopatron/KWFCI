@@ -16,12 +16,14 @@ namespace KWFCI.Controllers
         private IInteractionsRepository intRepo;
         private IBrokerRepository brokerRepo;
         private IStaffProfileRepository staffRepo;
+        private IKWTaskRepository taskRepo;
 
-        public InteractionsController(IInteractionsRepository repo, IBrokerRepository repo2, IStaffProfileRepository repo3)
+        public InteractionsController(IInteractionsRepository repo, IBrokerRepository repo2, IStaffProfileRepository repo3, IKWTaskRepository repo4)
         {
             intRepo = repo;
             brokerRepo = repo2;
             staffRepo = repo3;
+            taskRepo = repo4;
         }
         
         [Route("Brokers")]
@@ -35,6 +37,7 @@ namespace KWFCI.Controllers
             vm.Interactions = allInteractions;
             vm.Broker = broker;
             vm.NewInteraction = new Interaction();
+            vm.Task = new KWTask();
             //TODO Ensure user is rerouted if not logged in
             return View(vm);
         }
@@ -93,11 +96,31 @@ namespace KWFCI.Controllers
                 if (iVM.Field == "Notes")
                     interaction.Notes = i.Notes;
                 else if (iVM.Field == "NextStep")
-                    interaction.NextStep = i.NextStep;
+                {
+                    if(iVM.Task != null)
+                    {
+                        KWTask task = new KWTask()
+                        {
+                            AlertDate = iVM.Task.AlertDate,
+                            DateDue = iVM.Task.DateDue,
+                            Message = iVM.Task.Message,
+                            Priority = iVM.Task.Priority,
+                            Type = iVM.Task.Type,
+                            DateCreated = iVM.Task.DateCreated
+                        };
+                        Helper.StaffProfileLoggedIn.Tasks.Add(task);
+                        interaction.Task = task;
+                        taskRepo.AddKWTask(task);
+
+                    }  
+                    else
+                        interaction.NextStep = i.NextStep;
+                }
+                    
                 else if (iVM.Field == "Date Created")
                     interaction.DateCreated = i.DateCreated;
                 
-                //interaction.Status = i.Status;
+                
 
                 int verify = intRepo.UpdateInteraction(interaction);
                 if (verify == 1)
