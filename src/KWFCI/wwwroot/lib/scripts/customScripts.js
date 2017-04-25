@@ -17,4 +17,6 @@ $(document).ready(function(){
             $(".submitButton").trigger("click");
         });
     });
+
+    $('#brokerTable1').DataTable();
 });
