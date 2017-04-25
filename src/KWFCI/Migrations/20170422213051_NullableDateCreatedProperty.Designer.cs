@@ -8,9 +8,10 @@ using KWFCI.Repositories;
 namespace KWFCI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170422213051_NullableDateCreatedProperty")]
+    partial class NullableDateCreatedProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -85,23 +86,15 @@ namespace KWFCI.Migrations
                     b.Property<int>("KWTaskID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AlertID");
-
                     b.Property<int?>("BrokerID");
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("StaffProfileID");
-
                     b.HasKey("KWTaskID");
-
-                    b.HasIndex("AlertID");
 
                     b.HasIndex("BrokerID");
 
-                    b.HasIndex("StaffProfileID");
-
-                    b.ToTable("KWTasks");
+                    b.ToTable("KWTask");
                 });
 
             modelBuilder.Entity("KWFCI.Models.Message", b =>
@@ -317,17 +310,9 @@ namespace KWFCI.Migrations
 
             modelBuilder.Entity("KWFCI.Models.KWTask", b =>
                 {
-                    b.HasOne("KWFCI.Models.Alert", "Alert")
-                        .WithMany()
-                        .HasForeignKey("AlertID");
-
                     b.HasOne("KWFCI.Models.Broker")
                         .WithMany("Requirements")
                         .HasForeignKey("BrokerID");
-
-                    b.HasOne("KWFCI.Models.StaffProfile", "StaffProfile")
-                        .WithMany()
-                        .HasForeignKey("StaffProfileID");
                 });
 
             modelBuilder.Entity("KWFCI.Models.Message", b =>

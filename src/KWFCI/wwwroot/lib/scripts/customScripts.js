@@ -4,13 +4,17 @@ $(document).ready(function(){
         preventDefault();
     });
 
-    $("#interactionTable").click(function (event) {
+    $(".editTable").click(function (event) {
         var target = $(event.target);
-
-        //console.log(target);
+        
         var entityID = target.attr("data-id");
         
         $(".addID").attr("value", entityID);
 
+
+        $(".editTable input").on("change", function () {
+            $(".addDate").attr("value", $(this).val());
+            $(".submitButton").trigger("click");
+        });
     });
 });
