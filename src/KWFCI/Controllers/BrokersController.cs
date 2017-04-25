@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using KWFCI.Repositories;
 using KWFCI.Models;
+using KWFCI.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 
 namespace KWFCI.Controllers
@@ -23,8 +24,10 @@ namespace KWFCI.Controllers
         
         public ViewResult AllBrokers()
         {
-            var allBrokers = brokerRepo.GetAllBrokers().ToList();
-            return View(allBrokers);
+            var vm = new BrokerVM();
+            vm.Brokers = brokerRepo.GetAllBrokers().ToList();
+            vm.NewBroker = new Broker();
+            return View(vm);
         }
 
         [HttpPost]
@@ -65,7 +68,7 @@ namespace KWFCI.Controllers
             Broker broker = brokerRepo.GetBrokerByID(id);
             if (broker != null)
             {
-                return View(broker);
+                return PartialView(broker);
             }
             else
             {
