@@ -32,7 +32,7 @@ namespace KWFCI.Controllers
             var broker = brokerRepo.GetBrokerByID(BrokerID);
             ViewBag.BrokerName = broker.FirstName + " " + broker.LastName;
             ViewBag.StaffEmail = Helper.StaffProfileLoggedIn.Email;
-            var allInteractions = broker.Interactions;
+            var allInteractions = broker.Interactions; //This is where the issue seems to present
             var vm = new InteractionVM();
             vm.Interactions = allInteractions;
             vm.Broker = broker;
@@ -105,13 +105,19 @@ namespace KWFCI.Controllers
                             DateDue = iVM.Task.DateDue,
                             Message = iVM.Task.Message,
                             Priority = iVM.Task.Priority,
-                            Type = iVM.Task.Type,
                             DateCreated = iVM.Task.DateCreated
+
                         };
-                        Helper.StaffProfileLoggedIn.Tasks.Add(task);
+
+                        if (task.AlertDate == null)
+                            task.Type = "Task";
+                        else
+                            task.Type = "Alert";
+
+                        var profile = staffRepo.GetStaffProfileByFullName(Helper.StaffProfileLoggedIn.FirstName, Helper.StaffProfileLoggedIn.LastName);
+                        profile.Tasks.Add(task);
                         interaction.Task = task;
                         taskRepo.AddKWTask(task);
-
                     }  
                     else
                         interaction.NextStep = i.NextStep;
@@ -121,8 +127,8 @@ namespace KWFCI.Controllers
                     interaction.DateCreated = i.DateCreated;
                 
                 
-
-                int verify = intRepo.UpdateInteraction(interaction);
+                
+                int verify = intRepo.UpdateInteraction(interaction); //Repository and broker.Interactions reflect proper values here
                 if (verify == 1)
                 {
                     //TODO add feedback of success

@@ -29,7 +29,7 @@ $(document).ready(function () {
         }
         else if (event.target.nodeName == "I")
         {
-            var text = $(".next-step").html().replace(/\n/g, "");
+            var text = target.closest('td').children('.col-xs-10').children('a').html().replace(/\n/g, "");
             $('#newKWTaskModal textarea').val(text);
             
         }

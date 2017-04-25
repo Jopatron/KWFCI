@@ -9,7 +9,7 @@ namespace KWFCI.Models
     {
         public int KWTaskID { get; set; }
         public DateTime? AlertDate { get; set; }
-        public int Priority { get; set; } //1-6, 6 = Critical
+        public int Priority { get; set; } //1-5, 5 = Critical
         public string Message { get; set; }
         public DateTime? DateDue { get; set; }
         public DateTime? DateCreated { get; set; }
@@ -18,7 +18,7 @@ namespace KWFCI.Models
         public KWTask()
         {
             DateCreated = DateTime.Now;
-            Type = "Task";
+            
         }
     }
 }
