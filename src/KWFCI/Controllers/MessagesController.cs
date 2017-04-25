@@ -116,48 +116,26 @@ namespace KWFCI.Controllers
             }
             if (brokers != null)
             {
+                var email = new MimeMessage();
+                email.From.Add(new MailboxAddress("KWFCI", "do-not-reply@kw.com"));
+                email.Subject = message.Subject;
+                email.Body = new TextPart("plain")
+                {
+                    Text = message.Body
+                };
                 foreach (var b in brokers)
                 {
-                    var email = new MimeMessage();
-                    email.From.Add(new MailboxAddress("KWFCI", "do-not-reply@kw.com"));
+
                     email.To.Add(new MailboxAddress(b.FirstName + " " + b.LastName, b.Email));
-                    email.Subject = message.Subject;
 
-                    email.Body = new TextPart("plain")
-                    {
-                        Text = message.Body
-                    };
-
-                    using (var client = new SmtpClient())
-                    {
-                        client.ServerCertificateValidationCallback = (s, c, h, e) => true;
-
-                        client.Connect("smtp.gmail.com", 587, false);
-
-                        client.AuthenticationMechanisms.Remove("XOAUTH2");
-                        client.Authenticate("kwfamilycheckin", "Fancy123!");
-
-                        client.Send(email);
-                        client.Disconnect(true);
-                    }
                 }
-            }
 
-            if (staff != null)
-            {
-
-                foreach (var st in staff)
+                if (staff != null)
                 {
-                    var email = new MimeMessage();
-                    email.From.Add(new MailboxAddress("KWFCI", "do-not-reply@kw.com"));
-                    email.To.Add(new MailboxAddress(st.FirstName + " " + st.LastName, st.Email));
-                    email.Subject = message.Subject;
+                    foreach (var st in staff)
+                        email.To.Add(new MailboxAddress(st.FirstName + " " + st.LastName, st.Email));
 
-                    email.Body = new TextPart("plain")
-                    {
-                        Text = message.Body
-                    };
-
+                }
                     using (var client = new SmtpClient())
                     {
                         client.ServerCertificateValidationCallback = (s, c, h, e) => true;
@@ -171,7 +149,7 @@ namespace KWFCI.Controllers
                         client.Disconnect(true);
                     }
                 }
-            }
+            
         
 
             return RedirectToAction("AllMessages", "Messages");
