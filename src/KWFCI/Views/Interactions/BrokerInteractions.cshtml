@@ -24,18 +24,20 @@
                     Model.NewInteraction = a;
                     
                     <tr>
-                        <td>@ViewBag.StaffEmail</td>
+                        <td style="text-align:center;width:200px;">@ViewBag.StaffEmail</td>
                         <td style="min-width:380px;max-width:380px;">
-                            <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID">
-                                @if (a.Notes != null && a.Notes != "")
-                                {
-                                    @a.Notes
-                                }
-                                else
-                                {
-                                    <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
-                                }
-                            </a>
+                            <div class="col-xs-12">
+                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID">
+                                    @if (a.Notes != null && a.Notes != "")
+                                    {
+                                        @a.Notes
+                                    }
+                                    else
+                                    {
+                                        <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
+                                    }
+                                </a>
+                            </div>
                         </td>
 
                         
@@ -60,7 +62,7 @@
                         
                         <td style="min-width:380px;max-width:380px;">
                             <div class="col-xs-9">
-                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID">
+                                <a href="#" class="inactive next-step" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID">
                                     @if (a.NextStep != null && a.NextStep != "")
                                     {
                                         @a.NextStep
@@ -74,19 +76,19 @@
                             @if (a.Task == null)
                             {
                                 <div class="col-xs-3">
-                                    <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#newKWTaskModal" data-id="@entityID"><div>Add</div><div>Alert</div></button>
+                                    <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#newKWTaskModal" data-id="@entityID"><div><i class="fa fa-bell-o" aria-hidden="true"></i></div></button>
                                 </div>
                             }
                             else
                             {
                                 <div class="col-xs-3">
-                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#editKWTaskModal" data-id="@entityID"><div>Edit</div><div>Alert</div></button>
+                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#editKWTaskModal" data-id="@entityID"><div><i class="fa fa-bell-o" aria-hidden="true"></i></div></button>
                                 </div>
                             }
                         </td>
                         
                         
-                        <td style="min-width:170px;max-width:170px;">
+                        <td style="width:200px;text-align:center;">
                             @ViewBag.BrokerName
                         </td>
                     </tr>

@@ -1,7 +1,7 @@
 ﻿@model KWFCI.Models.ViewModels.InteractionVM
 
 
-<div class="modal fade" id="newKWTaskModal" tabindex="-1" role="dialog" aria-labelledby="newKWTaskModal">
+<div class="modal fade" id="editKWTaskModal" tabindex="-1" role="dialog" aria-labelledby="editKWTaskModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -19,29 +19,13 @@
                         </div>
 
                         <div class="row">
-                            @{
-                                string dateDue = "";
-                                if (Model.Task.AlertDate != null)
-                                {
-                                    string[] splitDate = Model.Task.DateDue.ToString().Split(' ');
-                                    dateDue = splitDate[0];
-                                }
-                            }
                             <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.Task.DateDue">Date Due:</label></div>
-                            <div class="col-xs-5"><input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" id="taskDateDue" asp-for="@Model.Task.DateDue" value="@dateDue" class="form-control" /></div>
+                            <div class="col-xs-5"><input id="taskDateDue" asp-for="@Model.Task.DateDue" class="form-control" /></div>
                         </div>
 
                         <div class="row">
-                            @{
-                                string alertDate = "";
-                                if (Model.Task.AlertDate != null)
-                                {
-                                    string[] splitAlertDate = Model.Task.AlertDate.ToString().Split(' ');
-                                    alertDate = splitAlertDate[0];
-                                }
-                            }
                             <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.Task.AlertDate">Alert Date:</label></div>
-                            <div class="col-xs-5"><input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" asp-for="@Model.Task.AlertDate" value="@alertDate" class="form-control" /></div>
+                            <div class="col-xs-5"><input asp-for="@Model.Task.AlertDate" class="form-control" /></div>
                         </div>
 
                         <div class="row">

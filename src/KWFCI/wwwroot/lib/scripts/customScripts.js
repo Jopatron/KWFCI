@@ -15,13 +15,23 @@ $(document).ready(function () {
         var target = $(event.target);
         
         var entityID = target.attr("data-id");
-        
         $(".addID").attr("value", entityID);
         
         if(target.attr("data-target") == "#editInteractionNextStep")
         {
             var text = target.html().replace(/\n/g, "");
             $('#editInteractionNextStep textarea').val(text);
+        }
+        else if (target.attr("data-target") == "#editInteractionNotes")
+        {
+            var text = target.html().replace(/\n/g, "");
+            $('#editInteractionNotes textarea').val(text);
+        }
+        else if (event.target.nodeName == "I")
+        {
+            var text = $(".next-step").html().replace(/\n/g, "");
+            $('#newKWTaskModal textarea').val(text);
+            
         }
 
         $(".editTable .interactionDate").on("change", function () {
