@@ -1,0 +1,50 @@
+﻿@model KWFCI.Models.ViewModels.AdminInteractionVM
+
+@{
+    ViewBag.Title = "AdminInteractions";
+}
+
+<div>
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Notes</th>
+                    <th>Date</th>
+                    <th>Next Step</th>
+                    <th>Broker</th>
+                </tr>
+            </thead>
+            <tbody class="editTable">
+                @foreach (Interaction a in Model.Interactions)
+                {
+                    var entityID = a.InteractionID;
+
+                    <tr>
+                        <td style="width:380px;">
+                            @a.Notes
+                        </td>
+
+                        <td style="width:110px;">
+                            @a.DateCreated
+                        </td>
+
+                        <td style="width:380px;">
+                            @a.NextStep
+                        </td>
+
+                        <td style="width:380px;">
+                            @a.Status
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    table, tr, th {
+        border: 1px solid black;
+    }
+</style>
