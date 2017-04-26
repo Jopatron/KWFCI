@@ -20,7 +20,7 @@ namespace KWFCI.Repositories
 
             string firstName = "Bob";
             string lastName = "Loblaw";
-            string email = "bloblaw@gmail.com";
+            string email = "bloblaw@fake.com";
             bool notify = true;
             string role = "Staff";
             string password = "Secret123!";
@@ -62,7 +62,7 @@ namespace KWFCI.Repositories
                 // Second identity + person, to test Authorization
                 firstName = "Liz";
                 lastName = "Lemon";
-                email = "lizlem@gmail.com";
+                email = "lizlem@fake.com";
                 notify = true;
                 role = "Admin";
                 password = "Secret234!";
@@ -104,22 +104,37 @@ namespace KWFCI.Repositories
             if (!context.Brokers.Any())
             {
                 //Not specifying a status should default to active
-                Broker broker = new Broker { FirstName = "Lonny", LastName = "Jenkins", Email = "ljenkins@kw.com", EmailNotifications = true, Type = "New Broker" };
+                Broker broker = new Broker {
+                    FirstName = "Lonny",
+                    LastName = "Jenkins",
+                    Email = "ljenkins@fake.com",
+                    EmailNotifications = true,
+                    Type = "New Broker" };
 
                 context.Brokers.Add(broker);
                 //Not specifying a status shoudl default to active
-                broker = new Broker { FirstName = "Samantha", LastName = "Coldwater", Email = "scoldwater@kw.com", EmailNotifications = true, Type = "In Transition" };
+                broker = new Broker {
+                    FirstName = "Samantha",
+                    LastName = "Coldwater",
+                    Email = "scoldwater@fake.com",
+                    EmailNotifications = true,
+                    Type = "In Transition" };
 
                 context.Brokers.Add(broker);
 
-                broker = new Broker { FirstName = "Brooke", LastName = "Schelling", Email = "bschelling@kw.com", EmailNotifications = true, Type = "New Broker", Status = "Inactive" };
+                broker = new Broker { FirstName = "Brooke",
+                    LastName = "Schelling",
+                    Email = "bschelling@fake.com",
+                    EmailNotifications = true,
+                    Type = "New Broker",
+                    Status = "Inactive" };
 
                 context.Brokers.Add(broker);
 
                 broker = new Broker {
                     FirstName = "Jack",
                     LastName = "Johnson",
-                    Email = "jjohnson@kw.com",
+                    Email = "jjohnson@fake.com",
                     EmailNotifications = false,
                     Type = "In Transition",
 
@@ -131,7 +146,7 @@ namespace KWFCI.Repositories
                 {
                     FirstName = "Janet",
                     LastName = "Schwimmer",
-                    Email = "jschwimmer@kw.com",
+                    Email = "jschwimmer@fake.com",
                     EmailNotifications = true,
                     Type = "In Transition",
 
@@ -143,7 +158,7 @@ namespace KWFCI.Repositories
                 {
                     FirstName = "Wyatt",
                     LastName = "Earp",
-                    Email = "wearp@kw.com",
+                    Email = "wearp@fake.com",
                     EmailNotifications = false,
                     Type = "In Transition",
 
@@ -155,7 +170,7 @@ namespace KWFCI.Repositories
                 {
                     FirstName = "Richard",
                     LastName = "Kimble",
-                    Email = "rkimble@kw.com",
+                    Email = "rkimble@fake.com",
                     EmailNotifications = false,
                     Type = "New Broker",
 
@@ -167,7 +182,7 @@ namespace KWFCI.Repositories
                 {
                     FirstName = "Ty",
                     LastName = "Burrell",
-                    Email = "tburrell@kw.com",
+                    Email = "tburrell@fake.com",
                     EmailNotifications = true,
                     Type = "New Broker",
 
