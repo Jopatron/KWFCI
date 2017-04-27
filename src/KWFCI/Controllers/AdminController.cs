@@ -21,6 +21,21 @@ namespace KWFCI.Controllers
             staffRepo = repo2;
         }
 
+        [Route("Home")]
+        public IActionResult AdminHome()
+        {
+            return View();
+        }
+
+        [Route("Staff")]
+        public IActionResult AdminStaff()
+        {
+            var vm = new AdminStaffVM();
+            vm.Staff = staffRepo.GetAllStaffProfiles().ToList();
+            //TODO Ensure user is rerouted if not logged in
+            return View(vm);
+        }
+
         [Route("Interactions")]
         public IActionResult AdminInteractions()
         {
@@ -31,7 +46,7 @@ namespace KWFCI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(int id)
+        public IActionResult InteractionDelete(int id)
         {
             Interaction i = intRepo.GetInteractionById(id);
             if (i != null)
@@ -43,6 +58,12 @@ namespace KWFCI.Controllers
                 ModelState.AddModelError("", "Interaction Not Found");
             }
             return RedirectToAction("Interactions");
+        }
+
+        [HttpPost]
+        public IActionResult StaffDelete(int id)
+        {
+            return RedirectToAction("Staff");
         }
     }
 }

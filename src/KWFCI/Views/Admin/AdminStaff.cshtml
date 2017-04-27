@@ -1,0 +1,52 @@
+﻿@model KWFCI.Models.ViewModels.AdminStaffVM
+
+@{
+    ViewBag.Title = "AdminStaff";
+}
+
+<div>
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (StaffProfile sp in Model.Staff)
+                {
+                    <tr>
+                        <td>
+                            @sp.User.UserName
+                        </td>
+
+                        <td>
+                            @sp.User.Email
+                        </td>
+
+                        <td>
+                            @sp.Role
+                        </td>
+
+                        <td>
+                            <form asp-action="StaffDelete" asp-route-id="@sp.StaffProfileID" method="post">
+                                <button type="submit"
+                                        class="btn btn-sm btn-danger center-block">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    table, tr, th {
+        border: 1px solid black;
+    }
+</style>
