@@ -49,6 +49,7 @@ namespace KWFCI.Controllers
         }
 
         [HttpPost]
+        [Route("InteractionDelete")]
         public IActionResult InteractionDelete(int id)
         {
             Interaction i = intRepo.GetInteractionById(id);
@@ -64,9 +65,21 @@ namespace KWFCI.Controllers
         }
 
         [HttpPost]
+        [Route("StaffDelete")]
         public IActionResult StaffDelete(int id)
         {
-            return RedirectToAction("Staff");
+            StaffProfile profile = staffRepo.GetStaffProfileByID(id);
+            if (profile != null)
+            {
+                staffRepo.DeleteStaff(profile);
+                return RedirectToAction("Interactions");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Alert Not Found");
+            }
+            return RedirectToAction("AllAlerts");
+            return RedirectToAction("Home");
         }
 
         [Route("Add")]
