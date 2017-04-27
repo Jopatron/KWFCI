@@ -34,5 +34,11 @@ namespace KWFCI.Repositories
                     where sp.FirstName + sp.LastName == firstName + lastName
                     select sp).Include(sp => sp.Interactions).Include(sp => sp.User).FirstOrDefault();
         }
+
+        public int AddStaff(StaffProfile staff)
+        {
+            context.StaffProfiles.Add(staff);
+            return context.SaveChanges();
+        }
     }
 }

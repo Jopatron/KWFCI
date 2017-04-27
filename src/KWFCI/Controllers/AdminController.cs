@@ -65,5 +65,20 @@ namespace KWFCI.Controllers
         {
             return RedirectToAction("Staff");
         }
+
+        [Route("Add")]
+        [HttpPost]
+        public IActionResult AddStaff(StaffProfile sp)
+        {
+            var staff = new StaffProfile
+            {
+                Priority = a.Priority,
+                AlertDate = a.AlertDate,
+                Message = a.Message
+            };
+
+            staffRepo.AddStaff(staff);
+            return RedirectToAction("Home");
+        }
     }
 }

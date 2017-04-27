@@ -7,5 +7,6 @@ namespace KWFCI.Repositories
     {
         IQueryable<StaffProfile> GetAllStaffProfiles(bool getNotifications = false);
         StaffProfile GetStaffProfileByFullName(string firstName, string lastName);
+        int AddStaff(StaffProfile staff);
     }
 }

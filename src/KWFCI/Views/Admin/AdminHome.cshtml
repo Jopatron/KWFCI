@@ -2,7 +2,7 @@
     ViewBag.Title = "AdminHome";
 }
 
-<button class="btn btn-sm btn-danger center-block"><span>Add Staff</span></button>
+@Html.Partial("Modals/_AdminAddStaff", Model)
 
 <form asp-action="AdminStaff" method="post">
     <button type="submit"
