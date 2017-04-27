@@ -44,7 +44,6 @@ namespace KWFCI.Repositories
                             await userManager.AddToRoleAsync(user, role);
                         }
                     }
-
                 }
 
                 StaffProfile profile = new StaffProfile

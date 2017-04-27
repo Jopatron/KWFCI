@@ -1,0 +1,23 @@
+﻿@model KWFCI.Models.ViewModels.AdminStaffVM
+
+@{
+    ViewBag.Title = "AdminHome";
+}
+
+@Html.Partial("Modals/_AdminAddStaff", Model)
+
+<form asp-action="AdminStaff" method="post">
+    <button type="submit"
+            class="btn btn-sm btn-danger center-block">
+        <span>Staff</span>
+    </button>
+</form>
+
+<form asp-action="AdminInteractions" method="post">
+    <button type="submit"
+            class="btn btn-sm btn-danger center-block">
+        <span>Interactions</span>
+    </button>
+</form>
+
+<button class="btn btn-sm btn-danger center-block"><span>Tasks</span></button>
