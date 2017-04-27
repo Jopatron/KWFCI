@@ -9,7 +9,8 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                     <th>Email</th>
                     <th>Role</th>
                 </tr>
@@ -19,11 +20,15 @@
                 {
                     <tr>
                         <td>
-                            @sp.User.UserName
+                            @sp.FirstName
                         </td>
 
                         <td>
-                            @sp.User.Email
+                            @sp.LastName
+                        </td>
+
+                        <td>
+                            @sp.Email
                         </td>
 
                         <td>
