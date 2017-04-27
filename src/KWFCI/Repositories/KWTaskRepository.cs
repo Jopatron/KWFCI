@@ -31,9 +31,16 @@ namespace KWFCI.Repositories
             return context.SaveChanges();
         }
 
+        public IQueryable<KWTask> GetAllTasksByPriority(int priority)
+        {
+            return (from kwt in context.KWTasks
+                    where kwt.Priority == priority
+                    select kwt);
+        }
+
         public IQueryable<KWTask> GetAllKWTasks()
         {
-            return context.KWTasks.Include(kwt => kwt.StaffProfile).Include(kwt => kwt.Alert).AsQueryable();
+            return context.KWTasks.AsQueryable();
         }
 
         public KWTask GetKWTaskByID(int id)

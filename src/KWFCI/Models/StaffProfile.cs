@@ -8,10 +8,12 @@ namespace KWFCI.Models
         public string Role { get; set; }
         public int StaffProfileID { get; set; }
         public List<Interaction> Interactions { get; set; }
+        public List<KWTask> Tasks { get; set; }
 
         public StaffProfile()
         {
             Interactions = new List<Interaction>();
+            Tasks = new List<KWTask>();
         }
     }
 }
