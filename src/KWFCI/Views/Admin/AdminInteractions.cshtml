@@ -1,0 +1,65 @@
+﻿@model KWFCI.Models.ViewModels.AdminInteractionVM
+
+@{
+    ViewBag.Title = "AdminInteractions";
+}
+
+<div>
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Staff</th>
+                    <th>Notes</th>
+                    <th>Date</th>
+                    <th>Next Step</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (StaffProfile sp in Model.Staff)
+                {
+                    foreach (Interaction i in sp.Interactions)
+                    {
+                        <tr>
+                            <td>
+                                @sp.LastName
+                            </td>
+
+                            <td>
+                                @i.Notes
+                            </td>
+
+                            <td>
+                                @i.DateCreated
+                            </td>
+
+                            <td>
+                                @i.NextStep
+                            </td>
+
+                            <td>
+                                @i.Status
+                            </td>
+
+                            <td>
+                                <form asp-action="Delete" asp-route-id="@i.InteractionID" method="post">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger center-block">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    table, tr, th {
+        border: 1px solid black;
+    }
+</style>
