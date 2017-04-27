@@ -24,27 +24,27 @@
                     Model.NewInteraction = a;
                     
                     <tr>
-                        <td>@ViewBag.StaffEmail</td>
-                        <td style="width:380px;">
-
-                            <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID">
-                                @if (a.Notes != null && a.Notes != "")
-                                {
-                                    @a.Notes
-                                }
-                                else
-                                {
-                                    <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
-                                }
-
-                            </a>
+                        <td style="text-align:center;width:200px;">@ViewBag.StaffEmail</td>
+                        <td style="min-width:380px;max-width:380px;">
+                            <div class="col-xs-12">
+                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID">
+                                    @if (a.Notes != null && a.Notes != "")
+                                    {
+                                        @a.Notes
+                                    }
+                                    else
+                                    {
+                                        <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
+                                    }
+                                </a>
+                            </div>
                         </td>
 
                         
-                        <td style="width:110px;" asp-for="@Model.NewInteraction.DateCreated">
+                        <td style="min-width:110px;max-width:110px;" asp-for="@Model.NewInteraction.DateCreated">
                             <!--Attribute necessary for datepicker to function: data-provide="datepicker"
                                 Attributes that server as configuration options: all attributes that start with data-date- -->
-                            <input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" class="form-control" data-id="@entityID"
+                            <input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" class="form-control interactionDate" data-id="@entityID"
                             @if (a.DateCreated != null)
                             {
                                 //Remove the time from the display
@@ -59,21 +59,36 @@
                             }
                         </td>
 
-
-                        <td style="width:380px;">
-                            <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID">
-                                @if (a.NextStep != null && a.NextStep != "")
-
-                                {
-                                    @a.NextStep
-                                }
-                                else
-                                {
-                                    <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
-                                }
-                            </a>
+                        
+                        <td style="min-width:380px;max-width:380px;">
+                            <div class="col-xs-10">
+                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID">
+                                    @if (a.NextStep != null && a.NextStep != "")
+                                    {
+                                        @a.NextStep
+                                    }
+                                    else
+                                    {
+                                        <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
+                                    }
+                                </a>
+                            </div>
+                            @if (a.TaskForeignKey == null)
+                            {
+                                <div class="col-xs-2">
+                                    <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#newKWTaskModal" data-id="@entityID"><div><i class="fa fa-bell-o" aria-hidden="true"></i></div></button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-xs-2">
+                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#editKWTaskModal" data-id="@entityID"><div><i class="fa fa-bell-o" aria-hidden="true"></i></div></button>
+                                </div>
+                            }
                         </td>
-                        <td class="mw-170px">
+                        
+                        
+                        <td style="width:200px;text-align:center;">
                             @ViewBag.BrokerName
                         </td>
                     </tr>
@@ -96,6 +111,8 @@
 
 @Html.ActionLink("New Interaction", "AddInteraction", "Interactions", new { BrokerID = Model.Broker.BrokerID })
 
+@Html.Partial("Modals/_EditKWTaskModal", Model)
+@Html.Partial("Modals/_AddKWTaskModal", Model)
 @Html.Partial("Modals/_EditInteractionNotesModal", Model)
 @Html.Partial("Modals/_EditInteractionNextStepModal", Model)
 <style>

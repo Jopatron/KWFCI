@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace KWFCI.Controllers
 {
     [Authorize(Roles = "Staff")]
-    [Route("KWTasks")]
+    [Route("Tasks")]
     public class KWTasksController : Controller
     {
         private IKWTaskRepository kwtRepo;
@@ -35,9 +35,11 @@ namespace KWFCI.Controllers
         {
             var kwtask = new KWTask
             {
-                Description = kwt.Description
-                //TODO: enable alert and staffprofile to be added
-
+                Message = kwt.Message,
+                AlertDate = kwt.AlertDate,
+                DateCreated = kwt.DateCreated,
+                DateDue = kwt.DateDue,
+                Priority = kwt.Priority
             };
 
             kwtRepo.AddKWTask(kwtask);
@@ -82,9 +84,11 @@ namespace KWFCI.Controllers
             if (kwt != null)
             {
                 KWTask kwtask = kwtRepo.GetKWTaskByID(kwt.KWTaskID);
-                kwtask.Description = kwt.Description;
-                kwtask.StaffProfile = kwt.StaffProfile;
-                kwtask.Alert = kwt.Alert;
+                kwtask.Message = kwt.Message;
+                kwtask.AlertDate = kwt.AlertDate;
+                //kwtask.DateCreated = kwt.DateCreated;
+                kwtask.DateDue = kwt.DateDue;
+                kwtask.Priority = kwt.Priority;
 
                 int verify = kwtRepo.UpdateKWTask(kwtask);
                 if (verify == 1)

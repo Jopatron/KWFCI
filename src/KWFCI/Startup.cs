@@ -43,7 +43,6 @@ namespace KWFCI
 
             services.AddTransient<IBrokerRepository, BrokerRepository>();
             services.AddTransient<IStaffProfileRepository, StaffProfileRepository>();
-            services.AddTransient<IAlertRepository, AlertRepository>();
             services.AddTransient<IMessageRepository, MessageRepository>();
             services.AddTransient<IInteractionsRepository, InteractionRepository>();
             services.AddTransient<IKWTaskRepository, KWTaskRepository>();           

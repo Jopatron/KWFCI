@@ -16,12 +16,14 @@ namespace KWFCI.Controllers
         private IInteractionsRepository intRepo;
         private IBrokerRepository brokerRepo;
         private IStaffProfileRepository staffRepo;
+        private IKWTaskRepository taskRepo;
 
-        public InteractionsController(IInteractionsRepository repo, IBrokerRepository repo2, IStaffProfileRepository repo3)
+        public InteractionsController(IInteractionsRepository repo, IBrokerRepository repo2, IStaffProfileRepository repo3, IKWTaskRepository repo4)
         {
             intRepo = repo;
             brokerRepo = repo2;
             staffRepo = repo3;
+            taskRepo = repo4;
         }
         
         [Route("Brokers")]
@@ -30,11 +32,21 @@ namespace KWFCI.Controllers
             var broker = brokerRepo.GetBrokerByID(BrokerID);
             ViewBag.BrokerName = broker.FirstName + " " + broker.LastName;
             ViewBag.StaffEmail = Helper.StaffProfileLoggedIn.Email;
-            var allInteractions = broker.Interactions;
+            var allInteractions = broker.Interactions; //This is where the issue seems to present
             var vm = new InteractionVM();
             vm.Interactions = allInteractions;
             vm.Broker = broker;
             vm.NewInteraction = new Interaction();
+            vm.Task = new KWTask();
+
+
+            List<KWTask> tasks = new List<KWTask>();
+            foreach(Interaction i in broker.Interactions)
+            {
+                if(i.TaskForeignKey != null)
+                    tasks.Add(taskRepo.GetKWTaskByID((int)i.TaskForeignKey));
+            }
+            vm.Tasks = tasks;
             //TODO Ensure user is rerouted if not logged in
             return View(vm);
         }
@@ -93,13 +105,39 @@ namespace KWFCI.Controllers
                 if (iVM.Field == "Notes")
                     interaction.Notes = i.Notes;
                 else if (iVM.Field == "NextStep")
-                    interaction.NextStep = i.NextStep;
+                {
+                    if(iVM.Task != null)
+                    {
+                        KWTask task = new KWTask()
+                        {
+                            AlertDate = iVM.Task.AlertDate,
+                            DateDue = iVM.Task.DateDue,
+                            Message = iVM.Task.Message,
+                            Priority = iVM.Task.Priority,
+                            DateCreated = iVM.Task.DateCreated
+
+                        };
+                        if (task.AlertDate == null)
+                            task.Type = "Task";
+                        else
+                            task.Type = "Alert";
+
+                        var profile = staffRepo.GetStaffProfileByFullName(Helper.StaffProfileLoggedIn.FirstName, Helper.StaffProfileLoggedIn.LastName);
+                        profile.Tasks.Add(task);
+                        taskRepo.AddKWTask(task);
+                        interaction.Task = task;
+                        
+                    }  
+                    else
+                        interaction.NextStep = i.NextStep;
+                }
+                    
                 else if (iVM.Field == "Date Created")
                     interaction.DateCreated = i.DateCreated;
                 
-                //interaction.Status = i.Status;
-
-                int verify = intRepo.UpdateInteraction(interaction);
+                
+                
+                int verify = intRepo.UpdateInteraction(interaction); //Repository and broker.Interactions reflect proper values here
                 if (verify == 1)
                 {
                     //TODO add feedback of success

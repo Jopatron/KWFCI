@@ -30,22 +30,17 @@ namespace KWFCI.Repositories
 
         public IQueryable<Interaction> GetAllInteractions()
         {
-            return context.Interactions.Where(i => i.Status == "Active").AsQueryable();
+            return context.Interactions.Where(i => i.Status == "Active").Include(i => i.Task).AsQueryable();
         }
 
         public Interaction GetInteractionById(int id)
         {
             return (from i in context.Interactions
                     where i.InteractionID == id
-                    select i).FirstOrDefault<Interaction>();
+                    select i).Include(i => i.Task).FirstOrDefault<Interaction>();
         }
 
-        //public IQueryable<Interaction> GetInteractionsByBroker(Broker broker)
-        //{
-        //    return (from i in context.Interactions
-        //            where i.Broker.BrokerID == broker.BrokerID
-        //            select i);
-        //}
+        
         public int ChangeStatus(Interaction interaction, string status)
         {
             interaction.Status = status;
