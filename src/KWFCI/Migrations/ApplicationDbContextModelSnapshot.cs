@@ -55,7 +55,7 @@ namespace KWFCI.Migrations
 
                     b.Property<string>("Status");
 
-                    b.Property<int?>("TaskKWTaskID");
+                    b.Property<int?>("TaskForeignKey");
 
                     b.HasKey("InteractionID");
 
@@ -63,7 +63,8 @@ namespace KWFCI.Migrations
 
                     b.HasIndex("StaffProfileID");
 
-                    b.HasIndex("TaskKWTaskID");
+                    b.HasIndex("TaskForeignKey")
+                        .IsUnique();
 
                     b.ToTable("Interactions");
                 });
@@ -309,8 +310,8 @@ namespace KWFCI.Migrations
                         .HasForeignKey("StaffProfileID");
 
                     b.HasOne("KWFCI.Models.KWTask", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskKWTaskID");
+                        .WithOne("Interaction")
+                        .HasForeignKey("KWFCI.Models.Interaction", "TaskForeignKey");
                 });
 
             modelBuilder.Entity("KWFCI.Models.KWTask", b =>

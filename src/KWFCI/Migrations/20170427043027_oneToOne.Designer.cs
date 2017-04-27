@@ -8,8 +8,8 @@ using KWFCI.Repositories;
 namespace KWFCI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170424185610_initial")]
-    partial class initial
+    [Migration("20170427043027_oneToOne")]
+    partial class oneToOne
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,7 +56,7 @@ namespace KWFCI.Migrations
 
                     b.Property<string>("Status");
 
-                    b.Property<int?>("TaskKWTaskID");
+                    b.Property<int?>("TaskForeignKey");
 
                     b.HasKey("InteractionID");
 
@@ -64,7 +64,8 @@ namespace KWFCI.Migrations
 
                     b.HasIndex("StaffProfileID");
 
-                    b.HasIndex("TaskKWTaskID");
+                    b.HasIndex("TaskForeignKey")
+                        .IsUnique();
 
                     b.ToTable("Interactions");
                 });
@@ -74,13 +75,13 @@ namespace KWFCI.Migrations
                     b.Property<int>("KWTaskID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("AlertDate");
+                    b.Property<DateTime?>("AlertDate");
 
                     b.Property<int?>("BrokerID");
 
-                    b.Property<DateTime>("DateCreated");
+                    b.Property<DateTime?>("DateCreated");
 
-                    b.Property<DateTime>("DateDue");
+                    b.Property<DateTime?>("DateDue");
 
                     b.Property<string>("Message");
 
@@ -310,8 +311,8 @@ namespace KWFCI.Migrations
                         .HasForeignKey("StaffProfileID");
 
                     b.HasOne("KWFCI.Models.KWTask", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskKWTaskID");
+                        .WithOne("Interaction")
+                        .HasForeignKey("KWFCI.Models.Interaction", "TaskForeignKey");
                 });
 
             modelBuilder.Entity("KWFCI.Models.KWTask", b =>

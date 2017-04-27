@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace KWFCI.Migrations
 {
-    public partial class initial : Migration
+    public partial class oneToOne : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -196,10 +196,10 @@ namespace KWFCI.Migrations
                 {
                     KWTaskID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AlertDate = table.Column<DateTime>(nullable: false),
+                    AlertDate = table.Column<DateTime>(nullable: true),
                     BrokerID = table.Column<int>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateDue = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateDue = table.Column<DateTime>(nullable: true),
                     Message = table.Column<string>(nullable: true),
                     Priority = table.Column<int>(nullable: false),
                     StaffProfileID = table.Column<int>(nullable: true),
@@ -256,7 +256,7 @@ namespace KWFCI.Migrations
                     Notes = table.Column<string>(nullable: true),
                     StaffProfileID = table.Column<int>(nullable: true),
                     Status = table.Column<string>(nullable: true),
-                    TaskKWTaskID = table.Column<int>(nullable: true)
+                    TaskForeignKey = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -274,8 +274,8 @@ namespace KWFCI.Migrations
                         principalColumn: "StaffProfileID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Interactions_KWTasks_TaskKWTaskID",
-                        column: x => x.TaskKWTaskID,
+                        name: "FK_Interactions_KWTasks_TaskForeignKey",
+                        column: x => x.TaskForeignKey,
                         principalTable: "KWTasks",
                         principalColumn: "KWTaskID",
                         onDelete: ReferentialAction.Restrict);
@@ -292,9 +292,10 @@ namespace KWFCI.Migrations
                 column: "StaffProfileID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Interactions_TaskKWTaskID",
+                name: "IX_Interactions_TaskForeignKey",
                 table: "Interactions",
-                column: "TaskKWTaskID");
+                column: "TaskForeignKey",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_KWTasks_BrokerID",

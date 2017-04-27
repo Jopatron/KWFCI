@@ -13,5 +13,15 @@ namespace KWFCI.Repositories
         public DbSet<Message> Messages { get; set; }
         public DbSet<Interaction> Interactions { get; set; }
         public DbSet<KWTask> KWTasks { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<KWTask>()
+            .HasOne(i => i.Interaction)
+            .WithOne(n => n.Task)
+            .HasForeignKey<Interaction>(t => t.TaskForeignKey);
+        }
     }
 }
