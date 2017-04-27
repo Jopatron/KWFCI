@@ -1,6 +1,6 @@
 ﻿@model KWFCI.Models.ViewModels.AdminStaffVM
 
-<button type="button" class="newStaffBtn btn btn-default" data-toggle="modal" data-target="#newStaff">New Staff</button>
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#newStaff">New Staff</button>
 
 <div class="modal fade" id="newStaff" tabindex="-1" role="dialog" aria-labelledby="newStaffModal">
     <div class="modal-dialog" role="document">
@@ -13,22 +13,28 @@
                 <form asp-controller="Admin" asp-action="AddStaff" method="post">
                     <div class="form-group center-block">
 
-                        <label asp-for="Priority">Priority:</label>
-                        <select class="form-control" asp-for="Priority">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <label asp-for="@Model.NewStaff.Email">Email:</label>
+                        <input asp-for="@Model.NewStaff.Email" class="form-control" /><br />
+
+                        <label asp-for="@Model.Password">Password:</label>
+                        <input asp-for="@Model.Password" class="form-control" /><br />
+
+                        <label asp-for="@Model.NewStaff.FirstName">First Name:</label>
+                        <input asp-for="@Model.NewStaff.FirstName" class="form-control" /><br />
+
+                        <label asp-for="@Model.NewStaff.LastName">Last Name:</label>
+                        <input asp-for="@Model.NewStaff.LastName" class="form-control" /><br />
+
+                        <label asp-for="@Model.NewStaff.EmailNotifications">EmailNotifications:</label>
+                        <input asp-for="@Model.NewStaff.EmailNotifications" class="form-control" type="checkbox" /><br />
+
+                        <label asp-for="@Model.NewStaff.Role">Role:</label>
+                        <select class="form-control" asp-for="@Model.NewStaff.Role">
+                            <option>Staff</option>
+                            <option>Admin</option>
                         </select>
 
-                        <label asp-for="AlertDate">Alert Date:</label>
-                        <input asp-for="AlertDate" class="form-control" /><br />
-
-                        <label asp-for="Message">Message:</label>
-                        <input asp-for="Message" class="form-control" /><br />
-
-                        <button type="submit" class="btn btn-primary pull-right">Create Alert</button>
+                        <button type="submit" class="btn btn-primary pull-right">Add Staff</button>
                     </div>
                 </form>
             </div>

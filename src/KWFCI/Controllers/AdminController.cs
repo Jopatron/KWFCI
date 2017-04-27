@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using KWFCI.Repositories;
 using KWFCI.Models.ViewModels;
 using KWFCI.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace KWFCI.Controllers
 {
@@ -14,11 +15,13 @@ namespace KWFCI.Controllers
     {
         private IInteractionsRepository intRepo;
         private IStaffProfileRepository staffRepo;
+        private UserManager<StaffUser> userManager;
 
-        public AdminController(IInteractionsRepository repo, IStaffProfileRepository repo2)
+        public AdminController(IInteractionsRepository repo, IStaffProfileRepository repo2, UserManager<StaffUser> usrMgr)
         {
             intRepo = repo;
             staffRepo = repo2;
+            userManager = usrMgr;
         }
 
         [Route("Home")]
@@ -68,16 +71,27 @@ namespace KWFCI.Controllers
 
         [Route("Add")]
         [HttpPost]
-        public IActionResult AddStaff(StaffProfile sp)
+        public async Task<IActionResult> AddStaff(AdminStaffVM vm)
         {
-            var staff = new StaffProfile
+            StaffUser user = new StaffUser { UserName = vm.NewStaff.Email };
+            IdentityResult result = await userManager.CreateAsync(user, vm.Password);
+            if (result.Succeeded)
             {
-                Priority = a.Priority,
-                AlertDate = a.AlertDate,
-                Message = a.Message
+                await userManager.AddToRoleAsync(user, vm.NewStaff.Role);
             };
 
-            staffRepo.AddStaff(staff);
+            StaffProfile profile = new StaffProfile
+            {
+                FirstName = vm.NewStaff.FirstName,
+                LastName = vm.NewStaff.LastName,
+                Email = vm.NewStaff.Email,
+                EmailNotifications = vm.NewStaff.EmailNotifications,
+                User = user,
+                Role = vm.NewStaff.Role
+            };
+
+            staffRepo.AddStaff(profile);
+
             return RedirectToAction("Home");
         }
     }

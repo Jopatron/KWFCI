@@ -8,5 +8,7 @@ namespace KWFCI.Models.ViewModels
     public class AdminStaffVM
     {
         public List<StaffProfile> Staff { get; set; }
+        public StaffProfile NewStaff { get; set; }
+        public string Password { get; set; }
     }
 }
