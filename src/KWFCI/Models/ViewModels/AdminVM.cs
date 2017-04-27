@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace KWFCI.Models.ViewModels
 {
-    public class AdminInteractionVM
+    public class AdminVM
     {
         public List<StaffProfile> Staff { get; set; }
+        public StaffProfile NewStaff { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -25,27 +25,30 @@ namespace KWFCI.Controllers
         }
 
         [Route("Home")]
-        public IActionResult AdminHome()
+        public IActionResult AdminHome(string Page)
         {
+            ViewBag.Page = Page;
             return View();
         }
 
         [Route("Staff")]
         public IActionResult AdminStaff()
         {
-            var vm = new AdminStaffVM();
+            ViewBag.Page = "Staff";
+            var vm = new AdminVM();
             vm.Staff = staffRepo.GetAllStaffProfiles().ToList();
             //TODO Ensure user is rerouted if not logged in
-            return View(vm);
+            return View("AdminHome", vm);
         }
 
         [Route("Interactions")]
         public IActionResult AdminInteractions()
         {
-            var vm = new AdminInteractionVM();
+            ViewBag.Page = "Interactions";
+            var vm = new AdminVM();
             vm.Staff = staffRepo.GetAllStaffProfiles().ToList();
             //TODO Ensure user is rerouted if not logged in
-            return View(vm);
+            return View("AdminHome", vm);
         }
 
         [HttpPost]
@@ -78,13 +81,12 @@ namespace KWFCI.Controllers
             {
                 ModelState.AddModelError("", "Alert Not Found");
             }
-            return RedirectToAction("AllAlerts");
             return RedirectToAction("Home");
         }
 
         [Route("Add")]
         [HttpPost]
-        public async Task<IActionResult> AddStaff(AdminStaffVM vm)
+        public async Task<IActionResult> AddStaff(AdminVM vm)
         {
             StaffUser user = new StaffUser { UserName = vm.NewStaff.Email };
             IdentityResult result = await userManager.CreateAsync(user, vm.Password);
