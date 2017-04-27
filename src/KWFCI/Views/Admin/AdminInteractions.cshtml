@@ -9,34 +9,40 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>Staff</th>
                     <th>Notes</th>
                     <th>Date</th>
                     <th>Next Step</th>
-                    <th>Broker</th>
+                    <th>Status</th>
                 </tr>
             </thead>
-            <tbody class="editTable">
-                @foreach (Interaction a in Model.Interactions)
+            <tbody>
+                @foreach (StaffProfile sp in Model.Staff)
                 {
-                    var entityID = a.InteractionID;
+                    foreach (Interaction i in sp.Interactions)
+                    {
+                        <tr>
+                            <td>
+                                @sp.LastName
+                            </td>
 
-                    <tr>
-                        <td style="width:380px;">
-                            @a.Notes
-                        </td>
+                            <td>
+                                @i.Notes
+                            </td>
 
-                        <td style="width:110px;">
-                            @a.DateCreated
-                        </td>
+                            <td>
+                                @i.DateCreated
+                            </td>
 
-                        <td style="width:380px;">
-                            @a.NextStep
-                        </td>
+                            <td>
+                                @i.NextStep
+                            </td>
 
-                        <td style="width:380px;">
-                            @a.Status
-                        </td>
-                    </tr>
+                            <td>
+                                @i.Status
+                            </td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>

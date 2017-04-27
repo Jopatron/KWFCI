@@ -7,6 +7,6 @@ namespace KWFCI.Models.ViewModels
 {
     public class AdminInteractionVM
     {
-        public List<Interaction> Interactions { get; set; }
+        public List<StaffProfile> Staff { get; set; }
     }
 }

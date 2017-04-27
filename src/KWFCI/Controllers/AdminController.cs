@@ -12,17 +12,19 @@ namespace KWFCI.Controllers
     public class AdminController : Controller
     {
         private IInteractionsRepository intRepo;
+        private IStaffProfileRepository staffRepo;
 
-        public AdminController(IInteractionsRepository repo)
+        public AdminController(IInteractionsRepository repo, IStaffProfileRepository repo2)
         {
             intRepo = repo;
+            staffRepo = repo2;
         }
 
         [Route("Interactions")]
         public IActionResult AdminInteractions()
         {
             var vm = new AdminInteractionVM();
-            vm.Interactions = intRepo.GetAllInteractions().ToList();
+            vm.Staff = staffRepo.GetAllStaffProfiles().ToList();
             //TODO Ensure user is rerouted if not logged in
             return View(vm);
         }
