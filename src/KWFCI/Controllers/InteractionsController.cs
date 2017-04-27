@@ -38,6 +38,15 @@ namespace KWFCI.Controllers
             vm.Broker = broker;
             vm.NewInteraction = new Interaction();
             vm.Task = new KWTask();
+
+
+            List<KWTask> tasks = new List<KWTask>();
+            foreach(Interaction i in broker.Interactions)
+            {
+                if(i.TaskForeignKey != null)
+                    tasks.Add(taskRepo.GetKWTaskByID((int)i.TaskForeignKey));
+            }
+            vm.Tasks = tasks;
             //TODO Ensure user is rerouted if not logged in
             return View(vm);
         }
@@ -108,7 +117,6 @@ namespace KWFCI.Controllers
                             DateCreated = iVM.Task.DateCreated
 
                         };
-
                         if (task.AlertDate == null)
                             task.Type = "Task";
                         else
@@ -116,8 +124,9 @@ namespace KWFCI.Controllers
 
                         var profile = staffRepo.GetStaffProfileByFullName(Helper.StaffProfileLoggedIn.FirstName, Helper.StaffProfileLoggedIn.LastName);
                         profile.Tasks.Add(task);
-                        interaction.Task = task;
                         taskRepo.AddKWTask(task);
+                        interaction.Task = task;
+                        
                     }  
                     else
                         interaction.NextStep = i.NextStep;

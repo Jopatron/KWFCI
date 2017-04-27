@@ -8,8 +8,8 @@ using KWFCI.Repositories;
 namespace KWFCI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170427043027_oneToOne")]
-    partial class oneToOne
+    [Migration("20170427204923_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
