@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using KWFCI.Repositories;
 using KWFCI.Models.ViewModels;
+using KWFCI.Models;
 
 namespace KWFCI.Controllers
 {
@@ -27,6 +28,21 @@ namespace KWFCI.Controllers
             vm.Staff = staffRepo.GetAllStaffProfiles().ToList();
             //TODO Ensure user is rerouted if not logged in
             return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            Interaction i = intRepo.GetInteractionById(id);
+            if (i != null)
+            {
+                intRepo.DeleteInteraction(i);
+            }
+            else
+            {
+                ModelState.AddModelError("", "Interaction Not Found");
+            }
+            return RedirectToAction("Interactions");
         }
     }
 }

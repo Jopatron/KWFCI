@@ -41,6 +41,15 @@
                             <td>
                                 @i.Status
                             </td>
+
+                            <td>
+                                <form asp-action="Delete" asp-route-id="@i.InteractionID" method="post">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger center-block">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     }
                 }
