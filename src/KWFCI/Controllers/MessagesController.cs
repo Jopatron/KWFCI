@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 using KWFCI.Repositories;
 using KWFCI.Models.ViewModels;
 using KWFCI.Models;
+using MailKit.Net.Smtp;
+using MailKit;
+using MimeKit;
+
 
 namespace KWFCI.Controllers
 {
@@ -15,13 +19,20 @@ namespace KWFCI.Controllers
     public class MessagesController : Controller
     {
         private IMessageRepository messageRepo;
+        private IBrokerRepository brokerRepo;
+        private IStaffProfileRepository staffRepo;
+        private IEnumerable<Broker> brokers;
+        private IQueryable<StaffProfile> staff;
 
-        public MessagesController(IMessageRepository repo)
+        public MessagesController(IMessageRepository repo, IBrokerRepository bRepo, IStaffProfileRepository sRepo)
         {
             messageRepo = repo;
+            brokerRepo = bRepo;
+            staffRepo = sRepo;
         }
 
-        
+       
+
         public ViewResult AllMessages()
         {
             var vm = new MessageVM();
@@ -33,8 +44,10 @@ namespace KWFCI.Controllers
         }
         [Route("Add")]
         [HttpPost]
-        public IActionResult SendMessage(Message m)
+        public IActionResult SendMessage(Message m, bool checkAll = false, bool checkAllBrokers = false, bool checkStaff = false,
+            bool checkNewBrokers = false, bool checkBrokersInTransition = false, bool checkTransferBrokers = false)
         {
+           
 
             var message = new Message
             {
@@ -44,8 +57,101 @@ namespace KWFCI.Controllers
                 
         };
 
-            messageRepo.AddMessage(message);
-             //TODO: See if there is a way to just close the modal and not refresh the page
+
+        messageRepo.AddMessage(message);
+
+            if (checkAll == true)
+            {
+                brokers = brokerRepo.GetAllBrokers(false,true);
+                staff = staffRepo.GetAllStaffProfiles(true);
+
+            }
+            else
+            {
+                if (checkAllBrokers == true)
+
+                    brokers = brokerRepo.GetAllBrokers(false,true);
+                else
+                {
+
+                    if (checkNewBrokers == true)
+                    {
+                        if (brokers != null)
+                        {
+                            var newBrokers = brokerRepo.GetBrokersByType("New Broker",true);
+                            foreach (var b in newBrokers)
+                                brokers.Append(b);
+                        }
+                        else
+                            brokers = brokerRepo.GetBrokersByType("New Broker",true);
+                    }
+
+                    if (checkBrokersInTransition == true)
+                    {
+                        if (brokers != null)
+                        {
+                            var transitionBrokers = brokerRepo.GetBrokersByType("In Transition",true);
+                            foreach (var b in transitionBrokers)
+                                brokers.Append(b);
+                        }
+                        else 
+                            brokers = brokerRepo.GetBrokersByType("In Transition",true);
+                    }
+                    if (checkTransferBrokers == true)
+                    {
+                        if (brokers != null)
+                        {
+                            var transferBrokers = brokerRepo.GetBrokersByType("Transfer",true);
+                            foreach (var b in transferBrokers)
+                                brokers.Append(b);
+                        }
+                        else
+                            brokers = brokerRepo.GetBrokersByType("Transfer",true);
+                    }
+                }
+                    if (checkStaff == true)
+                        staff = staffRepo.GetAllStaffProfiles(true);
+                
+                
+            }
+            if (brokers != null)
+            {
+                var email = new MimeMessage();
+                email.From.Add(new MailboxAddress("KWFCI", "do-not-reply@kw.com"));
+                email.Subject = message.Subject;
+                email.Body = new TextPart("plain")
+                {
+                    Text = message.Body
+                };
+                foreach (var b in brokers)
+                {
+
+                    email.To.Add(new MailboxAddress(b.FirstName + " " + b.LastName, b.Email));
+
+                }
+
+                if (staff != null)
+                {
+                    foreach (var st in staff)
+                        email.To.Add(new MailboxAddress(st.FirstName + " " + st.LastName, st.Email));
+
+                }
+                    using (var client = new SmtpClient())
+                    {
+                        client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+                        client.Connect("smtp.gmail.com", 587, false);
+
+                        client.AuthenticationMechanisms.Remove("XOAUTH2");
+                        client.Authenticate("kwfamilycheckin", "Fancy123!");
+
+                        client.Send(email);
+                        client.Disconnect(true);
+                    }
+                }
+            
+        
+
             return RedirectToAction("AllMessages", "Messages");
         }
     }

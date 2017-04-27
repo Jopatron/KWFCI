@@ -7,7 +7,6 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link href="~/lib/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
     <link href="~/lib/css/StyleSheet.css" rel="stylesheet" />
 
@@ -24,27 +23,22 @@
                     </div>
                     <div class="col-xs-8">
                         <ul class="nav navbar-nav">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/Brokers">Brokers</a></li>
-                            <li><a href="/Tasks">Tasks</a></li>
-                            <li><a href="/Alerts">Alerts</a></li>
-                            <li><a href="/Messages">Messages</a></li>
-                            <li><a href="#">Settings</a></li>
+                            <li><a href="/">ADMIN</a></li>
                         </ul>
                     </div>
-                    
+
                     <div class="col-xs-2">
 
                         <a href="/Auth/Logout" class="btn btn-default" id="logout" aria-label="Left Align">
-                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                                Logout
+                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                            Logout
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
-    
+
     <div>
         @RenderBody()
     </div>

@@ -41,10 +41,16 @@ namespace KWFCI.Repositories
             return context.SaveChanges();
         }
 
-        public IQueryable<Broker> GetAllBrokers(bool getInactive = false)
+        public IQueryable<Broker> GetAllBrokers(bool getInactive = false, bool getNotifications = false)
         {
             if (getInactive == true)
                 return context.Brokers.Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
+            else if (getNotifications == true)
+            {
+                return (from b in context.Brokers
+                        where b.EmailNotifications == true
+                        select b).Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
+            }
             else
                 return context.Brokers.Where(b => b.Status == "Active").Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
         }
@@ -56,11 +62,24 @@ namespace KWFCI.Repositories
                     select b).Include(b => b.Interactions).Include(b => b.Requirements).FirstOrDefault<Broker>();
         }
 
-        public IQueryable<Broker> GetBrokersByType(string type)
+        public IQueryable<Broker> GetBrokersByType(string type, bool getNotifications = false)
         {
-            return (from b in context.Brokers
-                    where b.Type == type
-                    select b).Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
+            if (getNotifications == true)
+            {
+                var brokers = (from bro in context.Brokers
+                               where bro.EmailNotifications == true
+                               select bro).Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
+
+                return (from b in brokers
+                        where b.Type == type
+                        select b).Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
+            }
+            else
+            {
+                return (from b in context.Brokers
+                        where b.Type == type
+                        select b).Include(b => b.Interactions).Include(b => b.Requirements).AsQueryable();
+            }
         }
 
         public int UpdateBroker(Broker broker)

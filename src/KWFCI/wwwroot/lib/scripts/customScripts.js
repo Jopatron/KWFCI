@@ -39,6 +39,7 @@ $(document).ready(function () {
             $(".submitButton").trigger("click");
         });
     });
+
     //var $dateDue = $("#taskDateDue");
     //$dateDue.on("change", function () {
     //    if ($dateDue.val() != "")
@@ -53,4 +54,12 @@ $(document).ready(function () {
     //        }
     //    }
     //});
+
+
+    $("#buttonSelector").click(function () {
+        $(this).button('loading');
+    });
+  
+    $('.editTable').DataTable();
+
 });

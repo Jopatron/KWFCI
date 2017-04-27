@@ -8,12 +8,12 @@ namespace KWFCI.Repositories
 {
     public interface IBrokerRepository
     {
-        IQueryable<Broker> GetAllBrokers(bool getInactive = false);
+        IQueryable<Broker> GetAllBrokers(bool getInactive = false, bool getNotifications = false);
         //int return value represents whether or not operation completed: 1 for True, 0 for False
         int DeleteBroker(Broker broker);
         int AddBroker(Broker broker);
         int UpdateBroker(Broker broker);
-        IQueryable<Broker> GetBrokersByType(string type);
+        IQueryable<Broker> GetBrokersByType(string type, bool getNotifications = false);
         Broker GetBrokerByID(int id);
         int ChangeStatus(Broker broker, string status);
     }
