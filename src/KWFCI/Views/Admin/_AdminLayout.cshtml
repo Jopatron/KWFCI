@@ -22,14 +22,14 @@
                         </a>
                     </div>
                     <div class="col-xs-8">
-                        <ul class="nav navbar-nav">
-                            <li><a href="/Admin/Home">ADMIN</a></li>
+                        <ul class="nav navbar-nav" style="text-align:center;">
+                            <li style="float: unset; margin-right: 20px;"><a href="/Admin/Home">ADMINISTRATOR</a></li>
                         </ul>
                     </div>
 
                     <div class="col-xs-2">
 
-                        <a href="/Auth/Logout" class="btn btn-default" id="logout" aria-label="Left Align">
+                        <a href="/Auth/Logout" class="logout btn btn-default" aria-label="Left Align">
                             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                             Logout
                         </a>
@@ -39,7 +39,7 @@
         </div>
     </nav>
 
-    <div>
+    <div class="container-fluid">
         @RenderBody()
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
