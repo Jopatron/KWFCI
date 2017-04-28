@@ -10,21 +10,17 @@
                 @Html.Partial("Modals/_AdminAddStaff", Model)
             </div>
             <div class="col-xs-4 center-block">
-                <form asp-action="Staff" method="post">
                     <input type="hidden" name="Page" value="Staff" />
-                    <button type="submit"
-                            class="btn btn-sm btn-danger center-block">
+                    <button class="btn btn-sm btn-danger center-block" type="button"  
+                            onclick="location.href='@Url.Action("Staff", "Admin")'">
                         <span>Staff</span>
                     </button>
-                </form>
             </div>
             <div class="col-xs-4 center-block">
-                <form asp-action="AdminInteractions" method="post">
-                    <button type="submit"
-                            class="btn btn-sm btn-danger center-block">
-                        <span>Interactions</span>
-                    </button>
-                </form>
+                <button class="btn btn-sm btn-danger center-block" type="button"
+                        onclick="location.href='@Url.Action("Interactions", "Admin")'">
+                    <span>Interactions</span>
+                </button>
             </div>
         </div>
     </div>
