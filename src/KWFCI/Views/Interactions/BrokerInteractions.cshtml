@@ -7,7 +7,7 @@
 <div>
     <div class="col-xs-12">
         
-        <table class="table table-bordered">
+        <table class="table table-bordered editTable">
             <thead>
                 <tr>
                     <th>Staff</th>
@@ -17,7 +17,7 @@
                     <th>Broker</th>
                 </tr>
             </thead>
-            <tbody class="editTable">
+            <tbody >
                 @foreach (Interaction a in Model.Interactions)
                 {
                     var entityID = a.InteractionID;
