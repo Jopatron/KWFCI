@@ -17,7 +17,7 @@ $(document).ready(function () {
         var entityID = target.attr("data-id");
         $(".addID").attr("value", entityID);
         
-        
+        console.log(target);
         if(target.attr("data-target") == "#editInteractionNextStep")
         {
             var text = target.html().replace(/\n/g, "");
@@ -37,8 +37,23 @@ $(document).ready(function () {
             }
             else if (target.closest('button').attr("data-target") == "#editKWTaskModal")
             {
-                var text = target.closest('td').children('.col-xs-10').children('a').html().replace(/\n/g, "");
+                var text = target.closest('td').find($('.view-TaskMessage')).val();
+                console.log(text);
                 $('#editKWTaskModal textarea').val(text);
+
+                var dateDueFull = target.closest('td').find($('.view-TaskDateDue')).val();
+                var dateDueMonth = dateDueFull.split(" ")[0];
+                console.log(dateDueMonth);
+                $('#editKWTaskModal .modal-TaskDateDue').val(dateDueMonth);
+
+                var alertDateFull = target.closest('td').find($('.view-TaskAlertDate')).val();
+                var alertDateMonth = alertDateFull.split(" ")[0];
+                console.log(alertDateMonth);
+                $('#editKWTaskModal .modal-TaskAlertDate').val(alertDateMonth);
+
+                var priority = target.closest('td').find($('.view-TaskPriority')).val();
+                console.log(priority);
+                $('#editKWTaskModal .modal-TaskPriority').val(priority);
             }
         }
         //Populate the modal with established values
