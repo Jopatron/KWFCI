@@ -76,7 +76,7 @@
                             @if (a.TaskForeignKey == null)
                             {
                                 <div class="col-xs-2">
-                                    <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#newKWTaskModal" data-id="@entityID"><div><i class="fa fa-bell-o" aria-hidden="true"></i></div></button>
+                                    <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#newKWTaskFromInteractionModal" data-id="@entityID"><div><i class="fa fa-bell-o" aria-hidden="true"></i></div></button>
                                 </div>
                             }
                             else
@@ -92,7 +92,7 @@
                                     }
                                 }
                                 <div class="col-xs-2">
-                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;" data-task-fk="@a.TaskForeignKey" data-toggle="modal" data-target="#editKWTaskModal" data-id="@entityID">
+                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;" data-task-fk="@a.TaskForeignKey" data-toggle="modal" data-target="#editKWTaskFromInteractionModal" data-id="@entityID">
                                         <div><i class="fa fa-bell-o" aria-hidden="true"></i></div>
                                     </button>
 
@@ -100,6 +100,7 @@
                                     <input type="hidden" class="view-TaskDateDue" value="@task.DateDue" />
                                     <input type="hidden" class="view-TaskMessage" value="@task.Message" />
                                     <input type="hidden" class="view-TaskPriority" value="@task.Priority" />
+                                    <input type="hidden" class="view-TaskKWTaskID" value="@task.KWTaskID" />
                                 </div>
                             }
                         </td>
@@ -130,8 +131,8 @@
 
     
 
-@Html.Partial("Modals/_EditKWTaskModal", Model)
-@Html.Partial("Modals/_AddKWTaskModal", Model)
+@Html.Partial("Modals/_EditKWTaskFromInteractionModal", Model)
+@Html.Partial("Modals/_NewKWTaskFromInteractionModal", Model)
 @Html.Partial("Modals/_EditInteractionNotesModal", Model)
 @Html.Partial("Modals/_EditInteractionNextStepModal", Model)
 <style>
