@@ -81,8 +81,24 @@
                             }
                             else
                             {
+                                //KWTask task = Model.Tasks.Where(t => t.KWTaskID == a.TaskForeignKey) as KWTask;
+                                //KWTask test = (from t in Model.Tasks where t.KWTaskID == a.TaskForeignKey select t) as KWTask;
+                                KWTask task = new KWTask();
+                                foreach (KWTask t in Model.Tasks) //Linq not working
+                                {
+                                    if(t.KWTaskID == a.TaskForeignKey)
+                                    {
+                                        task = t;
+                                    }
+                                }
                                 <div class="col-xs-2">
-                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#editKWTaskModal" data-id="@entityID"><div><i class="fa fa-bell-o" aria-hidden="true"></i></div></button>
+                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;" data-task-fk="@a.TaskForeignKey" data-toggle="modal" data-target="#editKWTaskModal" data-id="@entityID">
+                                        <div><i class="fa fa-bell-o" aria-hidden="true"></i></div>
+                                    </button>
+                                    <input type="hidden" class="view-TaskAlertDate" value="@task.AlertDate" />
+                                    <input type="hidden" class="view-TaskDateDue" value="@task.DateDue" />
+                                    <input type="hidden" class="view-TaskMessage" value="@task.Message" />
+                                    <input type="hidden" class="view-TaskPriority" value="@task.Priority" />
                                 </div>
                             }
                         </td>
@@ -110,6 +126,8 @@
 
 
 @Html.ActionLink("New Interaction", "AddInteraction", "Interactions", new { BrokerID = Model.Broker.BrokerID })
+
+    
 
 @Html.Partial("Modals/_EditKWTaskModal", Model)
 @Html.Partial("Modals/_AddKWTaskModal", Model)
