@@ -19,7 +19,7 @@ $(document).ready(function () {
         
         if (event.target.nodeName == "DIV" || event.target.nodeName == "SPAN")
         {
-            var text = target.closest('a').text().replace(/\n/g, "");
+            var text = target.closest('a').text().replace(/\n/g, "").trim();
             
             $(target.closest('a').attr('data-target') + " textarea").val(text);
         }
@@ -27,7 +27,7 @@ $(document).ready(function () {
         {
             if (target.closest('button').attr("data-target") == "#newKWTaskFromInteractionModal") //Should this be for new task or edit task
             {
-                var text = target.closest('td').children('.col-xs-10').children('a').text().replace(/\n/g, ""); //Find parent table cell, find child <a> tag, grab its contents, put it in the modal textarea field
+                var text = target.closest('td').children('.col-xs-10').children('a').text().replace(/\n/g, "").trim(); //Find parent table cell, find child <a> tag, grab its contents, put it in the modal textarea field
                 $('#newKWTaskFromInteractionModal textarea').val(text);
             }
             else if (target.closest('button').attr("data-target") == "#editKWTaskFromInteractionModal") //Same as above but for edit modal, more values to populate

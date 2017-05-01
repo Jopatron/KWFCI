@@ -75,8 +75,10 @@
                             </div>
                             @if (a.TaskForeignKey == null)
                             {
-                                <div class="col-xs-2">
-                                    <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#newKWTaskFromInteractionModal" data-id="@entityID"><div><i class="fa fa-bell-o" aria-hidden="true"></i></div></button>
+                                <div class="col-xs-2" style="height:100%;">
+                                    <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;height:100%;" data-toggle="modal" data-target="#newKWTaskFromInteractionModal" data-id="@entityID">
+                                        <div><i style="font-size:18px;" class="fa fa-bell-o" aria-hidden="true"></i></div>
+                                    </button>
                                 </div>
                             }
                             else
@@ -91,9 +93,9 @@
                                         task = t;
                                     }
                                 }
-                                <div class="col-xs-2">
-                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;" data-task-fk="@a.TaskForeignKey" data-toggle="modal" data-target="#editKWTaskFromInteractionModal" data-id="@entityID">
-                                        <div><i class="fa fa-bell-o" aria-hidden="true"></i></div>
+                                <div class="col-xs-2" style="height:100%;">
+                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;height:100%;" data-task-fk="@a.TaskForeignKey" data-toggle="modal" data-target="#editKWTaskFromInteractionModal" data-id="@entityID">
+                                        <div><i style="font-size:18px;" class="fa fa-bell-o" aria-hidden="true"></i></div>
                                     </button>
 
                                     <input type="hidden" class="view-TaskAlertDate" value="@task.AlertDate" />
