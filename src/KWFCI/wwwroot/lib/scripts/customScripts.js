@@ -16,27 +16,18 @@ $(document).ready(function () {
         
         var entityID = target.attr("data-id");
         $(".addID").attr("value", entityID);
-        console.log(target);
         
-        if (event.target.nodeName == "A")//Clicked an A tag in the editTable table
+        if (event.target.nodeName == "DIV" || event.target.nodeName == "SPAN")
         {
-            var text = target.text().replace(/\n/g, ""); //Get the text inside the <a> tag
-            $(target.attr('data-target') + ' textarea').val(text); //Target whatever the value of the data-target is + ' textarea' and set its contents = to the <a> tag's text
-        }
-        
-        //Because 2 fields share this logic, I just made the inside code dynamic
-        //Clicked the <img> tag, meaning the field was empty
-        else if(event.target.nodeName == "IMG")
-        {
-            target.closest('a').text().replace(/\n/g, ""); //Whichever field's IMG tag I clicked, find the closest anchor tag and populate the result of whatever the value of that anchor tag's data-target attribute + ' textarea'.val() is.
-            console.log(target.closest('a').attr('data-target'));
+            var text = target.closest('a').text().replace(/\n/g, "");
+            
             $(target.closest('a').attr('data-target') + " textarea").val(text);
         }
         else if (event.target.nodeName == "I") //if they click on the <i> tag
         {
             if (target.closest('button').attr("data-target") == "#newKWTaskFromInteractionModal") //Should this be for new task or edit task
             {
-                var text = target.closest('td').children('.col-xs-10').children('a').html().replace(/\n/g, ""); //Find parent table cell, find child <a> tag, grab its contents, put it in the modal textarea field
+                var text = target.closest('td').children('.col-xs-10').children('a').text().replace(/\n/g, ""); //Find parent table cell, find child <a> tag, grab its contents, put it in the modal textarea field
                 $('#newKWTaskFromInteractionModal textarea').val(text);
             }
             else if (target.closest('button').attr("data-target") == "#editKWTaskFromInteractionModal") //Same as above but for edit modal, more values to populate
@@ -89,7 +80,7 @@ $(document).ready(function () {
             }
             else if (target.attr("data-target") == "#newKWTaskFromInteractionModal")
             {
-                var text = target.closest('td').children('.col-xs-10').children('a').html().replace(/\n/g, ""); //Find parent table cell, find child <a> tag, grab its contents, put it in the modal textarea field
+                var text = target.closest('td').children('.col-xs-10').children('a').text().replace(/\n/g, ""); //Find parent table cell, find child <a> tag, grab its contents, put it in the modal textarea field
                 $('#newKWTaskFromInteractionModal textarea').val(text);
             }
         }

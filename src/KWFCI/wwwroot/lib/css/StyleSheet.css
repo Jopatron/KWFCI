@@ -158,3 +158,7 @@ body{
     background-color: #b40101;
 
 }
+.align-middle{
+    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
+}

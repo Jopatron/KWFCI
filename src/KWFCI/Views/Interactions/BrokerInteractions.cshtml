@@ -25,16 +25,16 @@
                     
                     <tr>
                         <td style="text-align:center;width:200px;">@ViewBag.StaffEmail</td>
-                        <td style="min-width:380px;max-width:380px;">
-                            <div class="col-xs-12">
-                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID">
+                        <td style="min-width:380px;max-width:380px;height:100%;">
+                            <div class="col-xs-12 " style="height:100%;">
+                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID" style="height:100%;">
                                     @if (a.Notes != null && a.Notes != "")
                                     {
-                                        @a.Notes
+                                        <div style="height:100%;" data-id="@entityID"><span class="align-middle">@a.Notes</span></div>
                                     }
                                     else
                                     {
-                                        <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
+                                        <div style="height:100%;" data-id="@entityID"><span class="align-middle"></span></div>
                                     }
                                 </a>
                             </div>
@@ -60,16 +60,16 @@
                         </td>
 
                         
-                        <td style="min-width:380px;max-width:380px;">
-                            <div class="col-xs-10">
-                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID">
+                        <td style="min-width:380px;max-width:380px;height:100%;">
+                            <div class="col-xs-10" style="height:100%;">
+                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID" style="height:100%;">
                                     @if (a.NextStep != null && a.NextStep != "")
                                     {
-                                        @a.NextStep
+                                        <div style="height:100%;" data-id="@entityID"><span class="align-middle">@a.NextStep</span></div>
                                     }
                                     else
                                     {
-                                        <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
+                                        <div style="height:100%;" data-id="@entityID"><span class="align-middle"></span></div>
                                     }
                                 </a>
                             </div>
