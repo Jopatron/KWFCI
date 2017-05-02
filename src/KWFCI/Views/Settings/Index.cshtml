@@ -1,1 +1,11 @@
-﻿<h1>Welcome to the settings page</h1>
+﻿@model KWFCI.Models.StaffProfile
+
+@{
+    ViewBag.Title = "Settings";
+}
+
+<h1>Welcome to the settings page</h1>
+<ul>
+    <li>@Model.FirstName</li>
+    <li>@Model.LastName</li>
+</ul>
