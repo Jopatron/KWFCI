@@ -16,7 +16,7 @@ $(document).ready(function () {
         
         var entityID = target.attr("data-id");
         $(".addID").attr("value", entityID);
-        
+        console.log(target);
         if (event.target.nodeName == "DIV" || event.target.nodeName == "SPAN")
         {
             var text = target.closest('a').text().replace(/\n/g, "").trim();
@@ -80,7 +80,7 @@ $(document).ready(function () {
             }
             else if (target.attr("data-target") == "#newKWTaskFromInteractionModal")
             {
-                var text = target.closest('td').children('.col-xs-10').children('a').text().replace(/\n/g, ""); //Find parent table cell, find child <a> tag, grab its contents, put it in the modal textarea field
+                var text = target.closest('td').children('.col-xs-10').children('a').text().replace(/\n/g, "").trim(); //Find parent table cell, find child <a> tag, grab its contents, put it in the modal textarea field
                 $('#newKWTaskFromInteractionModal textarea').val(text);
             }
         }

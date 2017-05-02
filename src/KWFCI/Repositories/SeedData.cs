@@ -206,28 +206,28 @@ namespace KWFCI.Repositories
             }
 
             //Populates Interactions
-            if (!context.Interactions.Any())
-            {
-                Broker lonny = context.Brokers.First();
-                StaffProfile profile = context.StaffProfiles.First();
-                if (Helper.StaffProfileLoggedIn == null)
-                {
-                    Helper.StaffProfileLoggedIn = profile;
-                }
-                Interaction i = new Interaction { Notes = "Interaction Numero Uno", NextStep = "Do the thing" };
-                Interaction i1 = new Interaction { Notes = "Interaction: The seconding", NextStep = "Do the other thing" };
+            //if (!context.Interactions.Any())
+            //{
+            //    Broker lonny = context.Brokers.First();
+            //    StaffProfile profile = context.StaffProfiles.First();
+            //    if (Helper.StaffProfileLoggedIn == null)
+            //    {
+            //        Helper.StaffProfileLoggedIn = profile;
+            //    }
+            //    Interaction i = new Interaction { Notes = "Interaction Numero Uno", NextStep = "Do the thing" };
+            //    Interaction i1 = new Interaction { Notes = "Interaction: The seconding", NextStep = "Do the other thing" };
 
-                context.Interactions.Add(i);
-                context.Interactions.Add(i1);
+            //    context.Interactions.Add(i);
+            //    context.Interactions.Add(i1);
 
-                profile.Interactions.Add(i);
-                profile.Interactions.Add(i1);
+            //    profile.Interactions.Add(i);
+            //    profile.Interactions.Add(i1);
 
-                lonny.Interactions.Add(i);
-                lonny.Interactions.Add(i1);
+            //    lonny.Interactions.Add(i);
+            //    lonny.Interactions.Add(i1);
 
-                context.SaveChanges();
-            }
+            //    context.SaveChanges();
+            //}
 
             //Populates KWTasks
             if (!context.KWTasks.Any())

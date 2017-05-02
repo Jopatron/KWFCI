@@ -24,7 +24,7 @@
                     Model.NewInteraction = a;
                     
                     <tr>
-                        <td style="text-align:center;width:200px;">@ViewBag.StaffEmail</td>
+                        <td style="text-align:center;width:200px;vertical-align:middle;">@ViewBag.StaffEmail</td>
                         <td style="min-width:380px;max-width:380px;height:100%;">
                             <div class="col-xs-12 " style="height:100%;">
                                 <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID" style="height:100%;">
@@ -43,7 +43,7 @@
                         
                         <td style="min-width:110px;max-width:110px;" asp-for="@Model.NewInteraction.DateCreated">
                             <!--Attribute necessary for datepicker to function: data-provide="datepicker"
-                                Attributes that server as configuration options: all attributes that start with data-date- -->
+                                Attributes that serve as configuration options: all attributes that start with data-date- -->
                             <input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" class="form-control interactionDate" data-id="@entityID"
                             @if (a.DateCreated != null)
                             {
@@ -108,7 +108,7 @@
                         </td>
                         
                         
-                        <td style="width:200px;text-align:center;">
+                        <td style="width:200px;text-align:center;vertical-align:middle;">
                             @ViewBag.BrokerName
                         </td>
                     </tr>
