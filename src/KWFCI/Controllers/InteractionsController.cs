@@ -126,7 +126,12 @@ namespace KWFCI.Controllers
                         profile.Tasks.Add(task);
                         taskRepo.AddKWTask(task);
                         interaction.Task = task;
+                        task.Interaction = interaction;
+
                         
+                        taskRepo.UpdateKWTask(task);
+                        
+
                     }  
                     else if(iVM.Task != null && taskAction == "Edit")
                     {
@@ -139,7 +144,10 @@ namespace KWFCI.Controllers
                         taskRepo.UpdateKWTask(task);
                     }
                     else
+                    {
                         interaction.NextStep = i.NextStep;
+                    }
+                        
                 }
                     
                 else if (iVM.Field == "Date Created")
