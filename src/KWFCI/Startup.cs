@@ -35,7 +35,7 @@ namespace KWFCI
                   Configuration["KWFCI_Db:ConnectionString"]));
 
             services.AddIdentity<StaffUser, IdentityRole>(opts =>
-                { opts.Cookies.ApplicationCookie.LoginPath = "/Auth/Login"; })
+                { opts.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";  })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders(); 
 
@@ -64,12 +64,20 @@ namespace KWFCI
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseIdentity();
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                LoginPath = new Microsoft.AspNetCore.Http.PathString("/Auth/Login"),
+                AutomaticChallenge = true
+            });
             app.UseMvc(routes =>
              {
                  routes.MapRoute(
                      name: "default",
                      template: "{controller=Home}/{action=Index}/{id?}");
              });
+
+
 
             SeedData.EnsurePopulated(app);
         }

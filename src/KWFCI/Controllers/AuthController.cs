@@ -47,7 +47,11 @@ namespace KWFCI.Controllers
                         Helper.StaffUserLoggedIn = user;
                         Helper.StaffProfileLoggedIn = Helper.DetermineProfile(staffProfRepo);
                         //Redirects to the home index if login succeeds
-                        return Redirect("/");
+                        var role = Helper.StaffProfileLoggedIn.Role;
+                        if (role == "Staff")
+                            return Redirect("/");
+                        else if (role == "Admin")
+                            return Redirect("/Admin/Home");
                     }
                 }
                 ModelState.AddModelError("", "Invalid name or password.");
