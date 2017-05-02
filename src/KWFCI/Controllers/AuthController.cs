@@ -112,7 +112,31 @@ namespace KWFCI.Controllers
             return View("Login");
         }
 
-    
+        [Route("Reset/New/Password")]
+        public IActionResult ResetPassword(string token)
+        {
+            return View("ResetPassword");
+        }
+
+        [HttpPost]
+        [Route("Reset/New/Password")]
+        public IActionResult ResetPassword(ResetPasswordVM vm)
+        {
+            StaffUser user = userManager.
+                         FindByNameAsync(vm.UserName).Result;
+
+            IdentityResult result = userManager.ResetPasswordAsync
+                      (user, vm.Token, vm.Password).Result;
+            if (result.Succeeded)
+            {
+                return View("Login");
+            }
+            else
+            {
+                return View("ResetPassword");
+            }
+        }
+
 
     }
 }
