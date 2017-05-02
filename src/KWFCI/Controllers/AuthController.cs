@@ -59,5 +59,38 @@ namespace KWFCI.Controllers
             await signInManager.SignOutAsync();
             return View("Login");
         }
+
+        [Route("Reset")]
+        public IActionResult ForgotPassword()
+        {
+            return View("Reset");
+        }
+
+        public IActionResult SendPasswordResetLink(string username)
+        {
+            StaffUser user = userManager.
+                 FindByNameAsync(username).Result;
+
+            if (user == null || !(userManager.
+                  IsEmailConfirmedAsync(user).Result))
+            {
+                ViewBag.Message = "Error while resetting your password!";
+                return View("Error");
+            }
+
+            var token = userManager.
+                  GeneratePasswordResetTokenAsync(user).Result;
+
+            var resetLink = Url.Action("ResetPassword",
+                            "Auth", new { token = token },
+                             protocol: HttpContext.Request.Scheme);
+
+            // code to email the above link
+            // see the earlier article
+
+            ViewBag.Message = "Password reset link has been sent to your email address!";
+    return View("Login");
+
+        }
     }
 }
