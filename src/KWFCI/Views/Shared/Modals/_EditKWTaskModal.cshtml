@@ -15,28 +15,28 @@
 
                         <div class="row">
                             <div class="col-xs-12"><label asp-for="@Model.Task.Message">Message:</label></div>
-                            <div class="col-xs-12"><textarea asp-for="@Model.Task.Message" class="form-control taskMessage"></textarea></div>
+                            <div class="col-xs-12"><textarea asp-for="@Model.Task.Message" class="form-control modal-TaskMessage"></textarea></div>
                         </div>
 
                         <div class="row">
                             <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.Task.DateDue">Date Due:</label></div>
-                            <div class="col-xs-5"><input id="taskDateDue" asp-for="@Model.Task.DateDue" class="form-control" /></div>
+                            <div class="col-xs-5"><input asp-for="@Model.Task.DateDue" class="form-control modal-TaskDateDue" /></div>
                         </div>
 
                         <div class="row">
                             <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.Task.AlertDate">Alert Date:</label></div>
-                            <div class="col-xs-5"><input asp-for="@Model.Task.AlertDate" class="form-control" /></div>
+                            <div class="col-xs-5"><input id="" asp-for="@Model.Task.AlertDate" class="form-control modal-TaskAlertDate" /></div>
                         </div>
 
                         <div class="row">
                             <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.Task.Priority">Priority:</label></div>
                             <div class="col-xs-2">
-                                <select class="form-control" asp-for="@Model.Task.Priority">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                <select class="form-control modal-TaskPriority" asp-for="@Model.Task.Priority">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">Critical</option>
                                 </select>
                             </div>
                         </div>
@@ -45,8 +45,9 @@
                         <input type="hidden" class="addID" asp-for="@Model.NewInteraction.InteractionID" />
                         <input type="hidden" asp-for="@Model.Field" value="NextStep" />
                         <input type="hidden" asp-for="@Model.BrokerID" />
+                        
 
-                        <button type="submit" class="btn btn-primary pull-right">Create Task</button>
+                        <button type="submit" class="btn btn-primary pull-right">Save Changes</button>
                     </div>
                 </form>
             </div>

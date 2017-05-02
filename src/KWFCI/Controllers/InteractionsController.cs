@@ -95,7 +95,7 @@ namespace KWFCI.Controllers
 
         [Route("Edit")]
         [HttpPost]
-        public ActionResult Edit(InteractionVM iVM)
+        public ActionResult Edit(InteractionVM iVM, string taskAction = "")
         {
             var i = iVM.NewInteraction;
             if (i != null)
@@ -106,7 +106,7 @@ namespace KWFCI.Controllers
                     interaction.Notes = i.Notes;
                 else if (iVM.Field == "NextStep")
                 {
-                    if(iVM.Task != null)
+                    if(iVM.Task != null && taskAction == "New")
                     {
                         KWTask task = new KWTask()
                         {
@@ -126,10 +126,28 @@ namespace KWFCI.Controllers
                         profile.Tasks.Add(task);
                         taskRepo.AddKWTask(task);
                         interaction.Task = task;
+                        task.Interaction = interaction;
+
                         
+                        taskRepo.UpdateKWTask(task);
+                        
+
                     }  
+                    else if(iVM.Task != null && taskAction == "Edit")
+                    {
+                        KWTask task = taskRepo.GetKWTaskByID(iVM.Task.KWTaskID);
+                        task.Message = iVM.Task.Message;
+                        task.AlertDate = iVM.Task.AlertDate;
+                        task.DateDue = iVM.Task.DateDue;
+                        task.Priority = iVM.Task.Priority;
+
+                        taskRepo.UpdateKWTask(task);
+                    }
                     else
+                    {
                         interaction.NextStep = i.NextStep;
+                    }
+                        
                 }
                     
                 else if (iVM.Field == "Date Created")

@@ -58,6 +58,11 @@ namespace KWFCI.Tests.FakeRepositories
             throw new NotImplementedException();
         }
 
+        public IQueryable<Broker> GetAllBrokers(bool getInactive = false, bool getNotifications = false)
+        {
+            throw new NotImplementedException();
+        }
+
         public Broker GetBrokerByID(int id)
         {
             //var broker = brokers.Where(b => b.BrokerID == id) as Broker;
@@ -70,6 +75,11 @@ namespace KWFCI.Tests.FakeRepositories
         public IQueryable<Broker> GetBrokersByType(string type)
         {
             return brokers.Where(b => b.Type == type).AsQueryable();
+        }
+
+        public IQueryable<Broker> GetBrokersByType(string type, bool getNotifications = false)
+        {
+            throw new NotImplementedException();
         }
 
         public int UpdateBroker(Broker broker)

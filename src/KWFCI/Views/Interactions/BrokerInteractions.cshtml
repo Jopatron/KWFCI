@@ -21,20 +21,21 @@
                 @foreach (Interaction a in Model.Interactions)
                 {
                     var entityID = a.InteractionID;
-                    Model.NewInteraction = a;
+                    
+                    var test = a.TaskForeignKey;
                     
                     <tr>
-                        <td style="text-align:center;width:200px;">@ViewBag.StaffEmail</td>
-                        <td style="min-width:380px;max-width:380px;">
-                            <div class="col-xs-12">
-                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID">
+                        <td style="text-align:center;width:200px;vertical-align:middle;">@ViewBag.StaffEmail</td>
+                        <td style="min-width:380px;max-width:380px;height:100%;">
+                            <div class="col-xs-12 " style="height:100%;">
+                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID" style="height:100%;">
                                     @if (a.Notes != null && a.Notes != "")
                                     {
-                                        @a.Notes
+                                        <div style="height:100%;" data-id="@entityID"><span class="align-middle">@a.Notes</span></div>
                                     }
                                     else
                                     {
-                                        <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
+                                        <div style="height:100%;" data-id="@entityID"><span class="align-middle"></span></div>
                                     }
                                 </a>
                             </div>
@@ -43,7 +44,7 @@
                         
                         <td style="min-width:110px;max-width:110px;" asp-for="@Model.NewInteraction.DateCreated">
                             <!--Attribute necessary for datepicker to function: data-provide="datepicker"
-                                Attributes that server as configuration options: all attributes that start with data-date- -->
+                                Attributes that serve as configuration options: all attributes that start with data-date- -->
                             <input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" class="form-control interactionDate" data-id="@entityID"
                             @if (a.DateCreated != null)
                             {
@@ -60,35 +61,55 @@
                         </td>
 
                         
-                        <td style="min-width:380px;max-width:380px;">
-                            <div class="col-xs-10">
-                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID">
+                        <td style="min-width:380px;max-width:380px;height:100%;">
+                            <div class="col-xs-10" style="height:100%;">
+                                <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID" style="height:100%;">
                                     @if (a.NextStep != null && a.NextStep != "")
                                     {
-                                        @a.NextStep
+                                        <div style="height:100%;" data-id="@entityID"><span class="align-middle">@a.NextStep</span></div>
                                     }
                                     else
                                     {
-                                        <img class="mh-20px w-100p" src="~/lib/images/caucasion.jpg" data-id="@entityID" />
+                                        <div style="height:100%;" data-id="@entityID"><span class="align-middle"></span></div>
                                     }
                                 </a>
                             </div>
                             @if (a.TaskForeignKey == null)
                             {
-                                <div class="col-xs-2">
-                                    <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#newKWTaskModal" data-id="@entityID"><div><i class="fa fa-bell-o" aria-hidden="true"></i></div></button>
+                                <div class="col-xs-2" style="height:100%;">
+                                    <button type="button" class="btn btn-success" style="padding: 0px 7px 0px 7px;float:right;height:100%;" data-toggle="modal" data-target="#newKWTaskFromInteractionModal" data-id="@entityID">
+                                        <div><i style="font-size:18px;" class="fa fa-bell-o" aria-hidden="true"></i></div>
+                                    </button>
                                 </div>
                             }
                             else
                             {
-                                <div class="col-xs-2">
-                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;" data-toggle="modal" data-target="#editKWTaskModal" data-id="@entityID"><div><i class="fa fa-bell-o" aria-hidden="true"></i></div></button>
+                                //KWTask task = Model.Tasks.Where(t => t.KWTaskID == a.TaskForeignKey) as KWTask;
+                                //KWTask test = (from t in Model.Tasks where t.KWTaskID == a.TaskForeignKey select t) as KWTask;
+                                KWTask task = new KWTask();
+                                foreach (KWTask t in Model.Tasks) //Linq not working
+                                {
+                                    if(t.KWTaskID == a.TaskForeignKey)
+                                    {
+                                        task = t;
+                                    }
+                                }
+                                <div class="col-xs-2" style="height:100%;">
+                                    <button type="button" class="btn btn-primary" style="padding: 0px 7px 0px 7px;float:right;height:100%;" data-task-fk="@a.TaskForeignKey" data-toggle="modal" data-target="#editKWTaskFromInteractionModal" data-id="@entityID">
+                                        <div><i style="font-size:18px;" class="fa fa-bell-o" aria-hidden="true"></i></div>
+                                    </button>
+
+                                    <input type="hidden" class="view-TaskAlertDate" value="@task.AlertDate" />
+                                    <input type="hidden" class="view-TaskDateDue" value="@task.DateDue" />
+                                    <input type="hidden" class="view-TaskMessage" value="@task.Message" />
+                                    <input type="hidden" class="view-TaskPriority" value="@task.Priority" />
+                                    <input type="hidden" class="view-TaskKWTaskID" value="@task.KWTaskID" />
                                 </div>
                             }
                         </td>
                         
                         
-                        <td style="width:200px;text-align:center;">
+                        <td style="width:200px;text-align:center;vertical-align:middle;">
                             @ViewBag.BrokerName
                         </td>
                     </tr>
@@ -111,8 +132,10 @@
 
 @Html.ActionLink("New Interaction", "AddInteraction", "Interactions", new { BrokerID = Model.Broker.BrokerID })
 
-@Html.Partial("Modals/_EditKWTaskModal", Model)
-@Html.Partial("Modals/_AddKWTaskModal", Model)
+    
+
+@Html.Partial("Modals/_EditKWTaskFromInteractionModal", Model)
+@Html.Partial("Modals/_NewKWTaskFromInteractionModal", Model)
 @Html.Partial("Modals/_EditInteractionNotesModal", Model)
 @Html.Partial("Modals/_EditInteractionNextStepModal", Model)
 <style>
