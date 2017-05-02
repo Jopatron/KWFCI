@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using KWFCI.Repositories;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace KWFCI.Controllers
 {
@@ -66,16 +68,15 @@ namespace KWFCI.Controllers
             return View("Reset");
         }
 
+        [Route("Reset/Send")]
         public IActionResult SendPasswordResetLink(string username)
         {
             StaffUser user = userManager.
                  FindByNameAsync(username).Result;
 
-            if (user == null || !(userManager.
-                  IsEmailConfirmedAsync(user).Result))
+            if (user == null)
             {
-                ViewBag.Message = "Error while resetting your password!";
-                return View("Error");
+                return View("Reset");
             }
 
             var token = userManager.
@@ -85,12 +86,34 @@ namespace KWFCI.Controllers
                             "Auth", new { token = token },
                              protocol: HttpContext.Request.Scheme);
 
-            // code to email the above link
-            // see the earlier article
+            var email = new MimeMessage();
+            email.From.Add(new MailboxAddress("KWFCI", "do-not-reply@kw.com"));
+            email.Subject = "Password Reset";
+            email.Body = new TextPart("plain")
+            {
+                Text = "Click the link to reset your password " + resetLink
+            };
+            email.To.Add(new MailboxAddress(user.UserName));
 
-            ViewBag.Message = "Password reset link has been sent to your email address!";
-    return View("Login");
+            using (var client = new SmtpClient())
+            {
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
+                client.Connect("smtp.gmail.com", 587, false);
+
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                client.Authenticate("kwfamilycheckin", "Fancy123!");
+
+                client.Send(email);
+                client.Disconnect(true);
+            }
+
+            //TODO: Pop up Alert box saying the reset link has been sent to their email
+            return View("Login");
         }
+
+    
+
     }
 }
+

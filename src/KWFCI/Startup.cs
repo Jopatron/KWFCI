@@ -36,7 +36,9 @@ namespace KWFCI
 
             services.AddIdentity<StaffUser, IdentityRole>(opts =>
                 { opts.Cookies.ApplicationCookie.LoginPath = "/Auth/Login"; })
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders(); 
+
 
             // Add framework services.
             services.AddMvc();
