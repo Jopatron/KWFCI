@@ -16,45 +16,45 @@ namespace KWFCI.Tests
         MessagesController controller;
         List<Message> messages;
 
-        public MessageTests()
-        {
-            repo = new FakeMessageRepository();
-            controller = new MessagesController(repo);
-            messages = repo.GetAllMessages().ToList();
-        }
+        //public MessageTests()
+        //{
+        //    repo = new FakeMessageRepository();
+        //    controller = new MessagesController(repo);
+        //    messages = repo.GetAllMessages().ToList();
+        //}
 
-        [Fact]
-        public void TestAddMessage()
-        {
-            Message message = new Message { Subject = "The Subject", Body = "Body of a message" };
-            repo.AddMessage(message);
+        //[Fact]
+        //public void TestAddMessage()
+        //{
+        //    Message message = new Message { Subject = "The Subject", Body = "Body of a message" };
+        //    repo.AddMessage(message);
 
-            Assert.Contains(message, repo.GetAllMessages());
-            Assert.Equal(repo.GetAllMessages().Count(), 3);
-        }
+        //    Assert.Contains(message, repo.GetAllMessages());
+        //    Assert.Equal(repo.GetAllMessages().Count(), 3);
+        //}
 
-        [Fact]
-        public void TestControllerAddMessage()
-        {
+        //[Fact]
+        //public void TestControllerAddMessage()
+        //{
 
-            Assert.Equal(repo.GetAllMessages().Count(), 2);
-            var message = repo.GetAllMessages().First();
-            var result = controller.SendMessage(message);
+        //    Assert.Equal(repo.GetAllMessages().Count(), 2);
+        //    var message = repo.GetAllMessages().First();
+        //    var result = controller.SendMessage(message);
 
-            //Make sure it is returning as a IActionResult
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+        //    //Make sure it is returning as a IActionResult
+        //    var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
 
-            Assert.Equal("Messages", redirectToActionResult.ControllerName);
-            Assert.Equal("AllMessages", redirectToActionResult.ActionName);
+        //    Assert.Equal("Messages", redirectToActionResult.ControllerName);
+        //    Assert.Equal("AllMessages", redirectToActionResult.ActionName);
   
-            Assert.Equal(repo.GetAllMessages().Count(), 3);
-        }
+        //    Assert.Equal(repo.GetAllMessages().Count(), 3);
+        //}
 
-        [Fact]
-        public void TestGetAllMessages()
-        {
-            Assert.Equal(2, repo.GetAllMessages().Count());
-        }
+        //[Fact]
+        //public void TestGetAllMessages()
+        //{
+        //    Assert.Equal(2, repo.GetAllMessages().Count());
+        //}
 
 
         

@@ -80,6 +80,20 @@ body{
     width:100%;
     height:100%;
 }
+.editTable{
+    margin:20px 0px 20px 0px !important;
+}
+tbody{
+    text-align:center;
+}
+.kwAddButton{
+    color: black;
+    font-weight: 700;
+    font-size: 16px;
+}
+.dataTables_wrapper .dataTables_filter{
+    float:unset !important;
+}
 .table .editTable a:hover, .table .editTable a:active, .table .editTable a:focus{
     text-decoration: none;
 }
@@ -88,15 +102,15 @@ body{
     text-align:center;
 }
 
-.table.table-bordered{
-    width: 80%;
-    margin: 0 auto;
-}
 .navbar .container-fluid>.row{
     border-bottom: 4px solid #b40101;
 }
 .navbar-default{
     background-color: white;
+}
+.navbar{
+    margin-bottom:unset;
+    border: none;
 }
 .logout{
     position:relative;
@@ -157,4 +171,67 @@ body{
 .adminBtns button {
     background-color: #b40101;
 
+}
+.align-middle{
+    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
+}
+#crit-alert-bar{
+    background-color: #b40101;
+    height:60px;
+    text-align:center;
+}
+#crit-alert-bar .row, #crit-alert-bar .col-xs-12{
+    height:100%;
+}
+#crit-alert-bar span{
+    vertical-align:middle;
+    font-weight:700;
+    font-size:36px;
+}
+#crit-alert-bar a{
+    color:white;
+}
+#crit-alert-bar a:hover{
+    text-decoration:none;
+    color:#adadad;
+}
+
+/*Text Animation Styles*/
+
+#crit-alert-bar { font: 400 1em/1.5; background: #090d00; color: rgba(255,255,255,.25); text-align: center; margin: 0 }
+
+#crit-alert-bar a {
+    text-transform: uppercase;
+    letter-spacing: .5em;
+}
+  
+ #crit-alert-bar span{
+
+  	font-family: "Oswald", sans-serif;
+  	letter-spacing: 0;
+
+/* Clip Background Image */
+
+	  background: url(http://f.cl.ly/items/010q3E1u3p2Q0j1L1S1o/animated_text_fill.png) repeat-y;
+	  -webkit-background-clip: text;
+
+/* Animate Background Image */
+
+	  -webkit-text-fill-color: transparent;
+	  -webkit-animation: aitf 80s linear infinite;
+
+/* Activate hardware acceleration for smoother animations */
+
+	  -webkit-transform: translate3d(0,0,0);
+	  -webkit-backface-visibility: hidden;
+
+ }
+
+
+/* Animate Background Image */
+
+@-webkit-keyframes aitf {
+	0% { background-position: 0% 50%; }
+	100% { background-position: 100% 50%; }
 }
