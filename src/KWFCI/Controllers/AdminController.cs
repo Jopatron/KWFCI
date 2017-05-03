@@ -16,12 +16,14 @@ namespace KWFCI.Controllers
         private IInteractionsRepository intRepo;
         private IStaffProfileRepository staffRepo;
         private UserManager<StaffUser> userManager;
+        private IBrokerRepository brokerRepo;
 
-        public AdminController(IInteractionsRepository repo, IStaffProfileRepository repo2, UserManager<StaffUser> usrMgr)
+        public AdminController(IInteractionsRepository repo, IStaffProfileRepository repo2, UserManager<StaffUser> usrMgr, IBrokerRepository repo3)
         {
             intRepo = repo;
             staffRepo = repo2;
             userManager = usrMgr;
+            brokerRepo = repo3;
         }
 
         [Route("Home")]
@@ -47,6 +49,16 @@ namespace KWFCI.Controllers
             ViewBag.Page = "Interactions";
             var vm = new AdminVM();
             vm.Staff = staffRepo.GetAllStaffProfiles().ToList();
+            //TODO Ensure user is rerouted if not logged in
+            return View("AdminHome", vm);
+        }
+
+        [Route("Brokers")]
+        public IActionResult AdminBrokers()
+        {
+            ViewBag.Page = "Brokers";
+            var vm = new AdminVM();
+            vm.Brokers = brokerRepo.GetAllBrokers(true, false).ToList();
             //TODO Ensure user is rerouted if not logged in
             return View("AdminHome", vm);
         }
@@ -79,7 +91,24 @@ namespace KWFCI.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Alert Not Found");
+                ModelState.AddModelError("", "Staff Not Found");
+            }
+            return RedirectToAction("Home");
+        }
+
+        [HttpPost]
+        [Route("BrokerDelete")]
+        public IActionResult BrokerDelete(int id)
+        {
+            Broker broker = brokerRepo.GetBrokerByID(id);
+            if (broker != null)
+            {
+                brokerRepo.DeleteBroker(broker);
+                return RedirectToAction("Brokers");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Broker Not Found");
             }
             return RedirectToAction("Home");
         }

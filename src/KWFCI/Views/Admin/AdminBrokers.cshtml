@@ -1,0 +1,58 @@
+﻿@model KWFCI.Models.ViewModels.AdminVM
+
+<div>
+    <div class="col-xs-12">
+        <table class="table table-bordered editTable">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Broker b in Model.Brokers)
+                {
+                    <tr>
+                        <td>
+                            @b.FirstName
+                        </td>
+
+                        <td>
+                            @b.LastName
+                        </td>
+
+                        <td>
+                            @b.Email
+                        </td>
+
+                        <td>
+                            @b.Status
+                        </td>
+
+                        <td>
+                            @b.Type
+                        </td>
+
+                        <td>
+                            <form asp-action="BrokerDelete" asp-route-id="@b.BrokerID" method="post">
+                                <button type="submit"
+                                        class="btn btn-sm btn-danger center-block">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    table, tr, th {
+        border: 1px solid black;
+    }
+</style>
