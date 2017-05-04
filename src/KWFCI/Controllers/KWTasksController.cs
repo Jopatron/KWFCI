@@ -14,16 +14,16 @@ namespace KWFCI.Controllers
     [Route("Tasks")]
     public class KWTasksController : Controller
     {
-        private IKWTaskRepository kwtRepo;
+        private IKWTaskRepository taskRepo;
 
         public KWTasksController(IKWTaskRepository repo)
         {
-            kwtRepo = repo;
+            taskRepo = repo;
         }
 
         public IActionResult AllKWTasks()
         {
-            var allKWTasks = kwtRepo.GetAllKWTasks().ToList();
+            var allKWTasks = taskRepo.GetAllKWTasks().ToList();
             var vm = new KWTaskVM();
             vm.KWTasks = allKWTasks;
             return View(vm);
@@ -42,7 +42,7 @@ namespace KWFCI.Controllers
                 Priority = kwt.Priority
             };
 
-            kwtRepo.AddKWTask(kwtask);
+            taskRepo.AddKWTask(kwtask);
             //TODO: See if there is a way to just close the modal and not refresh the page
             return RedirectToAction("AllKWTasks");
         }
@@ -50,10 +50,10 @@ namespace KWFCI.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            KWTask kwtask = kwtRepo.GetKWTaskByID(id);
+            KWTask kwtask = taskRepo.GetKWTaskByID(id);
             if (kwtask != null)
             {
-                kwtRepo.DeleteKWTask(kwtask);
+                taskRepo.DeleteKWTask(kwtask);
                 return RedirectToAction("AllKWTasks");
             }
             else
@@ -66,7 +66,7 @@ namespace KWFCI.Controllers
         [Route("Edit")]
         public ActionResult Edit(int id)
         {
-            KWTask kwtask = kwtRepo.GetKWTaskByID(id);
+            KWTask kwtask = taskRepo.GetKWTaskByID(id);
             if (kwtask != null)
             {
                 return View(kwtask);
@@ -83,14 +83,14 @@ namespace KWFCI.Controllers
         {
             if (kwt != null)
             {
-                KWTask kwtask = kwtRepo.GetKWTaskByID(kwt.KWTaskID);
+                KWTask kwtask = taskRepo.GetKWTaskByID(kwt.KWTaskID);
                 kwtask.Message = kwt.Message;
                 kwtask.AlertDate = kwt.AlertDate;
                 //kwtask.DateCreated = kwt.DateCreated;
                 kwtask.DateDue = kwt.DateDue;
                 kwtask.Priority = kwt.Priority;
 
-                int verify = kwtRepo.UpdateKWTask(kwtask);
+                int verify = taskRepo.UpdateKWTask(kwtask);
                 if (verify == 1)
                 {
                     //TODO add feedback of success

@@ -37,6 +37,12 @@ namespace KWFCI.Repositories
                     where kwt.Priority == priority
                     select kwt);
         }
+        public IQueryable<KWTask> GetAllTasksByType(string type)
+        {
+            return (from kwt in context.KWTasks
+                    where kwt.Type == type
+                    select kwt);
+        }
 
         public IQueryable<KWTask> GetAllKWTasks()
         {
