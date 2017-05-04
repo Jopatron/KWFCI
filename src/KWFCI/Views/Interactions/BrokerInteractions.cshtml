@@ -116,6 +116,11 @@
              }
             </tbody>
         </table>
+        <button class="btn btn-sm btn-success kwAddButton" type="button" style="margin-top:10px;"
+                onclick="location.href='@Url.Action("Add", "Interactions", new { BrokerID = Model.Broker.BrokerID })'">
+            <span>New Interaction</span>
+        </button>
+        
     </div>
 </div>
 
@@ -130,7 +135,7 @@
 </form>
 
 
-@Html.ActionLink("New Interaction", "AddInteraction", "Interactions", new { BrokerID = Model.Broker.BrokerID })
+
 
     
 
