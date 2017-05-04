@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using KWFCI.Models;
 using KWFCI.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace KWFCI.Controllers
 {
@@ -13,10 +14,12 @@ namespace KWFCI.Controllers
     public class SettingsController : Controller
     {
         private IStaffProfileRepository profileRepo;
+        private UserManager<StaffUser> userManager;
 
-        public SettingsController(IStaffProfileRepository repo)
+        public SettingsController(IStaffProfileRepository repo, UserManager<StaffUser>usrMgr)
         {
             profileRepo = repo;
+            userManager = usrMgr;
         }
 
 
@@ -61,9 +64,5 @@ namespace KWFCI.Controllers
             return View(p);
         }
 
-        public IActionResult UpdatePassword(StaffProfile p)
-        {
-            return RedirectToAction("Index");
-        }
     }
 }
