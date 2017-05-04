@@ -53,5 +53,10 @@ namespace KWFCI.Repositories
             context.StaffProfiles.Remove(staff);
             return context.SaveChanges();
         }
+        public int UpdateStaff(StaffProfile staff)
+        {
+            context.StaffProfiles.Update(staff);
+            return context.SaveChanges();
+        }
     }
 }

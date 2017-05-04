@@ -10,5 +10,6 @@ namespace KWFCI.Repositories
         StaffProfile GetStaffProfileByID(int id);
         int AddStaff(StaffProfile staff);
         int DeleteStaff(StaffProfile staff);
+        int UpdateStaff(StaffProfile staff);
     }
 }
