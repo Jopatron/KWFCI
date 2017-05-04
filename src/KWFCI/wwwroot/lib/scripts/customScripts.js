@@ -120,4 +120,10 @@ $(document).ready(function () {
   
     $('.editTable').DataTable();
 
+    $('#changePW').hide();
+
+    $('#changePWBtn').click(function () {
+        $('#changePW').toggle();
+    });
+
 });

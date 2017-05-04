@@ -60,5 +60,10 @@ namespace KWFCI.Controllers
             }
             return View(p);
         }
+
+        public IActionResult UpdatePassword(StaffProfile p)
+        {
+            return RedirectToAction("Index");
+        }
     }
 }
