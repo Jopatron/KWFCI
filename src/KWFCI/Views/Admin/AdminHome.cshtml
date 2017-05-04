@@ -6,20 +6,26 @@
 
     <div class="row">
         <div class="adminBtns clearfix">
-            <div class="col-xs-4 center-block">
+            <div class="col-xs-3 center-block">
                 @Html.Partial("Modals/_AdminAddStaff", Model)
             </div>
-            <div class="col-xs-4 center-block">
+            <div class="col-xs-3 center-block">
                     <input type="hidden" name="Page" value="Staff" />
                     <button class="btn btn-sm btn-danger center-block" type="button"  
                             onclick="location.href='@Url.Action("Staff", "Admin")'">
                         <span>Staff</span>
                     </button>
             </div>
-            <div class="col-xs-4 center-block">
+            <div class="col-xs-3 center-block">
                 <button class="btn btn-sm btn-danger center-block" type="button"
                         onclick="location.href='@Url.Action("Interactions", "Admin")'">
                     <span>Interactions</span>
+                </button>
+            </div>
+            <div class="col-xs-3 center-block">
+                <button class="btn btn-sm btn-danger center-block" type="button"
+                        onclick="location.href='@Url.Action("Brokers", "Admin")'">
+                    <span>Brokers</span>
                 </button>
             </div>
         </div>
@@ -33,5 +39,9 @@
         @if (ViewBag.Page == "Interactions")
         {
             @Html.Partial("AdminInteractions");
+        }
+        @if (ViewBag.Page == "Brokers")
+        {
+            @Html.Partial("AdminBrokers");
         }
     </div>
