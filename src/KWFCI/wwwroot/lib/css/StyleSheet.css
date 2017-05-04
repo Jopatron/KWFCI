@@ -210,7 +210,14 @@ tbody{
 
 /*Text Animation Styles*/
 
-#crit-alert-bar { font: 400 1em/1.5; background: #090d00; color: rgba(255,255,255,.25); text-align: center; margin: 0 }
+#crit-alert-bar { 
+    font: 400 1em/1.5; 
+    background: #090d00; 
+    color: rgba(255,255,255,.25); 
+    text-align: center;
+    margin: 0;
+    margin-bottom: 30px;
+}
 
 #crit-alert-bar a {
     text-transform: uppercase;

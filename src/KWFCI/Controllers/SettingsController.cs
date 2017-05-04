@@ -34,7 +34,7 @@ namespace KWFCI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(StaffProfile p)
+        public IActionResult Index(StaffProfile p)
         {
             if (p != null)
             {
