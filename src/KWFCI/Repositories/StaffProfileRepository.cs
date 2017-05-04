@@ -39,7 +39,7 @@ namespace KWFCI.Repositories
         {
             return (from sp in context.StaffProfiles
                     where sp.StaffProfileID == id
-                    select sp).FirstOrDefault<StaffProfile>();
+                    select sp).Include(u => u.User).FirstOrDefault<StaffProfile>();
         }
 
         public int AddStaff(StaffProfile staff)

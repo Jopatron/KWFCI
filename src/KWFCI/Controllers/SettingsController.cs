@@ -30,7 +30,6 @@ namespace KWFCI.Controllers
             return View(me);
         }
 
-        [Route("Edit")]
         [HttpPost]
         public IActionResult Edit(StaffProfile p)
         {
@@ -38,6 +37,8 @@ namespace KWFCI.Controllers
             {
                 StaffProfile profile = profileRepo.GetStaffProfileByID(p.StaffProfileID);
                 profile.Email = p.Email;
+                profile.User.UserName = p.Email;
+                profile.User.NormalizedUserName = p.Email.ToUpper();
                 profile.FirstName = p.FirstName;
                 profile.LastName = p.LastName;
                 profile.EmailNotifications = p.EmailNotifications;
