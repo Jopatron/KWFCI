@@ -1,0 +1,45 @@
+﻿@model KWFCI.Models.StaffProfile
+
+@{
+    ViewBag.Title = "Settings";
+}
+
+<div class="panel panel-default center-block">
+    <div class="panel-heading text-center">Settings for @Model.FirstName @Model.LastName</div>
+    <div class="panel-body">
+        <form class="form-horizontal" asp-action="Index" method="post">
+            <input type="hidden" asp-for="StaffProfileID" />
+            <div class="form-group">
+                <label class="control-label col-sm-3" asp-for="FirstName">First Name:</label>
+                <div class="col-sm-9">
+                    <input type="text" asp-for="FirstName" class="form-control" placeholder="Enter first name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" asp-for="LastName">Last Name:</label>
+                <div class="col-sm-9">
+                    <input type="text" asp-for="LastName" class="form-control" placeholder="Enter last name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" asp-for="Email">Email:</label>
+                <div class="col-sm-9">
+                    <input type="email" asp-for="Email" class="form-control" placeholder="Enter email">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox">
+                        <label><input type="checkbox" asp-for="EmailNotifications">Email Notifications</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    @Html.ActionLink("Reset Password", "SendPasswordResetLink","Settings",new {@id = Model.StaffProfileID } , new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

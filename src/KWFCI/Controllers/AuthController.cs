@@ -126,19 +126,23 @@ namespace KWFCI.Controllers
         [Route("Reset/New/Password")]
         public IActionResult ResetPassword(ResetPasswordVM vm)
         {
-            StaffUser user = userManager.
-                         FindByNameAsync(vm.UserName).Result;
+            if (vm.Password == vm.ConfirmPassword)
+            {
+                StaffUser user = userManager.
+                             FindByNameAsync(vm.UserName).Result;
 
-            IdentityResult result = userManager.ResetPasswordAsync
-                      (user, vm.Token, vm.Password).Result;
-            if (result.Succeeded)
-            {
-                return View("Login");
+                IdentityResult result = userManager.ResetPasswordAsync
+                          (user, vm.Token, vm.Password).Result;
+                if (result.Succeeded)
+                {
+                    return View("Login");
+                }
+                else
+                {
+                    return View("ResetPassword");
+                }
             }
-            else
-            {
-                return View("ResetPassword");
-            }
+            return View("ResetPassword");
         }
 
 
