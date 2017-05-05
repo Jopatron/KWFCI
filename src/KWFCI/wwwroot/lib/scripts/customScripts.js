@@ -138,7 +138,6 @@ $(document).ready(function () {
     var $priorityRow = $('.priorityRow');
 
     $alertDate.on('change', function () {
-        console.log('event fired');
         if($alertDate.val() != "")
         {
             if ($priorityRow.hasClass("hidden"))

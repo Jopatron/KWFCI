@@ -82,9 +82,9 @@ namespace KWFCI.Controllers
 
         [Route("Edit")]
         [HttpPost]
-        public ActionResult Edit(KWTaskVM vm)
+        public ActionResult Edit(KWTaskVM vm, int KWTaskID)
         {
-            KWTask kwtask = taskRepo.GetKWTaskByID(vm.NewKWTask.KWTaskID);
+            KWTask kwtask = taskRepo.GetKWTaskByID(KWTaskID);
             kwtask.Message = vm.NewKWTask.Message;
             kwtask.AlertDate = vm.NewKWTask.AlertDate;
             kwtask.DateDue = vm.NewKWTask.DateDue;
