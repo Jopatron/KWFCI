@@ -81,7 +81,7 @@
                         <td>@t.Priority</td>
                         <td>
                             @{var name = GetStaffProfileName(t, Model.StaffList);}
-                            <select>
+                            <select id="assign-staff-task" data-id="@t.KWTaskID">
                                 <option value="@name">@name</option>
                                 @foreach (StaffProfile staff in Model.StaffList)
                                 {
@@ -113,6 +113,15 @@
         @Html.Partial("Modals/_EditKWTaskModal", Model)
     </div>
 </div>
+
+<form class="hidden" asp-action="Assign" asp-controller="Tasks" id="assignStaffForm" method="post">
+    <!--Value is populated with jQuery based on what value was entered into the date box-->
+    <input type="hidden" class="addTaskID" name="KWTaskID" value="" />
+    <input type="hidden" class="addStaffProfileID" name="StaffProfileName" value="" />
+    
+    <!--Triggered with jQuery-->
+    <button type="submit" class="hidden submitButton"></button>
+</form>
 
 <style>
     table {

@@ -108,5 +108,44 @@ namespace KWFCI.Controllers
             return RedirectToAction("AllKWTasks");
         }
 
+        [Route("Assign")]
+        [HttpPost]
+        public ActionResult Assign(string StaffProfileName, int KWTaskID)
+        {
+            string[] name = StaffProfileName.Split(' ');
+            var profile = staffRepo.GetStaffProfileByFullName(name[0], name[1]) as StaffProfile;
+            var task = taskRepo.GetKWTaskByID(KWTaskID);
+            var allProfiles = staffRepo.GetAllStaffProfiles().ToList();
+
+
+            int verify = ProcessAssign(task, allProfiles, profile);
+            if (verify == 1)
+            {
+                return RedirectToAction("AllKWTasks");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Task Not Found");
+            }
+            return RedirectToAction("AllKWTasks");
+        }
+
+
+        //First unassigns the task from staff, then assigns it, then updates the repo
+        private int ProcessAssign(KWTask t, List<StaffProfile> sps, StaffProfile staff)
+        {
+            foreach(StaffProfile sp in sps)
+            {
+                if (sp.Tasks.Contains(t))
+                    sp.Tasks.Remove(t);
+            }
+            staff.Tasks.Add(t);
+            int verify = staffRepo.UpdateStaff(staff);
+            if (verify == 1)
+                return 1;
+            else
+                return 0;
+        }
+
     }
 }
