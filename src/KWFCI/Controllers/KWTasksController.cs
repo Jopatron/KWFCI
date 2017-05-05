@@ -15,17 +15,19 @@ namespace KWFCI.Controllers
     public class KWTasksController : Controller
     {
         private IKWTaskRepository taskRepo;
+        private IStaffProfileRepository staffRepo;
 
-        public KWTasksController(IKWTaskRepository repo)
+        public KWTasksController(IKWTaskRepository repo, IStaffProfileRepository repo2)
         {
             taskRepo = repo;
+            staffRepo = repo2;
         }
-
+        //[Route("Index")]
         public IActionResult AllKWTasks()
         {
-            var allKWTasks = taskRepo.GetAllKWTasks().ToList();
             var vm = new KWTaskVM();
-            vm.KWTasks = allKWTasks;
+            vm.StaffList = staffRepo.GetAllStaffProfiles().ToList();
+            vm.KWTasks = taskRepo.GetAllKWTasks().ToList();
             return View(vm);
         }
 
@@ -64,48 +66,32 @@ namespace KWFCI.Controllers
         }
 
         [Route("Edit")]
-        public ActionResult Edit(int id)
+        [HttpPost]
+        public ActionResult Edit(KWTaskVM vm)
         {
-            KWTask kwtask = taskRepo.GetKWTaskByID(id);
-            if (kwtask != null)
-            {
-                return View(kwtask);
-            }
+            KWTask kwtask = taskRepo.GetKWTaskByID(vm.NewKWTask.KWTaskID);
+            kwtask.Message = vm.NewKWTask.Message;
+            kwtask.AlertDate = vm.NewKWTask.AlertDate;
+            kwtask.DateDue = vm.NewKWTask.DateDue;
+            kwtask.Priority = vm.NewKWTask.Priority;
+            kwtask.Type = vm.NewKWTask.Type;
+
+            if (kwtask.AlertDate == null)
+                kwtask.Type = "Task";
             else
+                kwtask.Type = "Alert";
+
+            int verify = taskRepo.UpdateKWTask(kwtask);
+            if (verify == 1)
             {
                 return RedirectToAction("AllKWTasks");
-            }
-        }
-
-        [Route("Edit")]
-        [HttpPost]
-        public IActionResult Edit(KWTask kwt)
-        {
-            if (kwt != null)
-            {
-                KWTask kwtask = taskRepo.GetKWTaskByID(kwt.KWTaskID);
-                kwtask.Message = kwt.Message;
-                kwtask.AlertDate = kwt.AlertDate;
-                //kwtask.DateCreated = kwt.DateCreated;
-                kwtask.DateDue = kwt.DateDue;
-                kwtask.Priority = kwt.Priority;
-
-                int verify = taskRepo.UpdateKWTask(kwtask);
-                if (verify == 1)
-                {
-                    //TODO add feedback of success
-                    return RedirectToAction("AllKWTasks");
-                }
-                else
-                {
-                    //TODO add feedback for error
-                }
             }
             else
             {
                 ModelState.AddModelError("", "Task Not Found");
             }
-            return View(kwt);
+            return RedirectToAction("AllKWTasks");
         }
+
     }
 }
