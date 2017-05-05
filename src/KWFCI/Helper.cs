@@ -1,5 +1,6 @@
 ﻿using KWFCI.Models;
 using KWFCI.Repositories;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,5 @@ namespace KWFCI
             return stafProf;
         }
 
-        
     }
 }
