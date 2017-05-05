@@ -31,7 +31,7 @@ namespace KWFCI.Controllers
             staffRepo = sRepo;
         }
 
-       
+
 
         public ViewResult AllMessages()
         {
@@ -47,22 +47,22 @@ namespace KWFCI.Controllers
         public IActionResult SendMessage(Message m, bool checkAll = false, bool checkAllBrokers = false, bool checkStaff = false,
             bool checkNewBrokers = false, bool checkBrokersInTransition = false, bool checkTransferBrokers = false)
         {
-           
 
             var message = new Message
             {
                 Subject = m.Subject,
                 Body = m.Body,
                 DateSent = DateTime.Now,
-                
-        };
 
 
-        messageRepo.AddMessage(message);
+            };
+
+
+            messageRepo.AddMessage(message);
 
             if (checkAll == true)
             {
-                brokers = brokerRepo.GetAllBrokers(false,true);
+                brokers = brokerRepo.GetAllBrokers(false, true);
                 staff = staffRepo.GetAllStaffProfiles(true);
 
             }
@@ -70,7 +70,7 @@ namespace KWFCI.Controllers
             {
                 if (checkAllBrokers == true)
 
-                    brokers = brokerRepo.GetAllBrokers(false,true);
+                    brokers = brokerRepo.GetAllBrokers(false, true);
                 else
                 {
 
@@ -78,41 +78,41 @@ namespace KWFCI.Controllers
                     {
                         if (brokers != null)
                         {
-                            var newBrokers = brokerRepo.GetBrokersByType("New Broker",true);
+                            var newBrokers = brokerRepo.GetBrokersByType("New Broker", true);
                             foreach (var b in newBrokers)
                                 brokers.Append(b);
                         }
                         else
-                            brokers = brokerRepo.GetBrokersByType("New Broker",true);
+                            brokers = brokerRepo.GetBrokersByType("New Broker", true);
                     }
 
                     if (checkBrokersInTransition == true)
                     {
                         if (brokers != null)
                         {
-                            var transitionBrokers = brokerRepo.GetBrokersByType("In Transition",true);
+                            var transitionBrokers = brokerRepo.GetBrokersByType("In Transition", true);
                             foreach (var b in transitionBrokers)
                                 brokers.Append(b);
                         }
-                        else 
-                            brokers = brokerRepo.GetBrokersByType("In Transition",true);
+                        else
+                            brokers = brokerRepo.GetBrokersByType("In Transition", true);
                     }
                     if (checkTransferBrokers == true)
                     {
                         if (brokers != null)
                         {
-                            var transferBrokers = brokerRepo.GetBrokersByType("Transfer",true);
+                            var transferBrokers = brokerRepo.GetBrokersByType("Transfer", true);
                             foreach (var b in transferBrokers)
                                 brokers.Append(b);
                         }
                         else
-                            brokers = brokerRepo.GetBrokersByType("Transfer",true);
+                            brokers = brokerRepo.GetBrokersByType("Transfer", true);
                     }
                 }
-                    if (checkStaff == true)
-                        staff = staffRepo.GetAllStaffProfiles(true);
-                
-                
+                if (checkStaff == true)
+                    staff = staffRepo.GetAllStaffProfiles(true);
+
+
             }
             var email = new MimeMessage();
             email.From.Add(new MailboxAddress("KWFCI", "do-not-reply@kw.com"));
@@ -123,35 +123,36 @@ namespace KWFCI.Controllers
             };
             if (brokers != null)
             {
-                
+
                 foreach (var b in brokers)
                 {
 
-                    email.To.Add(new MailboxAddress(b.FirstName + " " + b.LastName, b.Email));
+                    email.Bcc.Add(new MailboxAddress(b.FirstName + " " + b.LastName, b.Email));
 
                 }
+            }
 
-                if (staff != null)
-                {
-                    foreach (var st in staff)
-                        email.To.Add(new MailboxAddress(st.FirstName + " " + st.LastName, st.Email));
+            if (staff != null)
+            {
+                foreach (var st in staff)
+                    email.Bcc.Add(new MailboxAddress(st.FirstName + " " + st.LastName, st.Email));
 
-                }
-                    using (var client = new SmtpClient())
-                    {
-                        client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+            }
+            using (var client = new SmtpClient())
+            {
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
-                        client.Connect("smtp.gmail.com", 587, false);
+                client.Connect("smtp.gmail.com", 587, false);
 
-                        client.AuthenticationMechanisms.Remove("XOAUTH2");
-                        client.Authenticate("kwfamilycheckin", "Fancy123!");
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                client.Authenticate("kwfamilycheckin", "Fancy123!");
 
-                        client.Send(email);
-                        client.Disconnect(true);
-                    }
-                }
-            
-        
+                client.Send(email);
+                client.Disconnect(true);
+            }
+
+
+
 
             return RedirectToAction("AllMessages", "Messages");
         }
