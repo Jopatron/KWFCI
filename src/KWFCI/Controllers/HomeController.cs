@@ -10,9 +10,10 @@ using KWFCI.Repositories;
 
 namespace KWFCI.Controllers
 {
-    [Authorize(Roles ="Staff")]
+    
     [Route("Index")]
     [Route("/")]
+    [Authorize(Roles = "Staff")]
     public class HomeController : Controller
     {
         private UserManager<StaffUser> userManager;
@@ -23,6 +24,7 @@ namespace KWFCI.Controllers
             staffProfRepo = repo;
             userManager = usrMgr;
         }
+        
         public async Task <IActionResult> Index()
         {
             StaffUser user = await userManager.FindByNameAsync(User.Identity.Name);

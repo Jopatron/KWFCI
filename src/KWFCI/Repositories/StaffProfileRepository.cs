@@ -39,7 +39,7 @@ namespace KWFCI.Repositories
         {
             return (from sp in context.StaffProfiles
                     where sp.StaffProfileID == id
-                    select sp).FirstOrDefault<StaffProfile>();
+                    select sp).Include(u => u.User).FirstOrDefault<StaffProfile>();
         }
 
         public int AddStaff(StaffProfile staff)
@@ -51,6 +51,11 @@ namespace KWFCI.Repositories
         public int DeleteStaff(StaffProfile staff)
         {
             context.StaffProfiles.Remove(staff);
+            return context.SaveChanges();
+        }
+        public int UpdateStaff(StaffProfile staff)
+        {
+            context.StaffProfiles.Update(staff);
             return context.SaveChanges();
         }
     }
