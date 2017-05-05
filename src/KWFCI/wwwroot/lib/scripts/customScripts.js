@@ -134,21 +134,22 @@ $(document).ready(function () {
         });
     });
 
-    //var $alertDate = $('.modal-TaskAlertDate');
-    //var $priority = $('.modal-TaskPriority');
+    var $alertDate = $('#NewKWTask_AlertDate');
+    var $priorityRow = $('.priorityRow');
 
-    //$alertDate.on('change', function () {
-    //    if($alertDate.val() != "")
-    //    {
-    //        if ($priority.hasClass("hidden"))
-    //            $priority.removeClass("hidden");
-    //    }
-    //    else
-    //    {
-    //        if (!$priority.hasClass("hidden"))
-    //            $('.modal-TaskPriority').addClass("hidden");
-    //    }
-    //});
+    $alertDate.on('change', function () {
+        console.log('event fired');
+        if($alertDate.val() != "")
+        {
+            if ($priorityRow.hasClass("hidden"))
+                $priorityRow.removeClass("hidden");
+        }
+        else
+        {
+            if (!$priorityRow.hasClass("hidden"))
+                $priorityRow.addClass("hidden");
+        }
+    });
 
 
     $("#buttonSelector").click(function () {
