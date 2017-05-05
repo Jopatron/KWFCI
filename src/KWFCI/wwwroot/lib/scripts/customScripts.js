@@ -30,9 +30,19 @@ $(document).ready(function () {
         }
         else if (event.target.nodeName == "I")
             var entityID = target.closest("button").attr("data-id");
-            
+        else if (event.target.nodeName == "INPUT")
+            var entityID = target.attr("data-id");
+           
+        console.log(entityID);
         $(".addID").attr("value", entityID);
         
+
+
+
+
+
+
+
         if (event.target.nodeName == "DIV")
         {
             var text = target.closest('a').text().replace(/\n/g, "").trim();
