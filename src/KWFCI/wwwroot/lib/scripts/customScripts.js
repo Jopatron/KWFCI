@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     $(".editTable").click(function (event) {
         var target = $(event.target);
-
+        
 
         if (event.target.nodeName == "DIV" || event.target.nodeName == "BUTTON")
             var entityID = target.attr("data-id");
@@ -144,21 +144,34 @@ $(document).ready(function () {
         });
     });
 
-    var $alertDate = $('#NewKWTask_AlertDate');
-    var $priorityRow = $('.priorityRow');
+    
 
-    $alertDate.on('change', function () {
-        if($alertDate.val() != "")
+    $('.modal-dialog').on('click', function (ev) { //If I click inside the modal
+        if ($(ev.target).hasClass('modal-TaskAlertDate')) //If the target is the alert date field
         {
-            if ($priorityRow.hasClass("hidden"))
-                $priorityRow.removeClass("hidden");
-        }
-        else
-        {
-            if (!$priorityRow.hasClass("hidden"))
-                $priorityRow.addClass("hidden");
+            var $alertDate = $('#'+ $(ev.target).closest('div[id]').attr('id') + ' .modal-TaskAlertDate');
+            console.log($(ev.target).closest('div[id]').attr('id'));
+            //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
+            //set a function for when it changes to hide/show the subsequent .priorityRow
+            
+            $alertDate.on('change', function () {
+                console.log('event fired');
+                var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
+                if($alertDate.val() != "")
+                {
+                    if($priorityRow.hasClass('hidden'))
+                        $priorityRow.removeClass("hidden");
+                }
+                else
+                {
+                    if (!$priorityRow.hasClass("hidden"))
+                         $priorityRow.addClass("hidden");
+                }
+
+            });
         }
     });
+    
 
 
     $("#buttonSelector").click(function () {

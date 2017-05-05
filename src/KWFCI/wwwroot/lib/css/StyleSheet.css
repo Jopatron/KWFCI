@@ -24,9 +24,9 @@ body{
 .kw-nav-wrapper .navbar-nav{
     position: relative;
     top: 55px;
-    margin-right:20px;
-    float: right;
-    width: 86%;  
+    margin:0 auto;
+    width: 45%;  
+    float:unset;
 }
 
 .datepicker table tr, .datepicker table{
@@ -88,9 +88,7 @@ body{
 .editTable a{
     height:100%;
 }
-.editTable span{
-    vertical-align:middle;
-}
+
 .editTable{
     margin:20px 0px 20px 0px !important;
 }
