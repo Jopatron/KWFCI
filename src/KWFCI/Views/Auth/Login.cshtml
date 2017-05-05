@@ -18,7 +18,7 @@
                     <input asp-for="UserName" class="form-control" type="text" placeholder="Email address">
                     <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
-
+                <br />
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-lock"></span>
@@ -30,6 +30,10 @@
                 <button type="submit" class="btn btn-danger btn-lg btn-block">Sign In</button>
                 
             </form>
+            <a class="btn btn-link"
+                    onclick="location.href='@Url.Action("ForgotPassword", "Auth")'">
+                <span>Forgot Password</span>
+            </a>
         </div>
     </div>
 </div>

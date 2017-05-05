@@ -114,15 +114,16 @@ namespace KWFCI.Controllers
                 
                 
             }
+            var email = new MimeMessage();
+            email.From.Add(new MailboxAddress("KWFCI", "do-not-reply@kw.com"));
+            email.Subject = message.Subject;
+            email.Body = new TextPart("plain")
+            {
+                Text = message.Body
+            };
             if (brokers != null)
             {
-                var email = new MimeMessage();
-                email.From.Add(new MailboxAddress("KWFCI", "do-not-reply@kw.com"));
-                email.Subject = message.Subject;
-                email.Body = new TextPart("plain")
-                {
-                    Text = message.Body
-                };
+                
                 foreach (var b in brokers)
                 {
 

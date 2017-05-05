@@ -163,9 +163,10 @@ tbody{
 }
 
 .adminBtns {
-    width: 20%;
+    width: 30%;
     margin: 0 auto;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .adminBtns button {
@@ -205,28 +206,21 @@ tbody{
     text-transform: uppercase;
     letter-spacing: .5em;
 }
-  
- #crit-alert-bar span{
 
-  	font-family: "Oswald", sans-serif;
-  	letter-spacing: 0;
-
-/* Clip Background Image */
-
-	  background: url(http://f.cl.ly/items/010q3E1u3p2Q0j1L1S1o/animated_text_fill.png) repeat-y;
-	  -webkit-background-clip: text;
-
-/* Animate Background Image */
-
-	  -webkit-text-fill-color: transparent;
-	  -webkit-animation: aitf 80s linear infinite;
-
-/* Activate hardware acceleration for smoother animations */
-
-	  -webkit-transform: translate3d(0,0,0);
-	  -webkit-backface-visibility: hidden;
-
- }
+#crit-alert-bar span {
+    font-family: "Oswald", sans-serif;
+    letter-spacing: 0;
+    /* Clip Background Image */
+    background: url('../images/animated_text_fill_r.png') repeat-y;
+        
+    -webkit-background-clip: text;
+    /* Animate Background Image */
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: aitf 80s linear infinite;
+    /* Activate hardware acceleration for smoother animations */
+    -webkit-transform: translate3d(0,0,0);
+    -webkit-backface-visibility: hidden;
+}
 
 
 /* Animate Background Image */
