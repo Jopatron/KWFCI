@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using KWFCI.Models;
 using KWFCI.Repositories;
 using Microsoft.AspNetCore.Identity;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace KWFCI.Controllers
 {
@@ -62,6 +64,51 @@ namespace KWFCI.Controllers
                 ModelState.AddModelError("", "User Not Found");
             }
             return View(p);
+        }
+
+        [Route("Settings/Send")]
+        public IActionResult SendPasswordResetLink(int id)
+        {
+            StaffProfile profile = profileRepo.GetStaffProfileByID(id);
+            StaffUser user = userManager.
+                 FindByNameAsync(profile.User.UserName).Result;
+
+            if (user == null)
+            {
+                return View("Index");
+            }
+
+            var token = userManager.
+                  GeneratePasswordResetTokenAsync(user).Result;
+
+            var resetLink = Url.Action("ResetPassword",
+                            "Auth", new { token = token },
+                             protocol: HttpContext.Request.Scheme);
+
+            var email = new MimeMessage();
+            email.From.Add(new MailboxAddress("KWFCI", "do-not-reply@kw.com"));
+            email.Subject = "Password Reset";
+            email.Body = new TextPart("plain")
+            {
+                Text = "Click the link to reset your password " + resetLink
+            };
+            email.To.Add(new MailboxAddress(user.UserName));
+
+            using (var client = new SmtpClient())
+            {
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+                client.Connect("smtp.gmail.com", 587, false);
+
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                client.Authenticate("kwfamilycheckin", "Fancy123!");
+
+                client.Send(email);
+                client.Disconnect(true);
+            }
+
+            //TODO: Pop up Alert box saying the reset link has been sent to their email
+            return View("Index",profile);
         }
 
     }

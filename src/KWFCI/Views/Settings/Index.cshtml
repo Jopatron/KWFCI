@@ -37,7 +37,7 @@
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-9">
                     <button type="submit" class="btn btn-success">Save</button>
-                    <a class="btn btn-primary" id="changePWBtn">Change Password</a>
+                    @Html.ActionLink("Reset Password", "SendPasswordResetLink","Settings",new {@id = Model.StaffProfileID } , new { @class = "btn btn-primary" })
                 </div>
             </div>
         </form>
