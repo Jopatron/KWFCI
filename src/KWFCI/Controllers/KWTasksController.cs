@@ -30,12 +30,13 @@ namespace KWFCI.Controllers
             var vm = new KWTaskVM();
             vm.StaffList = staffRepo.GetAllStaffProfiles().ToList();
             vm.KWTasks = taskRepo.GetAllKWTasks().ToList();
+            vm.NewKWTask = new KWTask();
             return View(vm);
         }
 
         [Route("Add")]
         [HttpPost]
-        public IActionResult AddKWTask(KWTaskVM vm)
+        public IActionResult AddKWTask(KWTaskVM vm, int? staffProfileID)
         {
             var kwtask = new KWTask
             {
@@ -45,6 +46,10 @@ namespace KWFCI.Controllers
                 DateDue = vm.NewKWTask.DateDue,
                 Priority = vm.NewKWTask.Priority
             };
+            if (kwtask.AlertDate == null)
+                kwtask.Type = "Task";
+            else
+                kwtask.Type = "Alert";
 
             taskRepo.AddKWTask(kwtask);
             //TODO: See if there is a way to just close the modal and not refresh the page

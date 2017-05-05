@@ -68,9 +68,25 @@
                             @t.DateCreated
                         </td>
                         <td>@t.Type</td>
-                        <td>@t.DateDue</td>
+                        <td>
+                            @{
+                                //Remove the time from the display
+                                string[] splitDateDue = t.DateDue.ToString().Split(' ');
+                                string dateDue = splitDateDue[0];
+
+                                @dateDue
+                            }
+                        </td>
                         <td>@t.Message</td>
-                        <td>@t.AlertDate</td>
+                        <td>
+                        @{
+                            //Remove the time from the display
+                            string[] splitAlertDate = t.AlertDate.ToString().Split(' ');
+                            string alertDate = splitAlertDate[0];
+
+                            @alertDate
+                        }
+                        </td>
                         <td>@t.Priority</td>
                         <th>
                             @{var name = GetStaffProfileName(Model.KWTasks, Model.StaffList);}
@@ -88,7 +104,11 @@
                 }
             </tbody>
         </table>
-        @Html.Partial("Modals/_EditKWTaskModal", Model.NewKWTask)
+        <button class="btn btn-sm btn-success kwAddButton" type="button" style="margin-top:10px;"
+                data-target="#addKWTaskModal" data-toggle="modal">
+            <span>New Task</span>
+        </button>
+        @Html.Partial("Modals/_AddKWTaskModal", Model)
     </div>
 </div>
 
