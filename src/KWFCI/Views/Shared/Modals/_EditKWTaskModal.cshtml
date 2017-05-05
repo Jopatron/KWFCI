@@ -1,4 +1,4 @@
-﻿@model KWFCI.Models.ViewModels.InteractionVM
+﻿@model KWFCI.Models.ViewModels.KWTaskVM
 
 
 <div class="modal fade" id="editKWTaskModal" tabindex="-1" role="dialog" aria-labelledby="editKWTaskModal">
@@ -6,32 +6,32 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="settingsLabel">New Task: @*<em>TODO: Use JavaScript to dynamically make this the broker name while being typed</em>*@</h4>
+                <h4 class="modal-title" id="settingsLabel">Edit Task: </h4>
             </div>
             <div class="modal-body clearfix">
 
-                <form asp-controller="KWTasks" asp-action="AddKWTask" method="post">
+                <form asp-controller="KWTasks" asp-action="Edit" method="post">
                     <div class="form-group center-block modal-form">
 
                         <div class="row">
-                            <div class="col-xs-12"><label asp-for="@Model.Task.Message">Message:</label></div>
-                            <div class="col-xs-12"><textarea asp-for="@Model.Task.Message" class="form-control modal-TaskMessage"></textarea></div>
+                            <div class="col-xs-12"><label asp-for="@Model.NewKWTask.Message">Message:</label></div>
+                            <div class="col-xs-12"><textarea asp-for="@Model.NewKWTask.Message" class="form-control modal-TaskMessage"></textarea></div>
                         </div>
 
                         <div class="row">
-                            <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.Task.DateDue">Date Due:</label></div>
-                            <div class="col-xs-5"><input asp-for="@Model.Task.DateDue" class="form-control modal-TaskDateDue" /></div>
+                            <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.NewKWTask.DateDue">Date Due:</label></div>
+                            <div class="col-xs-5"><input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" asp-for="@Model.NewKWTask.DateDue" class="form-control modal-TaskDateDue" /></div>
                         </div>
 
                         <div class="row">
-                            <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.Task.AlertDate">Alert Date:</label></div>
-                            <div class="col-xs-5"><input id="" asp-for="@Model.Task.AlertDate" class="form-control modal-TaskAlertDate" /></div>
+                            <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.NewKWTask.AlertDate">Alert Date:</label></div>
+                            <div class="col-xs-5"><input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" asp-for="@Model.NewKWTask.AlertDate" class="form-control modal-TaskAlertDate" /></div>
                         </div>
 
                         <div class="row">
-                            <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.Task.Priority">Priority:</label></div>
+                            <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.NewKWTask.Priority">Priority:</label></div>
                             <div class="col-xs-2">
-                                <select class="form-control modal-TaskPriority" asp-for="@Model.Task.Priority">
+                                <select class="form-control modal-TaskPriority" asp-for="@Model.NewKWTask.Priority">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -41,11 +41,9 @@
                             </div>
                         </div>
 
-                        <input type="hidden" asp-for="@Model.Task.DateCreated" />
-                        <input type="hidden" class="addID" asp-for="@Model.NewInteraction.InteractionID" />
-                        <input type="hidden" asp-for="@Model.Field" value="NextStep" />
-                        <input type="hidden" asp-for="@Model.BrokerID" />
-                        
+                        <input type="hidden" class="modal-TaskKWTaskID" asp-for="@Model.NewKWTask.KWTaskID" />
+                        <input type="hidden" asp-for="@Model.NewKWTask.DateCreated" />
+                        <input type="hidden" class="addID" name="KWTaskID" value="" />
 
                         <button type="submit" class="btn btn-primary pull-right">Save Changes</button>
                     </div>
