@@ -5,25 +5,16 @@
 
 @functions{
 
-    public string GetStaffProfileName(List<KWTask> tasks, List<StaffProfile> staff)
+    public string GetStaffProfileName(KWTask task, List<StaffProfile> staff)
     {
         string name = "";
         foreach (StaffProfile sp in staff)
         {
-            foreach (KWTask t in tasks)
+            if (sp.Tasks.Contains(task))
             {
-                if (sp.Tasks.Contains(t))
-                {
-                    name = sp.FirstName + " " + sp.LastName;
-                    return name;
-                }
-                else
-                {
-                    name = "";
-                    return name;
-                }
+                name = sp.FirstName + " " + sp.LastName;
+                return name;
             }
-
         }
         return name;
     }
@@ -88,10 +79,20 @@
                         }
                         </td>
                         <td>@t.Priority</td>
-                        <th>
-                            @{var name = GetStaffProfileName(Model.KWTasks, Model.StaffList);}
-                            @name
-                        </th>
+                        <td>
+                            @{var name = GetStaffProfileName(t, Model.StaffList);}
+                            <select>
+                                <option value="@name">@name</option>
+                                @foreach (StaffProfile staff in Model.StaffList)
+                                {
+                                    string nonActiveName = staff.FirstName + " " + staff.LastName;
+                                    if (nonActiveName != name)
+                                    {
+                                        <option value="@nonActiveName">@nonActiveName</option>
+                                    }
+                                }
+                            </select>
+                        </td>
                         <td>
                             <form asp-action="Delete" asp-route-id="@t.KWTaskID" method="post">
                                 <button type="submit"
