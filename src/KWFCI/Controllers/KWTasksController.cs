@@ -16,11 +16,13 @@ namespace KWFCI.Controllers
     {
         private IKWTaskRepository taskRepo;
         private IStaffProfileRepository staffRepo;
+        private IInteractionsRepository intRepo;
 
-        public KWTasksController(IKWTaskRepository repo, IStaffProfileRepository repo2)
+        public KWTasksController(IKWTaskRepository repo, IStaffProfileRepository repo2, IInteractionsRepository repo3)
         {
             taskRepo = repo;
             staffRepo = repo2;
+            intRepo = repo3;
         }
         //[Route("Index")]
         public IActionResult AllKWTasks()
@@ -33,15 +35,15 @@ namespace KWFCI.Controllers
 
         [Route("Add")]
         [HttpPost]
-        public IActionResult AddKWTask(KWTask kwt)
+        public IActionResult AddKWTask(KWTaskVM vm)
         {
             var kwtask = new KWTask
             {
-                Message = kwt.Message,
-                AlertDate = kwt.AlertDate,
-                DateCreated = kwt.DateCreated,
-                DateDue = kwt.DateDue,
-                Priority = kwt.Priority
+                Message = vm.NewKWTask.Message,
+                AlertDate = vm.NewKWTask.AlertDate,
+                DateCreated = vm.NewKWTask.DateCreated,
+                DateDue = vm.NewKWTask.DateDue,
+                Priority = vm.NewKWTask.Priority
             };
 
             taskRepo.AddKWTask(kwtask);
@@ -55,6 +57,14 @@ namespace KWFCI.Controllers
             KWTask kwtask = taskRepo.GetKWTaskByID(id);
             if (kwtask != null)
             {
+                var interaction = taskRepo.GetAssociatedInteraction(kwtask);
+                if (interaction != null)
+                {
+                    interaction.Task = null;
+                    interaction.TaskForeignKey = null;
+                    intRepo.UpdateInteraction(interaction);
+                }
+                    
                 taskRepo.DeleteKWTask(kwtask);
                 return RedirectToAction("AllKWTasks");
             }

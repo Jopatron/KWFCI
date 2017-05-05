@@ -11,5 +11,6 @@ namespace KWFCI.Repositories
         int UpdateKWTask(KWTask kwtask);
         KWTask GetKWTaskByID(int id);
         IQueryable<KWTask> GetAllTasksByType(string type);
+        Interaction GetAssociatedInteraction(KWTask task);
     }
 }

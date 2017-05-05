@@ -24,6 +24,15 @@ namespace KWFCI.Repositories
             context.KWTasks.Remove(kwtask);
             return context.SaveChanges();
         }
+        public Interaction GetAssociatedInteraction(KWTask task)
+        {
+            foreach(Interaction i in context.Interactions)
+            {
+                if(i.TaskForeignKey == task.KWTaskID)
+                    return i;
+            }
+            return null;
+        }
 
         public int UpdateKWTask(KWTask kwtask)
         {
