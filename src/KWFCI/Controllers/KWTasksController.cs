@@ -112,27 +112,35 @@ namespace KWFCI.Controllers
         [HttpPost]
         public ActionResult Assign(string StaffProfileName, int KWTaskID)
         {
-            string[] name = StaffProfileName.Split(' ');
-            var profile = staffRepo.GetStaffProfileByFullName(name[0], name[1]) as StaffProfile;
+            bool verify;
             var task = taskRepo.GetKWTaskByID(KWTaskID);
             var allProfiles = staffRepo.GetAllStaffProfiles().ToList();
-
-
-            int verify = ProcessAssign(task, allProfiles, profile);
-            if (verify == 1)
+            if (StaffProfileName != "clear")
             {
-                return RedirectToAction("AllKWTasks");
+                string[] name = StaffProfileName.Split(' ');
+                var profile = staffRepo.GetStaffProfileByFullName(name[0], name[1]) as StaffProfile;
+                verify = ProcessAssign(task, allProfiles, profile);
+
+                if (verify)
+                {
+                    return RedirectToAction("AllKWTasks");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Task Not Found");
+                }
             }
             else
             {
-                ModelState.AddModelError("", "Task Not Found");
+                verify = ProcessAssign(task, allProfiles, true);
             }
+            
             return RedirectToAction("AllKWTasks");
         }
 
 
         //First unassigns the task from staff, then assigns it, then updates the repo
-        private int ProcessAssign(KWTask t, List<StaffProfile> sps, StaffProfile staff)
+        private bool ProcessAssign(KWTask t, List<StaffProfile> sps, StaffProfile staff)
         {
             foreach(StaffProfile sp in sps)
             {
@@ -141,11 +149,23 @@ namespace KWFCI.Controllers
             }
             staff.Tasks.Add(t);
             int verify = staffRepo.UpdateStaff(staff);
-            if (verify == 1)
-                return 1;
+            if (verify > 0)
+                return true;
             else
-                return 0;
+                return false;
         }
 
+        private bool ProcessAssign(KWTask t, List<StaffProfile> sps, bool clear)
+        {
+            foreach (StaffProfile sp in sps)
+            {
+                if (sp.Tasks.Contains(t))
+                {
+                    sp.Tasks.Remove(t);
+                    staffRepo.UpdateStaff(sp);
+                }
+            }
+            return true;
+        }
     }
 }

@@ -79,19 +79,43 @@
                         }
                         </td>
                         <td>@t.Priority</td>
-                        <td>
-                            @{var name = GetStaffProfileName(t, Model.StaffList);}
-                            <select id="assign-staff-task" data-id="@t.KWTaskID">
-                                <option value="@name">@name</option>
-                                @foreach (StaffProfile staff in Model.StaffList)
-                                {
-                                    string nonActiveName = staff.FirstName + " " + staff.LastName;
-                                    if (nonActiveName != name)
+                        <td style="max-width:175px;">
+                            @{var activeName = GetStaffProfileName(t, Model.StaffList);}
+                            
+                            <div class="dropdown" style="height:100%;width:100%;">
+                                <button class="btn btn-default dropdown-toggle assign-staff-task" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="@activeName" data-id="@t.KWTaskID" style="width:100%;">
+                                    <div class="row">
+                                        @if (activeName == "")
+                                        {
+                                            @:<div class="col-xs-9"></div>
+                                        }
+                                        else
+                                        {
+                                            @:<div class="col-xs-9" style="text-align:left;"><span>@activeName</span></div>
+                                        }
+                                        <div class="col-xs-3" style="height:100%;"><span class="caret"></span></div>
+                                    </div>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    @if (activeName != "")
                                     {
-                                        <option value="@nonActiveName">@nonActiveName</option>
+                                        <li class="col-xs-12" value="clear">Clear</li>
                                     }
-                                }
-                            </select>
+                                    @foreach (StaffProfile staff in Model.StaffList)
+                                    {
+                                        string currentName = staff.FirstName + " " + staff.LastName;
+                                        if (currentName != activeName)
+                                        {
+                                            <li class="col-xs-12" value="@currentName">@currentName</li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                            
+                            @*<select class="assign-staff-task" data-id="@t.KWTaskID">
+                                @*<option value="@activeName"></option>
+                              
+                            </select>*@
                         </td>
                         <td>
                             <form asp-action="Delete" asp-route-id="@t.KWTaskID" method="post">

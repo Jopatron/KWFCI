@@ -171,8 +171,8 @@ $(document).ready(function () {
     
 
 
-    $('#assign-staff-task').on('change', function () {
-        var $staffName = $('#assign-staff-task').val();
+    $('.assign-staff-task').on('change', function () {
+        var $staffName = $(this).val();
         var $taskID = $(this).attr("data-id");
         console.log($staffName);
         console.log($taskID);
