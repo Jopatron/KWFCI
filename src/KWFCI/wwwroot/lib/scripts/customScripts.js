@@ -169,18 +169,30 @@ $(document).ready(function () {
         }
     });
     
-
-
-    $('.assign-staff-task').on('change', function () {
-        var $staffName = $(this).val();
-        var $taskID = $(this).attr("data-id");
-        console.log($staffName);
-        console.log($taskID);
+    $('.editTable .dropdown-menu a').on('click', function (ev) {
+        ev.preventDefault();
+        
+        var $staffName = $(this).text();
+        var $taskID = $(this).closest('td').find("button[data-id]").attr('data-id');
 
         $('#assignStaffForm .addTaskID').val($taskID);
         $('#assignStaffForm .addStaffProfileID').val($staffName);
         $('#assignStaffForm .submitButton').trigger('click');
     });
+
+    
+
+
+    //$('.dropdown-menu').on('change', function () {
+    //    var $staffName = $(this).val();
+    //    var $taskID = $(this).attr("data-id");
+    //    console.log($staffName);
+    //    console.log($taskID);
+
+    //    $('#assignStaffForm .addTaskID').val($taskID);
+    //    $('#assignStaffForm .addStaffProfileID').val($staffName);
+    //    $('#assignStaffForm .submitButton').trigger('click');
+    //});
 
 
     $("#buttonSelector").click(function () {

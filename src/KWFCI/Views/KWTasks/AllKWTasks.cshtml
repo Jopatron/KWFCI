@@ -79,7 +79,7 @@
                         }
                         </td>
                         <td>@t.Priority</td>
-                        <td style="max-width:175px;">
+                        <td>
                             @{var activeName = GetStaffProfileName(t, Model.StaffList);}
                             
                             <div class="dropdown" style="height:100%;width:100%;">
@@ -99,14 +99,14 @@
                                 <ul class="dropdown-menu">
                                     @if (activeName != "")
                                     {
-                                        <li class="col-xs-12" value="clear">Clear</li>
+                                        <li class="col-xs-12" value="clear"><a href="#" >Clear</a></li>
                                     }
                                     @foreach (StaffProfile staff in Model.StaffList)
                                     {
                                         string currentName = staff.FirstName + " " + staff.LastName;
                                         if (currentName != activeName)
                                         {
-                                            <li class="col-xs-12" value="@currentName">@currentName</li>
+                                            <li class="col-xs-12" value="@currentName"><a href="#">@currentName</a></li>
                                         }
                                     }
                                 </ul>

@@ -97,6 +97,10 @@ body{
 .editTable .dropdown-menu{
     width:100%;
 }
+.dropdown-menu>li>a{
+    padding:3px 0px;
+}
+
 tbody{
     text-align:center;
 }
