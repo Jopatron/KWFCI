@@ -85,13 +85,22 @@ body{
 }
 .editTable td,
 .editTable div,
+.editTable select,
 .editTable a{
     height:100%;
 }
 
+
 .editTable{
     margin:20px 0px 20px 0px !important;
 }
+.editTable .dropdown-menu{
+    width:100%;
+}
+.dropdown-menu>li>a{
+    padding:3px 0px;
+}
+
 tbody{
     text-align:center;
 }

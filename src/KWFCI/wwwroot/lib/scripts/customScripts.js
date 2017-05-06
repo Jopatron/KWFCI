@@ -33,7 +33,6 @@ $(document).ready(function () {
         else if (event.target.nodeName == "INPUT")
             var entityID = target.attr("data-id");
            
-        console.log(entityID);
         $(".addID").attr("value", entityID);
         
 
@@ -150,12 +149,10 @@ $(document).ready(function () {
         if ($(ev.target).hasClass('modal-TaskAlertDate')) //If the target is the alert date field
         {
             var $alertDate = $('#'+ $(ev.target).closest('div[id]').attr('id') + ' .modal-TaskAlertDate');
-            console.log($(ev.target).closest('div[id]').attr('id'));
             //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
             //set a function for when it changes to hide/show the subsequent .priorityRow
             
             $alertDate.on('change', function () {
-                console.log('event fired');
                 var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
                 if($alertDate.val() != "")
                 {
@@ -172,6 +169,30 @@ $(document).ready(function () {
         }
     });
     
+    $('.editTable .dropdown-menu a').on('click', function (ev) {
+        ev.preventDefault();
+        
+        var $staffName = $(this).text();
+        var $taskID = $(this).closest('td').find("button[data-id]").attr('data-id');
+
+        $('#assignStaffForm .addTaskID').val($taskID);
+        $('#assignStaffForm .addStaffProfileID').val($staffName);
+        $('#assignStaffForm .submitButton').trigger('click');
+    });
+
+    
+
+
+    //$('.dropdown-menu').on('change', function () {
+    //    var $staffName = $(this).val();
+    //    var $taskID = $(this).attr("data-id");
+    //    console.log($staffName);
+    //    console.log($taskID);
+
+    //    $('#assignStaffForm .addTaskID').val($taskID);
+    //    $('#assignStaffForm .addStaffProfileID').val($staffName);
+    //    $('#assignStaffForm .submitButton').trigger('click');
+    //});
 
 
     $("#buttonSelector").click(function () {

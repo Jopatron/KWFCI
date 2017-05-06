@@ -5,25 +5,16 @@
 
 @functions{
 
-    public string GetStaffProfileName(List<KWTask> tasks, List<StaffProfile> staff)
+    public string GetStaffProfileName(KWTask task, List<StaffProfile> staff)
     {
         string name = "";
         foreach (StaffProfile sp in staff)
         {
-            foreach (KWTask t in tasks)
+            if (sp.Tasks.Contains(task))
             {
-                if (sp.Tasks.Contains(t))
-                {
-                    name = sp.FirstName + " " + sp.LastName;
-                    return name;
-                }
-                else
-                {
-                    name = "";
-                    return name;
-                }
+                name = sp.FirstName + " " + sp.LastName;
+                return name;
             }
-
         }
         return name;
     }
@@ -88,10 +79,44 @@
                         }
                         </td>
                         <td>@t.Priority</td>
-                        <th>
-                            @{var name = GetStaffProfileName(Model.KWTasks, Model.StaffList);}
-                            @name
-                        </th>
+                        <td>
+                            @{var activeName = GetStaffProfileName(t, Model.StaffList);}
+                            
+                            <div class="dropdown" style="height:100%;width:100%;">
+                                <button class="btn btn-default dropdown-toggle assign-staff-task" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="@activeName" data-id="@t.KWTaskID" style="width:100%;">
+                                    <div class="row">
+                                        @if (activeName == "")
+                                        {
+                                            @:<div class="col-xs-9"></div>
+                                        }
+                                        else
+                                        {
+                                            @:<div class="col-xs-9" style="text-align:left;"><span>@activeName</span></div>
+                                        }
+                                        <div class="col-xs-3" style="height:100%;"><span class="caret"></span></div>
+                                    </div>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    @if (activeName != "")
+                                    {
+                                        <li class="col-xs-12" value="Clear"><a href="#" >Clear</a></li>
+                                    }
+                                    @foreach (StaffProfile staff in Model.StaffList)
+                                    {
+                                        string currentName = staff.FirstName + " " + staff.LastName;
+                                        if (currentName != activeName)
+                                        {
+                                            <li class="col-xs-12" value="@currentName"><a href="#">@currentName</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                            
+                            @*<select class="assign-staff-task" data-id="@t.KWTaskID">
+                                @*<option value="@activeName"></option>
+                              
+                            </select>*@
+                        </td>
                         <td>
                             <form asp-action="Delete" asp-route-id="@t.KWTaskID" method="post">
                                 <button type="submit"
@@ -112,6 +137,15 @@
         @Html.Partial("Modals/_EditKWTaskModal", Model)
     </div>
 </div>
+
+<form class="hidden" asp-action="Assign" asp-controller="Tasks" id="assignStaffForm" method="post">
+    <!--Value is populated with jQuery based on what value was entered into the date box-->
+    <input type="hidden" class="addTaskID" name="KWTaskID" value="" />
+    <input type="hidden" class="addStaffProfileID" name="StaffProfileName" value="" />
+    
+    <!--Triggered with jQuery-->
+    <button type="submit" class="hidden submitButton"></button>
+</form>
 
 <style>
     table {
