@@ -115,7 +115,7 @@ namespace KWFCI.Controllers
             bool verify;
             var task = taskRepo.GetKWTaskByID(KWTaskID);
             var allProfiles = staffRepo.GetAllStaffProfiles().ToList();
-            if (StaffProfileName != "clear")
+            if (StaffProfileName != "Clear")
             {
                 string[] name = StaffProfileName.Split(' ');
                 var profile = staffRepo.GetStaffProfileByFullName(name[0], name[1]) as StaffProfile;
