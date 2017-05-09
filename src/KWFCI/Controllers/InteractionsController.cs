@@ -175,5 +175,11 @@ namespace KWFCI.Controllers
 
             return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.BrokerID});
         }
+        //[HttpPost]
+        //[Route("ChangeBroker")]
+        //public ActionResult ChangeBroker(int newBrokerID, int oldBrokerID)
+        //{
+        //
+        //}
     }
 }

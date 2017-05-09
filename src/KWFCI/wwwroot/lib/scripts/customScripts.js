@@ -183,23 +183,14 @@ $(document).ready(function () {
     
 
 
-    //$('.dropdown-menu').on('change', function () {
-    //    var $staffName = $(this).val();
-    //    var $taskID = $(this).attr("data-id");
-    //    console.log($staffName);
-    //    console.log($taskID);
-
-    //    $('#assignStaffForm .addTaskID').val($taskID);
-    //    $('#assignStaffForm .addStaffProfileID').val($staffName);
-    //    $('#assignStaffForm .submitButton').trigger('click');
-    //});
-
-
     $("#buttonSelector").click(function () {
         $(this).button('loading');
     });
   
     $('.editTable').DataTable();
 
+    $('#changeBrokerModal button').on('click', function () {
+        console.log('true');
+    });
 
 });

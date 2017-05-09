@@ -10,11 +10,11 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div>
+                        @*<div class="center-block" style="width:60%;">*@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" aria-describedby="search-broker">
                                 <span class="input-group-addon" id="search-broker"><i class="fa fa-search" aria-hidden="true"></i></span>
-                            </div>
+                            @*</div>*@
                         </div>
                     </div>
                 </div>
@@ -36,8 +36,14 @@
                                         <span style="float:right;">@email</span>
                                     </div>
                                 </button>
+                                <input class="changeBroker-brokerID" type="hidden" value="@b.BrokerID" />
                             }
                         </div>
+                        <form class="hidden" asp-controller="Interactions" asp-action="ChangeBroker" method="post">
+                            <input class="changeBroker-newBrokerID" type="hidden" name="newBrokerID" value="" />
+                            <input class="changeBroker-oldBrokerID" type="hidden" name="oldBrokerID" value="" />
+                            <button class="hidden" type="submit">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
