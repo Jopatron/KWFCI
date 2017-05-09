@@ -37,6 +37,10 @@ body{
     padding-bottom:unset;
 }
 
+.modal-content {
+    padding:20px;
+}
+
 
 .modal-form button, .modal-form .row {
 }

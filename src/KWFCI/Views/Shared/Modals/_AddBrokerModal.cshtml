@@ -10,35 +10,53 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="settingsLabel">New Broker: @*<em>TODO: Use JavaScript to dynamically make this the broker name while being typed</em>*@</h4>
+                <h4 class="modal-title" id="settingsLabel">New Broker</h4>
             </div>
             <div class="modal-body">
 
-                <form asp-controller="Brokers" asp-action="AddBroker" method="post">
-                    <div class="form-group center-block">
-
-                        <label asp-for="FirstName">First Name:</label>
-                        <input asp-for="FirstName" class="form-control" /><br />
-
-                        <label asp-for="LastName">Last Name:</label>
-                        <input asp-for="LastName" class="form-control" /><br />
-
-                        <label asp-for="Email">Email:</label>
-                        <input asp-for="Email" class="form-control" /><br />
-
-                        <label asp-for="Type">Broker Type:</label>
-                        <select class="form-control" asp-for="Type">
-                            <option>New Broker</option>
-                            <option>Broker In Transition</option>
-                        </select>
-
-                        <label asp-for="EmailNotifications">EmailNotifications:</label>
-                        <input asp-for="EmailNotifications" class="form-control" type="checkbox" /><br />
-
-
-
-                        <button type="submit" class="btn btn-primary pull-right">Create Broker</button>
+                <form asp-controller="Brokers" asp-action="AddBroker" method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" asp-for="FirstName">First Name:</label>
+                        <div class="col-sm-9">
+                            <input type="text" asp-for="FirstName" class="form-control" placeholder="Enter first name">
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" asp-for="LastName">Last Name:</label>
+                        <div class="col-sm-9">
+                            <input type="text" asp-for="LastName" class="form-control" placeholder="Enter last name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" asp-for="Email">Email:</label>
+                        <div class="col-sm-9">
+                            <input type="text" asp-for="Email" class="form-control" placeholder="Enter email address">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" asp-for="Type">Broker Type:</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" asp-for="Type">
+                                <option>New Broker</option>
+                                <option>Broker In Transition</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" asp-for="EmailNotifications" style="margin-top:10px;">Email Notifications:</label>
+                        <div class="col-sm-2">
+                            <div class="checkbox center-block">
+                                <input type="checkbox" asp-for="EmailNotifications" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                        <button type="submit" class="btn btn-primary btn-block">Create Broker</button>
                 </form>
             </div>
         </div>
