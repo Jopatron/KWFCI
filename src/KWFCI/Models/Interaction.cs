@@ -20,10 +20,6 @@ namespace KWFCI.Models
             Status = "Active";
             Notes = "";
             NextStep = "";
-            if (Task != null)
-            {
-                Task.Type = "Alert";
-            }
         }
     }
 }

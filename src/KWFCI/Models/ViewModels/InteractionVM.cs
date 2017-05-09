@@ -14,5 +14,6 @@ namespace KWFCI.Models.ViewModels
         public string Field { get; set; }
         public KWTask Task { get; set; }
         public List<KWTask> Tasks { get; set; }
+        public List<Broker> AllBrokers { get; set; }
     }
 }

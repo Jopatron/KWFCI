@@ -37,6 +37,7 @@ namespace KWFCI.Controllers
             vm.Interactions = allInteractions;
             vm.Broker = broker;
             vm.NewInteraction = new Interaction();
+            vm.AllBrokers = brokerRepo.GetAllBrokers().ToList();
             vm.Task = new KWTask();
 
 

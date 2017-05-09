@@ -4,6 +4,8 @@
     ViewBag.Title = "Interactions";
 }
 
+
+
 <div>
     <div class="col-xs-12">
         
@@ -107,8 +109,12 @@
                         </td>
                         
                         
-                        <td style="width:200px;text-align:center;vertical-align:middle;">
-                            @ViewBag.BrokerName
+                        <td style="width:200px;text-align:center;">
+                            <a href="#" class="inactive" data-toggle="modal" data-target="#changeBroker" data-id="@entityID">
+                                <div class="alignCell-Parent">
+                                    <div class="alignCell">@ViewBag.BrokerName</div>
+                                </div>
+                            </a>
                         </td>
                     </tr>
              }
