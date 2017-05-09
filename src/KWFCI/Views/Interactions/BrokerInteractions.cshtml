@@ -110,7 +110,7 @@
                         
                         
                         <td style="width:200px;text-align:center;">
-                            <a href="#" class="inactive" data-toggle="modal" data-target="#changeBroker" data-id="@entityID">
+                            <a href="#" class="inactive" data-toggle="modal" data-target="#changeBrokerModal" data-id="@entityID">
                                 <div class="alignCell-Parent">
                                     <div class="alignCell">@ViewBag.BrokerName</div>
                                 </div>
@@ -142,7 +142,7 @@
 
 
     
-
+@Html.Partial("Modals/_ChangeBrokerModal", Model)
 @Html.Partial("Modals/_EditKWTaskFromInteractionModal", Model)
 @Html.Partial("Modals/_NewKWTaskFromInteractionModal", Model)
 @Html.Partial("Modals/_EditInteractionNotesModal", Model)

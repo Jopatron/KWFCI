@@ -93,7 +93,9 @@ body{
 .editTable a, .editTable a:hover{
     text-decoration:none;
 }
-
+#changeBrokerModal .modal-dialog{
+    width:500px;
+}
 .editTable{
     margin:20px 0px 20px 0px !important;
 }
