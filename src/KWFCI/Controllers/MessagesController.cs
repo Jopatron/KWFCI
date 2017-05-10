@@ -23,18 +23,21 @@ namespace KWFCI.Controllers
         private IStaffProfileRepository staffRepo;
         private IEnumerable<Broker> brokers;
         private IQueryable<StaffProfile> staff;
+        private IKWTaskRepository taskRepo;
 
-        public MessagesController(IMessageRepository repo, IBrokerRepository bRepo, IStaffProfileRepository sRepo)
+        public MessagesController(IMessageRepository repo, IBrokerRepository bRepo, IStaffProfileRepository sRepo, IKWTaskRepository repo2)
         {
             messageRepo = repo;
             brokerRepo = bRepo;
             staffRepo = sRepo;
+            taskRepo = repo2;
         }
 
 
 
         public ViewResult AllMessages()
         {
+            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             var vm = new MessageVM();
             var allMessages = messageRepo.GetAllMessages().ToList();
 

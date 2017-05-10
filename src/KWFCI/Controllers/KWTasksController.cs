@@ -25,8 +25,10 @@ namespace KWFCI.Controllers
             intRepo = repo3;
         }
         //[Route("Index")]
-        public IActionResult AllKWTasks()
+        public IActionResult AllKWTasks(string filter)
         {
+            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
+            ViewBag.Filter = filter;
             var vm = new KWTaskVM();
             vm.StaffList = staffRepo.GetAllStaffProfiles().ToList();
             vm.KWTasks = taskRepo.GetAllKWTasks().ToList();
@@ -53,10 +55,6 @@ namespace KWFCI.Controllers
 
             taskRepo.AddKWTask(kwtask);
 
-            if(kwtask.Type == "Alert" && kwtask.Priority == 5)
-            {
-                Helper.CriticalAlerts.Add(kwtask);
-            }
             //TODO: See if there is a way to just close the modal and not refresh the page
             return RedirectToAction("AllKWTasks");
         }
@@ -67,8 +65,6 @@ namespace KWFCI.Controllers
             KWTask kwtask = taskRepo.GetKWTaskByID(id);
             if (kwtask != null)
             {
-                if (Helper.CriticalAlerts.Contains(kwtask))
-                    Helper.CriticalAlerts.Remove(kwtask);
                 var interaction = taskRepo.GetAssociatedInteraction(kwtask);
                 if (interaction != null)
                 {

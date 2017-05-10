@@ -16,14 +16,17 @@ namespace KWFCI.Controllers
     public class BrokersController : Controller
     {
         private IBrokerRepository brokerRepo;
+        private IKWTaskRepository taskRepo;
 
-        public BrokersController(IBrokerRepository repo)
+        public BrokersController(IBrokerRepository repo, IKWTaskRepository repo2)
         {
             brokerRepo = repo;
+            taskRepo = repo2;
         }
         
         public ViewResult AllBrokers()
         {
+            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             var vm = new BrokerVM();
             vm.Brokers = brokerRepo.GetAllBrokers().ToList();
             vm.NewBroker = new Broker();

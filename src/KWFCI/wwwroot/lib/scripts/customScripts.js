@@ -208,5 +208,14 @@ $(document).ready(function () {
     };
 
     var brokersList = new List('changeBrokerList', options);
+    //End List.js code
 
+    //Apply filter text to KWTask table filter for critical alerts
+    $(window).on("load", function () {
+        if (window.location.pathname == "/Tasks")
+        {
+            var filter = $('body').find('.filter').text();
+            $('.dataTables_filter').find('input').val(filter).trigger("input");
+        }
+    });
 });

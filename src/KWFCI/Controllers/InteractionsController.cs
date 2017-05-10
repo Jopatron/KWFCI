@@ -29,6 +29,7 @@ namespace KWFCI.Controllers
         [Route("Brokers")]
         public IActionResult BrokerInteractions(int BrokerID)
         {
+            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             var broker = brokerRepo.GetBrokerByID(BrokerID);
             ViewBag.BrokerName = broker.FirstName + " " + broker.LastName;
             ViewBag.CurrentBrokerID = broker.BrokerID;

@@ -45,24 +45,30 @@
             </div>
         </div>
     </nav>
-    @if(ViewBag.CriticalAlerts > 0)
+    @if(ViewBag.Critical.Count > 0)
     {
-        @:<div class="container-fluid" id="crit-alert-bar">
-    }
-    else
-    {
-        @:<div class="container-fluid hidden" id="crit-alert-bar">
-    }
-        <div class="row" style="height:100%;">
-            <div class="col-xs-12" style="height:100%;">
-                <span>
-                    <a href="/Tasks" >
-                        4 Critical Alerts
-                    </a>
-                </span>
+        <div class="container-fluid" id="crit-alert-bar">
+            <div class="row" style="height:100%;">
+                <div class="col-xs-12" style="height:100%;">
+                    <span>
+                        <a href="@Url.Action("AllKWTasks", "KWTasks", new { filter = "Critical"})" >
+                            @if (ViewBag.Critical.Count > 1)
+                            {
+                                @ViewBag.Critical.Count @:Critical Alerts
+                            }
+                            else
+                            {
+                                @ViewBag.Critical.Count @:Critical Alert
+                            }
+                        </a>
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
+    }
+    
+        
+    
     <div class="container-fluid">
         @RenderBody()
     </div>
