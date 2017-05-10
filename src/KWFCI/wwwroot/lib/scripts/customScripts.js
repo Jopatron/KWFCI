@@ -7,16 +7,22 @@ $(document).ready(function () {
         }
     };
 
-    $(".inactive").on("click", function () {
-        preventDefault();
+    $(".inactive").on("click", function (ev) {
+        ev.preventDefault();
     });
 
     $(".editTable").click(function (event) {
         var target = $(event.target);
-        
 
         if (event.target.nodeName == "DIV" || event.target.nodeName == "BUTTON")
+        {
             var entityID = target.attr("data-id");
+            if(target.hasClass('alignCell'))
+            {
+                $('#changeBrokerModal .changeBroker-oldBrokerID').val(target.attr('data-current-broker'));
+                $("#changeBrokerModal .addID").attr("value", entityID);
+            }
+        }
         else if (event.target.nodeName == "SPAN")
         {
             if(target[0].parentNode.nodeName == "BUTTON")
@@ -139,7 +145,8 @@ $(document).ready(function () {
 
         $(".editTable .interactionDate").on("change", function () {
             $(".addDate").attr("value", $(this).val());
-            $(".submitButton").trigger("click");
+            
+            $("#date-created-form .submitButton").trigger("click");
         });
     });
 
@@ -183,23 +190,24 @@ $(document).ready(function () {
     
 
 
-    //$('.dropdown-menu').on('change', function () {
-    //    var $staffName = $(this).val();
-    //    var $taskID = $(this).attr("data-id");
-    //    console.log($staffName);
-    //    console.log($taskID);
-
-    //    $('#assignStaffForm .addTaskID').val($taskID);
-    //    $('#assignStaffForm .addStaffProfileID').val($staffName);
-    //    $('#assignStaffForm .submitButton').trigger('click');
-    //});
-
-
     $("#buttonSelector").click(function () {
         $(this).button('loading');
     });
   
     $('.editTable').DataTable();
 
+    $('#changeBrokerModal .list-group li').on('click', function () {
+        var $newBroker = $(this).find('span').text();
+        $('.changeBroker-newBroker').val($newBroker);
+        $(this).closest('.col-xs-12').find('.submitButton').trigger('click');
+    });
+
+    
+    //List.js code
+    var options = {
+        valueNames: ['name', 'email']
+    };
+
+    var brokersList = new List('changeBrokerList', options);
 
 });

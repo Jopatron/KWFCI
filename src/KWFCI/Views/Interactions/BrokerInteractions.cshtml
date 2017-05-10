@@ -60,7 +60,9 @@
 </div>
 
 
+
 <div class="row">
+
     <div class="col-xs-12">
         
         <table class="table table-bordered editTable">
@@ -80,18 +82,18 @@
                     
                     var test = a.TaskForeignKey;
                     
-                    <tr>
+                    <tr style="height:100%;">
                         <td style="text-align:center;width:200px;vertical-align:middle;">@ViewBag.StaffEmail</td>
                         <td style="min-width:380px;max-width:380px;">
                             <div class="col-xs-12">
                                 <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID" style="height:100%;">
                                     @if (a.Notes != null && a.Notes != "")
                                     {
-                                        <div data-id="@entityID"><span class="align-middle">@a.Notes</span></div>
+                                        <div class="alignCell-Parent" data-id="@entityID"><span class="alignCell">@a.Notes</span></div>
                                     }
                                     else
                                     {
-                                        <div data-id="@entityID"><span class="align-middle"></span></div>
+                                        <div class="alignCell-Parent" data-id="@entityID"><span class="alignCell"></span></div>
                                     }
                                 </a>
                             </div>
@@ -122,11 +124,11 @@
                                 <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID" style="height:100%;">
                                     @if (a.NextStep != null && a.NextStep != "")
                                     {
-                                        <div style="height:100%;" data-id="@entityID"><span class="align-middle">@a.NextStep</span></div>
+                                        <div class="alignCell-Parent" data-id="@entityID"><span class="alignCell">@a.NextStep</span></div>
                                     }
                                     else
                                     {
-                                        <div style="height:100%;" data-id="@entityID"><span class="align-middle"></span></div>
+                                        <div class="alignCell-Parent" data-id="@entityID"><span class="alignCell"></span></div>
                                     }
                                 </a>
                             </div>
@@ -163,8 +165,12 @@
                         </td>
                         
                         
-                        <td style="width:200px;text-align:center;vertical-align:middle;">
-                            @ViewBag.BrokerName
+                        <td style="width:200px;text-align:center;">
+                            <a href="#" class="inactive" data-toggle="modal" data-target="#changeBrokerModal" data-id="@entityID">
+                                <div class="alignCell-Parent">
+                                    <div class="alignCell" data-id="@entityID" data-current-broker="@ViewBag.CurrentBrokerID">@ViewBag.BrokerName</div>
+                                </div>
+                            </a>
                         </td>
                     </tr>
              }
@@ -178,7 +184,7 @@
     </div>
 </div>
 
-<form class="hidden" asp-action="Edit" asp-controller="Interactions">
+<form class="hidden" id="date-created-form" asp-controller="Interactions" asp-action="Edit" method="post">
     <!--Value is populated with jQuery based on what value was entered into the date box-->
     <input type="hidden" class="addDate" asp-for="@Model.NewInteraction.DateCreated" value=""/>
     <input type="hidden" class="addID" asp-for="@Model.NewInteraction.InteractionID" value="" />
@@ -192,7 +198,7 @@
 
 
     
-
+@Html.Partial("Modals/_ChangeBrokerModal", Model)
 @Html.Partial("Modals/_EditKWTaskFromInteractionModal", Model)
 @Html.Partial("Modals/_NewKWTaskFromInteractionModal", Model)
 @Html.Partial("Modals/_EditInteractionNotesModal", Model)

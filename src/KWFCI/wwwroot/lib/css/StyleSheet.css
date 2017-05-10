@@ -1,5 +1,6 @@
 body{
     font-family:  Arial, Helvetica, sans-serif;
+    height:100%;
 }
 .kw-logo{                
     margin: 20px 0px 5px 0;
@@ -24,9 +25,8 @@ body{
 .kw-nav-wrapper .navbar-nav{
     position: relative;
     top: 55px;
-    margin:0 auto;
-    width: 45%;  
     float:unset;
+    display:inline-flex;
 }
 
 .datepicker table tr, .datepicker table{
@@ -36,12 +36,16 @@ body{
     border-bottom: unset;
     padding-bottom:unset;
 }
-
-
-.modal-form button, .modal-form .row {
+.modal-title{
+    margin:unset;
 }
-.modal-header {
-    padding-top:0px;
+.modal-header{
+    text-align:center;
+}
+#changeBrokerModal .modal-content{
+    height:800px;
+    overflow-y:scroll;
+    overflow-x:hidden;
 }
 
 .form-group {
@@ -89,8 +93,12 @@ body{
 .editTable a{
     height:100%;
 }
-
-
+.editTable a, .editTable a:hover{
+    text-decoration:none;
+}
+#changeBrokerModal .modal-dialog{
+    width:500px;
+}
 .editTable{
     margin:20px 0px 20px 0px !important;
 }
@@ -264,4 +272,20 @@ tbody{
 	0% { background-position: 0% 50%; }
 	100% { background-position: 100% 50%; }
 
+}
+
+.alignCell-Parent{
+    display:table;
+    height:100%;
+    width:100%;
+    text-align:center;
+}
+.alignCell{
+    display: table-cell;
+    vertical-align: middle;
+    
+}
+#changeBrokerModal .list-group li:hover{
+    cursor:pointer;
+    background-color:rgba(211, 211, 211, .8);
 }

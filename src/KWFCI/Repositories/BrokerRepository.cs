@@ -62,6 +62,13 @@ namespace KWFCI.Repositories
                     select b).Include(b => b.Interactions).Include(b => b.Requirements).FirstOrDefault<Broker>();
         }
 
+        public Broker GetBrokerByEmail(string email)
+        {
+            return (from b in context.Brokers
+                    where b.Email == email
+                    select b).Include(b => b.Interactions).Include(b => b.Requirements).FirstOrDefault<Broker>();
+        }
+
         public IQueryable<Broker> GetBrokersByType(string type, bool getNotifications = false)
         {
             if (getNotifications == true)

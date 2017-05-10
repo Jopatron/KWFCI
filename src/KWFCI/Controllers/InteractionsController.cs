@@ -31,12 +31,14 @@ namespace KWFCI.Controllers
         {
             var broker = brokerRepo.GetBrokerByID(BrokerID);
             ViewBag.BrokerName = broker.FirstName + " " + broker.LastName;
+            ViewBag.CurrentBrokerID = broker.BrokerID;
             ViewBag.StaffEmail = Helper.StaffProfileLoggedIn.Email;
             var allInteractions = broker.Interactions; //This is where the issue seems to present
             var vm = new InteractionVM();
             vm.Interactions = allInteractions;
             vm.Broker = broker;
             vm.NewInteraction = new Interaction();
+            vm.AllBrokers = brokerRepo.GetAllBrokers().ToList();
             vm.Task = new KWTask();
             vm.TasksCompleted = 0;
 
@@ -201,6 +203,29 @@ namespace KWFCI.Controllers
             }
 
             return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.BrokerID});
+        }
+        [HttpPost]
+        [Route("ChangeBroker")]
+        public ActionResult ChangeBroker(string newBroker, int oldBrokerID, int interactionID)
+        {
+            Interaction i = intRepo.GetInteractionById(interactionID);
+            Broker oldB = brokerRepo.GetBrokerByID(oldBrokerID);
+            Broker newB = brokerRepo.GetBrokerByEmail(newBroker);
+            if (i != null && oldB != null && newB != null)
+            {
+                oldB.Interactions.Remove(i);
+                newB.Interactions.Add(i);
+
+                brokerRepo.UpdateBroker(oldB);
+                brokerRepo.UpdateBroker(newB);
+
+                return RedirectToAction("BrokerInteractions", new { BrokerID = oldBrokerID });
+            }
+            else
+            {
+                ModelState.AddModelError("", "Interaction or broker Not Found");
+            }
+            return RedirectToAction("BrokerInteractions", new { BrokerID = oldBrokerID });
         }
     }
 }

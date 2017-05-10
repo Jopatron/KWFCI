@@ -1,0 +1,75 @@
+﻿@model KWFCI.Models.ViewModels.InteractionVM
+
+<div class="modal fade" id="changeBrokerModal" tabindex="-1" role="dialog" aria-labelledby="changeBrokerModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title">Choose a Broker:</h2>
+            </div>
+            <div class="modal-body" id="changeBrokerList">
+                <div class="row">
+                    <div class="col-xs-12">
+                        @*<div class="center-block" style="width:60%;">*@
+                            <div class="input-group">
+                                <input type="text" class="form-control search" placeholder="Search" aria-describedby="search-broker">
+                                <span class="input-group-addon" id="search-broker"><i class="fa fa-search" aria-hidden="true"></i></span>
+                            @*</div>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul class="list list-group" style="padding:10px 0px;">
+                            @foreach (Broker b in Model.AllBrokers)
+                            {
+                                string name = b.FirstName + " " + b.LastName;
+                                string email = b.Email;
+                                <li class="list-group-item" data-id="@b.BrokerID" style="display:flex;justify-content:space-between;">
+                                    <div class="name" style="width:49%;">
+                                        @name
+                                    </div>
+                                    <div style="width:2%;">
+                                        |
+                                    </div>
+                                    <div style="width:49%;text-align:right;">
+                                        <span class="email">@email</span>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                        <form class="hidden" asp-controller="Interactions" asp-action="ChangeBroker" method="post">
+                            <input class="changeBroker-newBroker" type="hidden" name="newBroker" value="" />
+                            <input class="changeBroker-oldBrokerID" type="hidden" name="oldBrokerID" value="" />
+                            <input class="addID" type="hidden" name="interactionID" value="" />
+                            <button class="hidden submitButton" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
