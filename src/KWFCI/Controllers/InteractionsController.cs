@@ -38,9 +38,19 @@ namespace KWFCI.Controllers
             vm.Broker = broker;
             vm.NewInteraction = new Interaction();
             vm.Task = new KWTask();
+            vm.TasksCompleted = 0;
 
 
             List<KWTask> tasks = new List<KWTask>();
+            foreach (KWTask t in broker.Requirements)
+            {
+                tasks.Add(t);
+                if (t.IsComplete)
+                    vm.TasksCompleted++;
+                
+            }
+            ViewBag.Percent = Math.Round((vm.TasksCompleted / 16) * 100);
+
             foreach(Interaction i in broker.Interactions)
             {
                 if(i.TaskForeignKey != null)
@@ -92,7 +102,25 @@ namespace KWFCI.Controllers
             return RedirectToAction("BrokerInteractions", new {BrokerID = BrokerID });
 
         }
+        [Route("Onboarding")]
+        public IActionResult UpdateTasks()
+        {
+            var vm = new InteractionVM();
+            return View(vm);
+        }
 
+        [Route("Onboarding")]
+        [HttpPost]
+        public IActionResult UpdateTasks(InteractionVM vm)
+        {
+            foreach (KWTask t in vm.Tasks)
+            {
+                var task = taskRepo.GetKWTaskByID(t.KWTaskID);
+                task.IsComplete = t.IsComplete;
+                taskRepo.UpdateKWTask(task);
+            }
+            return RedirectToAction("BrokerInteractions", new { BrokerID = vm.BrokerID });
+        }
         [Route("Edit")]
         [HttpPost]
         public ActionResult Edit(InteractionVM iVM, string taskAction = "")
