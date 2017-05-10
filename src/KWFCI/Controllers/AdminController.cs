@@ -62,6 +62,7 @@ namespace KWFCI.Controllers
             ViewBag.Page = "Brokers";
             var vm = new AdminVM();
             vm.Brokers = brokerRepo.GetAllBrokers(true, false).ToList();
+            vm.NewBroker = new Broker();
             //TODO Ensure user is rerouted if not logged in
             return View("AdminHome", vm);
         }
@@ -114,6 +115,52 @@ namespace KWFCI.Controllers
                 ModelState.AddModelError("", "Broker Not Found");
             }
             return RedirectToAction("Home");
+        }
+
+        [Route("BrokerEdit")]
+        public ActionResult BrokerEdit(int id)
+        {
+            Broker broker = brokerRepo.GetBrokerByID(id);
+            if (broker != null)
+            {
+                return PartialView(broker);
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+
+        [Route("BrokerEdit")]
+        [HttpPost]
+        public IActionResult BrokerEdit(Broker b)
+        {
+            if (b != null)
+            {
+                Broker broker = brokerRepo.GetBrokerByID(b.BrokerID);
+                broker.Email = b.Email;
+                broker.FirstName = b.FirstName;
+                broker.LastName = b.LastName;
+                broker.Status = b.Status;
+                broker.EmailNotifications = b.EmailNotifications;
+                broker.Type = b.Type;
+
+                int verify = brokerRepo.UpdateBroker(broker);
+                if (verify == 1)
+                {
+                    //TODO add feedback of success
+                    return RedirectToAction("Brokers");
+                }
+                else
+                {
+                    //TODO add feedback for error
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Broker Not Found");
+            }
+            return View(b);
         }
 
         [Route("Add")]
