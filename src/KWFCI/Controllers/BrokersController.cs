@@ -58,10 +58,14 @@ namespace KWFCI.Controllers
                 Requirements = new List<KWTask>()
                 
             };
-            var requirements = broker.CreateRequirementsList();
 
-            foreach (KWTask r in requirements)
-                broker.Requirements.Add(r);
+            if (broker.Type == "New Broker")
+            {
+                var requirements = broker.CreateRequirementsList();
+
+                foreach (KWTask r in requirements)
+                    broker.Requirements.Add(r);
+            }
             
 
             brokerRepo.AddBroker(broker);
