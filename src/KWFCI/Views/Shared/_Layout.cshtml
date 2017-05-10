@@ -24,7 +24,7 @@
                             <img src="~/lib/images/kw-logo.png" />
                         </a>
                     </div>
-                    <div class="col-xs-8">
+                    <div class="col-xs-8" style="text-align:center;">
                         <ul class="nav navbar-nav">
                             <li><a href="/">Home</a></li>
                             <li><a href="/Brokers">Brokers</a></li>
@@ -45,17 +45,32 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid" id="crit-alert-bar">
-        <div class="row" style="height:100%;">
-            <div class="col-xs-12" style="height:100%;">
-                <span>
-                    <a href="/Tasks" >
-                        4 Critical Alerts
-                    </a>
-                </span>
+
+    @if(ViewBag.Critical.Count > 0)
+    {
+        <div class="container-fluid" id="crit-alert-bar">
+            <div class="row" style="height:100%;">
+                <div class="col-xs-12" style="height:100%;">
+                    <span>
+                        <a href="@Url.Action("AllKWTasks", "KWTasks", new { filter = "Critical"})" >
+                            @if (ViewBag.Critical.Count > 1)
+                            {
+                                @ViewBag.Critical.Count @:Critical Alerts
+                            }
+                            else
+                            {
+                                @ViewBag.Critical.Count @:Critical Alert
+                            }
+                        </a>
+                    </span>
+                </div>
+
             </div>
         </div>
-    </div>
+    }
+    
+        
+    
     <div class="container-fluid">
         @RenderBody()
     </div>
@@ -67,6 +82,7 @@
     <!-- DataTables search functionality, with Microsoft CDN for JQuery -->
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
 </body>
 </html>

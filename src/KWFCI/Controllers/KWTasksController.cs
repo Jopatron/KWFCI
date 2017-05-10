@@ -25,8 +25,10 @@ namespace KWFCI.Controllers
             intRepo = repo3;
         }
         //[Route("Index")]
-        public IActionResult AllKWTasks()
+        public IActionResult AllKWTasks(string filter)
         {
+            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
+            ViewBag.Filter = filter;
             var vm = new KWTaskVM();
             vm.StaffList = staffRepo.GetAllStaffProfiles().ToList();
             vm.KWTasks = taskRepo.GetAllKWTasks().ToList();
@@ -52,6 +54,7 @@ namespace KWFCI.Controllers
                 kwtask.Type = "Alert";
 
             taskRepo.AddKWTask(kwtask);
+
             //TODO: See if there is a way to just close the modal and not refresh the page
             return RedirectToAction("AllKWTasks");
         }

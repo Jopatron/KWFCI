@@ -7,16 +7,22 @@ $(document).ready(function () {
         }
     };
 
-    $(".inactive").on("click", function () {
-        preventDefault();
+    $(".inactive").on("click", function (ev) {
+        ev.preventDefault();
     });
 
     $(".editTable").click(function (event) {
         var target = $(event.target);
-        
 
         if (event.target.nodeName == "DIV" || event.target.nodeName == "BUTTON")
+        {
             var entityID = target.attr("data-id");
+            if(target.hasClass('alignCell'))
+            {
+                $('#changeBrokerModal .changeBroker-oldBrokerID').val(target.attr('data-current-broker'));
+                $("#changeBrokerModal .addID").attr("value", entityID);
+            }
+        }
         else if (event.target.nodeName == "SPAN")
         {
             if(target[0].parentNode.nodeName == "BUTTON")
@@ -139,34 +145,31 @@ $(document).ready(function () {
 
         $(".editTable .interactionDate").on("change", function () {
             $(".addDate").attr("value", $(this).val());
-            $(".submitButton").trigger("click");
+            
+            $("#date-created-form .submitButton").trigger("click");
         });
     });
 
     
+    
+    $('#NewKWTask_AlertDate').on('click', function (ev) { //If I click inside the modal
+        var $alertDate = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .modal-TaskAlertDate');
+        
+        //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
+        //set a function for when it changes to hide/show the subsequent .priorityRow
 
-    $('.modal-dialog').on('click', function (ev) { //If I click inside the modal
-        if ($(ev.target).hasClass('modal-TaskAlertDate')) //If the target is the alert date field
-        {
-            var $alertDate = $('#'+ $(ev.target).closest('div[id]').attr('id') + ' .modal-TaskAlertDate');
-            //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
-            //set a function for when it changes to hide/show the subsequent .priorityRow
-            
-            $alertDate.on('change', function () {
-                var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
-                if($alertDate.val() != "")
-                {
-                    if($priorityRow.hasClass('hidden'))
-                        $priorityRow.removeClass("hidden");
-                }
-                else
-                {
-                    if (!$priorityRow.hasClass("hidden"))
-                         $priorityRow.addClass("hidden");
-                }
+        $alertDate.on('change', function () {
+            var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
+            if ($alertDate.val() != "") {
+                if ($priorityRow.hasClass('hidden'))
+                    $priorityRow.removeClass("hidden");
+            }
+            else {
+                if (!$priorityRow.hasClass("hidden"))
+                    $priorityRow.addClass("hidden");
+            }
 
-            });
-        }
+        });
     });
     
     $('.editTable .dropdown-menu a').on('click', function (ev) {
@@ -183,23 +186,36 @@ $(document).ready(function () {
     
 
 
-    //$('.dropdown-menu').on('change', function () {
-    //    var $staffName = $(this).val();
-    //    var $taskID = $(this).attr("data-id");
-    //    console.log($staffName);
-    //    console.log($taskID);
-
-    //    $('#assignStaffForm .addTaskID').val($taskID);
-    //    $('#assignStaffForm .addStaffProfileID').val($staffName);
-    //    $('#assignStaffForm .submitButton').trigger('click');
-    //});
-
-
     $("#buttonSelector").click(function () {
         $(this).button('loading');
     });
   
     $('.editTable').DataTable();
 
+    $('#changeBrokerModal .list-group li').on('click', function () {
+        var $newBroker = $(this).find('span').text();
+        $('.changeBroker-newBroker').val($newBroker);
+        $(this).closest('.col-xs-12').find('.submitButton').trigger('click');
+    });
 
+
+    
+    //List.js code
+    var options = {
+        valueNames: ['name', 'email']
+    };
+
+    var brokersList = new List('changeBrokerList', options);
+    //End List.js code
+
+    //Apply filter text to KWTask table filter for critical alerts
+    
+});
+$(window).on("load", function () {
+    if (window.location.pathname == "/Tasks") {
+        var filter = $('body').find('.filter').text();
+        setTimeout(function () {
+            $('.dataTables_filter').find('input').val(filter).trigger("input").trigger("change");
+        }, 10);
+    }
 });
