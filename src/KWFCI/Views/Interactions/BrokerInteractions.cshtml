@@ -3,10 +3,66 @@
 @{
     ViewBag.Title = "Interactions";
 }
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default center-block">
+            <div class="panel-heading text-center"><a data-toggle="collapse" href="#onboardingCollapse">Onboarding Tasks</a><br />
+                <div class="progress">
+                    <div class="progress-bar 
+                         
+                         @if (ViewBag.Percent < 50)
+                         {
+                            @:progress-bar-danger
+                         }
+                         else if (ViewBag.Percent < 100)
+                         {
+                             @: progress-bar-warning
+
+                         }
+                         else
+                         {
+                             @: progress-bar-success
+                             }
+                         progress-bar" role="progressbar"
+                         aria-valuenow="@Model.TasksCompleted" aria-valuemin="0" aria-valuemax="100" style="width:@ViewBag.Percent%">
+                        @ViewBag.Percent % Complete
+                    </div>
+                </div>
+            </div>
+            <div id="onboardingCollapse" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <form class="form-horizontal" asp-action="UpdateTasks" method="post">
+                        <input type="hidden" asp-for="BrokerID" />
+                        <div class="form-group">
+                            @for (var t = 0; t < Model.Tasks.Count; t++)
+                            {
+
+                            <label class="control-label col-sm-4">@Model.Tasks[t].Message</label>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="form-control" asp-for="@Model.Tasks[t].IsComplete">
+                                <input type="hidden" asp-for="@Model.Tasks[t].KWTaskID" />
+           
+
+                            </div>
 
 
 
-<div>
+
+                            }
+                        </div>
+                        <button type="submit" class="btn btn-primary center-block">Update</button>
+                    </form>
+
+                </div>
+            </div>
+</div>
+    </div>
+</div>
+
+
+
+<div class="row">
+
     <div class="col-xs-12">
         
         <table class="table table-bordered editTable">
