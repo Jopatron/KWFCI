@@ -3,12 +3,69 @@
 @{
     ViewBag.Title = "Interactions";
 }
-
-
-
-<div>
+<div class="row">
     <div class="col-xs-12">
-        
+        <div class="panel panel-default center-block">
+            <div class="panel-heading text-center">
+                <a data-toggle="collapse" href="#onboardingCollapse">Onboarding Tasks</a><br />
+                <div class="progress">
+                    <div class="progress-bar
+
+                         @if (ViewBag.Percent < 50)
+                         {
+                            @:progress-bar-danger
+                         }
+                         else if (ViewBag.Percent < 100)
+                         {
+                             @: progress-bar-warning
+
+                         }
+                         else
+                         {
+                             @: progress-bar-success
+                             }
+                         progress-bar" role="progressbar"
+                         aria-valuenow="@Model.TasksCompleted" aria-valuemin="0" aria-valuemax="100" style="width:@ViewBag.Percent%">
+                        @ViewBag.Percent % Complete
+                    </div>
+                </div>
+            </div>
+            <div id="onboardingCollapse" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <form class="form-horizontal" asp-action="UpdateTasks" method="post">
+                        <input type="hidden" asp-for="BrokerID" />
+                        <div class="form-group">
+                            @for (var t = 0; t < Model.Tasks.Count; t++)
+                            {
+
+                                <label class="control-label col-sm-4">@Model.Tasks[t].Message</label>
+                                <div class="col-sm-1">
+                                    <input type="checkbox" class="form-control" asp-for="@Model.Tasks[t].IsComplete">
+                                    <input type="hidden" asp-for="@Model.Tasks[t].KWTaskID" />
+
+
+                                </div>
+
+
+
+
+                            }
+                        </div>
+                        <button type="submit" class="btn btn-primary center-block">Update</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+
+    <div class="col-xs-12">
+
         <table class="table table-bordered editTable">
             <thead>
                 <tr>
@@ -19,48 +76,43 @@
                     <th>Broker</th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody>
                 @foreach (Interaction a in Model.Interactions)
                 {
                     var entityID = a.InteractionID;
-                    
+
                     var test = a.TaskForeignKey;
-                    
-                    <tr>
+
+                    <tr style="height:100%;">
                         <td style="text-align:center;width:200px;vertical-align:middle;">@ViewBag.StaffEmail</td>
                         <td style="min-width:380px;max-width:380px;">
                             <div class="col-xs-12">
                                 <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNotes" data-id="@entityID" style="height:100%;">
                                     @if (a.Notes != null && a.Notes != "")
                                     {
-                                        <div data-id="@entityID"><span class="align-middle">@a.Notes</span></div>
+                                        <div class="alignCell-Parent" data-id="@entityID"><span class="alignCell">@a.Notes</span></div>
                                     }
                                     else
                                     {
-                                        <div data-id="@entityID"><span class="align-middle"></span></div>
+                                        <div class="alignCell-Parent" data-id="@entityID"><span class="alignCell"></span></div>
                                     }
                                 </a>
                             </div>
                         </td>
 
-                        
+
                         <td style="min-width:110px;max-width:110px;" asp-for="@Model.NewInteraction.DateCreated">
                             <!--Attribute necessary for datepicker to function: data-provide="datepicker"
                                 Attributes that serve as configuration options: all attributes that start with data-date- -->
                             <input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" class="form-control interactionDate" data-id="@entityID"
-                            @if (a.DateCreated != null)
-                            {
-                                //Remove the time from the display
-                                string[] splitDate = a.DateCreated.ToString().Split(' ');
-                                string date = splitDate[0];
+                                   @if (a.DateCreated != null) { //Remove the time from the display string[] splitDate = a.DateCreated.ToString().Split(' '); string date = splitDate[0];  @: value="@date" />
+                            }
+else
+{
+    @:value="" />
+                            }
+</td>
 
-                                @:value="@date" />
-                            }
-                            else
-                            {
-                                @:value="" />
-                            }
-                        </td>
 
                         
                         <td style="min-width:380px;max-width:380px;height:100%;">
@@ -118,19 +170,20 @@
                         </td>
                     </tr>
              }
+
             </tbody>
         </table>
         <button class="btn btn-sm btn-success kwAddButton" type="button" style="margin-top:10px;"
                 onclick="location.href='@Url.Action("Add", "Interactions", new { BrokerID = Model.Broker.BrokerID })'">
             <span>New Interaction</span>
         </button>
-        
+
     </div>
 </div>
 
-<form class="hidden" asp-action="Edit" asp-controller="Interactions">
+<form class="hidden" id="date-created-form" asp-controller="Interactions" asp-action="Edit" method="post">
     <!--Value is populated with jQuery based on what value was entered into the date box-->
-    <input type="hidden" class="addDate" asp-for="@Model.NewInteraction.DateCreated" value=""/>
+    <input type="hidden" class="addDate" asp-for="@Model.NewInteraction.DateCreated" value="" />
     <input type="hidden" class="addID" asp-for="@Model.NewInteraction.InteractionID" value="" />
     <input type="hidden" asp-for="@Model.Field" value="Date Created" />
     <input type="hidden" asp-for="@Model.BrokerID" />
@@ -139,9 +192,6 @@
 </form>
 
 
-
-
-    
 @Html.Partial("Modals/_ChangeBrokerModal", Model)
 @Html.Partial("Modals/_EditKWTaskFromInteractionModal", Model)
 @Html.Partial("Modals/_NewKWTaskFromInteractionModal", Model)

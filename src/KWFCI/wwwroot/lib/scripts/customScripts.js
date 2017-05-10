@@ -145,7 +145,8 @@ $(document).ready(function () {
 
         $(".editTable .interactionDate").on("change", function () {
             $(".addDate").attr("value", $(this).val());
-            $(".submitButton").trigger("click");
+            
+            $("#date-created-form .submitButton").trigger("click");
         });
     });
 
@@ -196,6 +197,7 @@ $(document).ready(function () {
         $('.changeBroker-newBroker').val($newBroker);
         $(this).closest('.col-xs-12').find('.submitButton').trigger('click');
     });
+
 
     
     //List.js code

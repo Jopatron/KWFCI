@@ -25,9 +25,8 @@ body{
 .kw-nav-wrapper .navbar-nav{
     position: relative;
     top: 55px;
-    margin:0 auto;
-    width: 45%;  
     float:unset;
+    display:inline-flex;
 }
 
 .datepicker table tr, .datepicker table{

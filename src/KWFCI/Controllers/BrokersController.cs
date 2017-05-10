@@ -57,8 +57,19 @@ namespace KWFCI.Controllers
                 LastName = b.LastName,
                 Email = b.Email,
                 Type = b.Type,
-                EmailNotifications = b.EmailNotifications
+                EmailNotifications = b.EmailNotifications,
+                Requirements = new List<KWTask>()
+                
             };
+
+            if (broker.Type == "New Broker")
+            {
+                var requirements = broker.CreateRequirementsList();
+
+                foreach (KWTask r in requirements)
+                    broker.Requirements.Add(r);
+            }
+            
 
             brokerRepo.AddBroker(broker);
             //TODO: See if there is a way to just close the modal and not refresh the page

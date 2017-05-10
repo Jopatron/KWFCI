@@ -15,5 +15,7 @@ namespace KWFCI.Models.ViewModels
         public KWTask Task { get; set; }
         public List<KWTask> Tasks { get; set; }
         public List<Broker> AllBrokers { get; set; }
+        public Decimal TasksCompleted { get; set; }
+
     }
 }
