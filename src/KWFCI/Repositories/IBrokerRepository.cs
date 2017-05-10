@@ -16,5 +16,6 @@ namespace KWFCI.Repositories
         IQueryable<Broker> GetBrokersByType(string type, bool getNotifications = false);
         Broker GetBrokerByID(int id);
         int ChangeStatus(Broker broker, string status);
+        Broker GetBrokerByEmail(string email);
     }
 }

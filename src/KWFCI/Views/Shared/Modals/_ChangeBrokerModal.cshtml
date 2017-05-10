@@ -25,24 +25,24 @@
                             {
                                 string name = b.FirstName + " " + b.LastName;
                                 string email = b.Email;
-                                <button type="button" class="list-group-item">
-                                    <div class="col-xs-5" style="padding-left:0px;">
-                                        <span>@name</span>
+                                <button type="button" class="list-group-item" data-id="@b.BrokerID" style="display:flex;justify-content:space-between;">
+                                    <div style="width:49%;">
+                                        @name
                                     </div>
-                                    <div class="col-xs-1" style="padding:0 0;">
-                                        <span  style="float:right;">|</span>
+                                    <div style="width:2%;">
+                                        |
                                     </div>
-                                    <div class="col-xs-6" style="padding-right:0px;">
-                                        <span style="float:right;">@email</span>
+                                    <div style="width:49%;text-align:right;">
+                                        <span>@email</span>
                                     </div>
                                 </button>
-                                <input class="changeBroker-brokerID" type="hidden" value="@b.BrokerID" />
                             }
                         </div>
                         <form class="hidden" asp-controller="Interactions" asp-action="ChangeBroker" method="post">
-                            <input class="changeBroker-newBrokerID" type="hidden" name="newBrokerID" value="" />
+                            <input class="changeBroker-newBroker" type="hidden" name="newBroker" value="" />
                             <input class="changeBroker-oldBrokerID" type="hidden" name="oldBrokerID" value="" />
-                            <button class="hidden" type="submit">Submit</button>
+                            <input class="addID" type="hidden" name="interactionID" value="" />
+                            <button class="hidden submitButton" type="submit">Submit</button>
                         </form>
                     </div>
                 </div>

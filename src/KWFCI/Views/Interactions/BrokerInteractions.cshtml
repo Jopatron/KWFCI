@@ -112,7 +112,7 @@
                         <td style="width:200px;text-align:center;">
                             <a href="#" class="inactive" data-toggle="modal" data-target="#changeBrokerModal" data-id="@entityID">
                                 <div class="alignCell-Parent">
-                                    <div class="alignCell">@ViewBag.BrokerName</div>
+                                    <div class="alignCell" data-id="@entityID" data-current-broker="@ViewBag.CurrentBrokerID">@ViewBag.BrokerName</div>
                                 </div>
                             </a>
                         </td>

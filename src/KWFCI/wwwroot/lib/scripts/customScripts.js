@@ -7,16 +7,22 @@ $(document).ready(function () {
         }
     };
 
-    $(".inactive").on("click", function () {
-        preventDefault();
+    $(".inactive").on("click", function (ev) {
+        ev.preventDefault();
     });
 
     $(".editTable").click(function (event) {
         var target = $(event.target);
-        
 
         if (event.target.nodeName == "DIV" || event.target.nodeName == "BUTTON")
+        {
             var entityID = target.attr("data-id");
+            if(target.hasClass('alignCell'))
+            {
+                $('#changeBrokerModal .changeBroker-oldBrokerID').val(target.attr('data-current-broker'));
+                $("#changeBrokerModal .addID").attr("value", entityID);
+            }
+        }
         else if (event.target.nodeName == "SPAN")
         {
             if(target[0].parentNode.nodeName == "BUTTON")
@@ -189,8 +195,10 @@ $(document).ready(function () {
   
     $('.editTable').DataTable();
 
-    $('#changeBrokerModal button').on('click', function () {
-        console.log('true');
+    $('#changeBrokerModal .list-group button').on('click', function () {
+        var $newBroker = $(this).find('span').text();
+        $('.changeBroker-newBroker').val($newBroker);
+        $(this).closest('.col-xs-12').find('.submitButton').trigger('click');
     });
 
 });
