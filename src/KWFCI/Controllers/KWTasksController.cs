@@ -52,6 +52,11 @@ namespace KWFCI.Controllers
                 kwtask.Type = "Alert";
 
             taskRepo.AddKWTask(kwtask);
+
+            if(kwtask.Type == "Alert" && kwtask.Priority == 5)
+            {
+                Helper.CriticalAlerts.Add(kwtask);
+            }
             //TODO: See if there is a way to just close the modal and not refresh the page
             return RedirectToAction("AllKWTasks");
         }
@@ -62,6 +67,8 @@ namespace KWFCI.Controllers
             KWTask kwtask = taskRepo.GetKWTaskByID(id);
             if (kwtask != null)
             {
+                if (Helper.CriticalAlerts.Contains(kwtask))
+                    Helper.CriticalAlerts.Remove(kwtask);
                 var interaction = taskRepo.GetAssociatedInteraction(kwtask);
                 if (interaction != null)
                 {

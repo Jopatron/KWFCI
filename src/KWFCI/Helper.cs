@@ -14,6 +14,7 @@ namespace KWFCI
         public static StaffProfile StaffProfileLoggedIn { get; set; }
         public static StaffUser StaffUserLoggedIn { get; set; }
         public static string CurrentRole { get; set; }
+        public static List<KWTask> CriticalAlerts { get; set; }
 
         public static StaffProfile DetermineProfile(IStaffProfileRepository adbc)
         {

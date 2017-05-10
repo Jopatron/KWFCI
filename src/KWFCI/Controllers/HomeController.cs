@@ -18,11 +18,13 @@ namespace KWFCI.Controllers
     {
         private UserManager<StaffUser> userManager;
         private IStaffProfileRepository staffProfRepo;
+        private IKWTaskRepository taskRepo;
 
-        public HomeController(UserManager<StaffUser> usrMgr, IStaffProfileRepository repo)
+        public HomeController(UserManager<StaffUser> usrMgr, IStaffProfileRepository repo, IKWTaskRepository repo2)
         {
             staffProfRepo = repo;
             userManager = usrMgr;
+            taskRepo = repo2;
         }
         
         public async Task <IActionResult> Index()
@@ -30,6 +32,11 @@ namespace KWFCI.Controllers
             StaffUser user = await userManager.FindByNameAsync(User.Identity.Name);
             Helper.StaffUserLoggedIn = user;
             Helper.StaffProfileLoggedIn = Helper.DetermineProfile(staffProfRepo);
+
+            ViewBag.Alerts = Helper.StaffProfileLoggedIn.Tasks.Where(t => t.Type == "Alert");
+
+            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
+            ViewBag.CriticalAlerts = Helper.CriticalAlerts;
             //TODO Ensure user is rerouted if not logged in
             return View();
         }
