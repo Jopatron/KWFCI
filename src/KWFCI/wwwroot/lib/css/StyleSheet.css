@@ -282,3 +282,7 @@ tbody{
     vertical-align: middle;
     
 }
+#changeBrokerModal .list-group li:hover{
+    cursor:pointer;
+    background-color:rgba(211, 211, 211, .8);
+}

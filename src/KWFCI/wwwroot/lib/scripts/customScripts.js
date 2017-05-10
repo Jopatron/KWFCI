@@ -195,7 +195,7 @@ $(document).ready(function () {
   
     $('.editTable').DataTable();
 
-    $('#changeBrokerModal .list-group button').on('click', function () {
+    $('#changeBrokerModal .list-group li').on('click', function () {
         var $newBroker = $(this).find('span').text();
         $('.changeBroker-newBroker').val($newBroker);
         $(this).closest('.col-xs-12').find('.submitButton').trigger('click');
