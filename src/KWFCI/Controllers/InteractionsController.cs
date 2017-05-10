@@ -38,11 +38,18 @@ namespace KWFCI.Controllers
             vm.Broker = broker;
             vm.NewInteraction = new Interaction();
             vm.Task = new KWTask();
+            vm.TasksCompleted = 0;
 
 
             List<KWTask> tasks = new List<KWTask>();
             foreach (KWTask t in broker.Requirements)
+            {
                 tasks.Add(t);
+                if (t.IsComplete)
+                    vm.TasksCompleted++;
+                
+            }
+            ViewBag.Percent = Math.Round((vm.TasksCompleted / 16) * 100);
 
             foreach(Interaction i in broker.Interactions)
             {

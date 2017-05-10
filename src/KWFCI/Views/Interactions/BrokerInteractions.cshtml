@@ -6,7 +6,29 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="panel panel-default center-block">
-            <div class="panel-heading text-center"><a data-toggle="collapse" href="#onboardingCollapse">Onboarding Tasks</a></div>
+            <div class="panel-heading text-center"><a data-toggle="collapse" href="#onboardingCollapse">Onboarding Tasks</a>
+                <div class="progress">
+                    <div class="progress-bar 
+                         
+                         @if (ViewBag.Percent < 50)
+                         {
+                            @:progress-bar-danger
+                         }
+                         else if (ViewBag.Percent < 75)
+                         {
+                             @: progress-bar-warning
+
+                         }
+                         else
+                         {
+                             @: progress-bar-success
+                             }
+                         progress-bar-striped active" role="progressbar"
+                         aria-valuenow="@Model.TasksCompleted" aria-valuemin="0" aria-valuemax="100" style="width:@ViewBag.Percent%">
+                        @ViewBag.Percent % Complete
+                    </div>
+                </div>
+            </div>
             <div id="onboardingCollapse" class="panel-collapse collapse">
                 <div class="panel-body">
                     <form class="form-horizontal" asp-action="Index" method="post">
