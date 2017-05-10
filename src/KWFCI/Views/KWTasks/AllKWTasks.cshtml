@@ -2,6 +2,11 @@
 
 @{ ViewBag.Title = "Tasks";  }
 
+@if (ViewBag.Filter != "" || ViewBag.Filter != null)
+{
+    <div class="hidden filter">@ViewBag.Filter</div> @*Grabbing this with JS*@
+}
+
 
 @functions{
 
@@ -78,7 +83,16 @@
                             @alertDate
                         }
                         </td>
-                        <td>@t.Priority</td>
+                        <td>
+                            @if(t.Priority == 5)
+                            {
+                                @:Critical
+                            }
+                            else
+                            {
+                                @t.Priority
+                            }
+                        </td>
                         <td>
                             @{var activeName = GetStaffProfileName(t, Model.StaffList);}
                             

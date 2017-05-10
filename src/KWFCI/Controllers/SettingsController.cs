@@ -17,16 +17,19 @@ namespace KWFCI.Controllers
     {
         private IStaffProfileRepository profileRepo;
         private UserManager<StaffUser> userManager;
+        private IKWTaskRepository taskRepo;
 
-        public SettingsController(IStaffProfileRepository repo, UserManager<StaffUser>usrMgr)
+        public SettingsController(IStaffProfileRepository repo, UserManager<StaffUser>usrMgr, IKWTaskRepository repo2)
         {
             profileRepo = repo;
             userManager = usrMgr;
+            taskRepo = repo2;
         }
 
 
         public IActionResult Index()
         {
+            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             if (Helper.StaffProfileLoggedIn == null)
                 return RedirectToAction("Login", "Auth");
             // TODO: Grab logged in user profile

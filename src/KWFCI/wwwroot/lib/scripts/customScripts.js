@@ -151,29 +151,25 @@ $(document).ready(function () {
     });
 
     
+    
+    $('#NewKWTask_AlertDate').on('click', function (ev) { //If I click inside the modal
+        var $alertDate = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .modal-TaskAlertDate');
+        
+        //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
+        //set a function for when it changes to hide/show the subsequent .priorityRow
 
-    $('.modal-dialog').on('click', function (ev) { //If I click inside the modal
-        if ($(ev.target).hasClass('modal-TaskAlertDate')) //If the target is the alert date field
-        {
-            var $alertDate = $('#'+ $(ev.target).closest('div[id]').attr('id') + ' .modal-TaskAlertDate');
-            //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
-            //set a function for when it changes to hide/show the subsequent .priorityRow
-            
-            $alertDate.on('change', function () {
-                var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
-                if($alertDate.val() != "")
-                {
-                    if($priorityRow.hasClass('hidden'))
-                        $priorityRow.removeClass("hidden");
-                }
-                else
-                {
-                    if (!$priorityRow.hasClass("hidden"))
-                         $priorityRow.addClass("hidden");
-                }
+        $alertDate.on('change', function () {
+            var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
+            if ($alertDate.val() != "") {
+                if ($priorityRow.hasClass('hidden'))
+                    $priorityRow.removeClass("hidden");
+            }
+            else {
+                if (!$priorityRow.hasClass("hidden"))
+                    $priorityRow.addClass("hidden");
+            }
 
-            });
-        }
+        });
     });
     
     $('.editTable .dropdown-menu a').on('click', function (ev) {
@@ -202,6 +198,7 @@ $(document).ready(function () {
         $(this).closest('.col-xs-12').find('.submitButton').trigger('click');
     });
 
+
     
     //List.js code
     var options = {
@@ -209,5 +206,16 @@ $(document).ready(function () {
     };
 
     var brokersList = new List('changeBrokerList', options);
+    //End List.js code
 
+    //Apply filter text to KWTask table filter for critical alerts
+    
+});
+$(window).on("load", function () {
+    if (window.location.pathname == "/Tasks") {
+        var filter = $('body').find('.filter').text();
+        setTimeout(function () {
+            $('.dataTables_filter').find('input').val(filter).trigger("input").trigger("change");
+        }, 10);
+    }
 });
