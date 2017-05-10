@@ -201,4 +201,12 @@ $(document).ready(function () {
         $(this).closest('.col-xs-12').find('.submitButton').trigger('click');
     });
 
+    
+    //List.js code
+    var options = {
+        valueNames: ['name', 'email']
+    };
+
+    var brokersList = new List('changeBrokerList', options);
+
 });
