@@ -43,7 +43,11 @@ body{
 .modal-header{
     text-align:center;
 }
-
+.modal-content{
+    height:800px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
 
 .form-group {
     padding:10px;
