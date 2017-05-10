@@ -31,7 +31,7 @@ namespace KWFCI.Controllers
             ViewBag.Filter = filter;
             var vm = new KWTaskVM();
             vm.StaffList = staffRepo.GetAllStaffProfiles().ToList();
-            vm.KWTasks = taskRepo.GetAllKWTasks().ToList();
+            vm.KWTasks = taskRepo.GetAllKWTasks().Where(t => t.Type != "Onboarding").ToList();
             vm.NewKWTask = new KWTask();
             return View(vm);
         }
