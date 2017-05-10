@@ -1,17 +1,25 @@
-﻿@model KWFCI.Models.Broker
+﻿
 
 
 
 <div class="row">
     <div class="col-xs-12" style="text-align:center;">
-        <h1 >Welcome Sally</h1>
+        <h1 >Welcome @ViewBag.Name</h1>
     </div>
 </div>
-<div class="row">
-    <div class="col-xs-12" style="text-align:center;">
-        <h3>You have 4 Alerts</h3>
-    </div>
-</div>
+
+@if (ViewBag.Alerts != null)
+{
+    if (ViewBag.Alerts.Count > 0)
+    {
+        <div class="row">
+            <div class="col-xs-12" style="text-align:center;">
+                <h3><a href="@Url.Action("AllKWTasks", "KWTasks", new { filter = "Alert" })">You have @ViewBag.Alerts.Count Alerts</a></h3>
+            </div>
+        </div>
+    }
+}
+
 <div class="row">
     <div class="col-xs-1"></div>
     <div class="col-xs-5" style="text-align:center;">

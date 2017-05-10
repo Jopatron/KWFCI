@@ -215,7 +215,7 @@ $(document).ready(function () {
         if (window.location.pathname == "/Tasks")
         {
             var filter = $('body').find('.filter').text();
-            $('.dataTables_filter').find('input').val(filter).trigger("input");
+            $('.dataTables_filter').find('input').val(filter).trigger("input").trigger("change");
         }
     });
 });

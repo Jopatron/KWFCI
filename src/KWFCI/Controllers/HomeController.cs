@@ -33,7 +33,9 @@ namespace KWFCI.Controllers
             Helper.StaffUserLoggedIn = user;
             Helper.StaffProfileLoggedIn = Helper.DetermineProfile(staffProfRepo);
 
-            ViewBag.Alerts = Helper.StaffProfileLoggedIn.Tasks.Where(t => t.Type == "Alert");
+            ViewBag.Name = Helper.StaffProfileLoggedIn.FirstName;
+            ViewBag.Alerts = Helper.StaffProfileLoggedIn.Tasks.Where(t => t.Type == "Alert").ToList();
+
             ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             
             //TODO Ensure user is rerouted if not logged in

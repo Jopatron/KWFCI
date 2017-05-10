@@ -1,6 +1,7 @@
 ﻿using KWFCI.Models;
 using KWFCI.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace KWFCI
 
             stafProf = (from sp in profList
                        where sp.User.Id == StaffUserLoggedIn.Id
-                       select sp).FirstOrDefault<StaffProfile>();
+                       select sp).Include(s => s.Tasks).Include(s => s.Interactions).FirstOrDefault<StaffProfile>();
 
             return stafProf;
         }
