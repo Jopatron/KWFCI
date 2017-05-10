@@ -24,16 +24,22 @@ namespace KWFCI.Models
         public List<KWTask> CreateRequirementsList()
         {
             return new List<KWTask>() {
-                new KWTask() { Message = "Requirement 1"},
-                new KWTask() { Message = "Requirement 2"},
-                new KWTask() { Message = "Requirement 3"},
-                new KWTask() { Message = "Requirement 4"},
-                new KWTask() { Message = "Requirement 5"},
-                new KWTask() { Message = "Requirement 6"},
-                new KWTask() { Message = "Requirement 7"},
-                new KWTask() { Message = "Requirement 8"},
-                new KWTask() { Message = "Requirement 9"},
-                new KWTask() { Message = "Requirement 10"}
+                new KWTask() { Message = "Welcome Email", Type = "Onboarding"},
+                new KWTask() { Message = "Winmore", Type = "Onboarding"},
+                new KWTask() { Message = "Info Sheet", Type = "Onboarding"},
+                new KWTask() { Message = "Account Edge", Type = "Onboarding"},
+                new KWTask() { Message = "Google Group", Type = "Onboarding"},
+                new KWTask() { Message = "Facebook Group", Type = "Onboarding"},
+                new KWTask() { Message = "White Pages MLS", Type = "Onboarding"},
+                new KWTask() { Message = "Printer Drivers", Type = "Onboarding"},
+                new KWTask() { Message = "Printer Codes", Type = "Onboarding"},
+                new KWTask() { Message = "Printer E-Mail", Type = "Onboarding"},
+                new KWTask() { Message = "Key Fob", Type = "Onboarding"},
+                new KWTask() { Message = "Security Code", Type = "Onboarding"},
+                new KWTask() { Message = "Phone Roster", Type = "Onboarding"},
+                new KWTask() { Message = "MailBox", Type = "Onboarding"},
+                new KWTask() { Message = "RLID Login", Type = "Onboarding"},
+                new KWTask() { Message = "Photo", Type = "Onboarding"}
             };
         }
     }

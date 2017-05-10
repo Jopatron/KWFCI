@@ -25,11 +25,13 @@ namespace KWFCI.Controllers
             intRepo = repo3;
         }
         //[Route("Index")]
-        public IActionResult AllKWTasks()
+        public IActionResult AllKWTasks(string filter)
         {
+            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
+            ViewBag.Filter = filter;
             var vm = new KWTaskVM();
             vm.StaffList = staffRepo.GetAllStaffProfiles().ToList();
-            vm.KWTasks = taskRepo.GetAllKWTasks().ToList();
+            vm.KWTasks = taskRepo.GetAllKWTasks().Where(t => t.Type != "Onboarding").ToList();
             vm.NewKWTask = new KWTask();
             return View(vm);
         }
@@ -52,6 +54,7 @@ namespace KWFCI.Controllers
                 kwtask.Type = "Alert";
 
             taskRepo.AddKWTask(kwtask);
+
             //TODO: See if there is a way to just close the modal and not refresh the page
             return RedirectToAction("AllKWTasks");
         }
@@ -108,5 +111,64 @@ namespace KWFCI.Controllers
             return RedirectToAction("AllKWTasks");
         }
 
+        [Route("Assign")]
+        [HttpPost]
+        public ActionResult Assign(string StaffProfileName, int KWTaskID)
+        {
+            bool verify;
+            var task = taskRepo.GetKWTaskByID(KWTaskID);
+            var allProfiles = staffRepo.GetAllStaffProfiles().ToList();
+            if (StaffProfileName != "Clear")
+            {
+                string[] name = StaffProfileName.Split(' ');
+                var profile = staffRepo.GetStaffProfileByFullName(name[0], name[1]) as StaffProfile;
+                verify = ProcessAssign(task, allProfiles, profile);
+
+                if (verify)
+                {
+                    return RedirectToAction("AllKWTasks");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Task Not Found");
+                }
+            }
+            else
+            {
+                verify = ProcessAssign(task, allProfiles, true);
+            }
+            
+            return RedirectToAction("AllKWTasks");
+        }
+
+
+        //First unassigns the task from staff, then assigns it, then updates the repo
+        private bool ProcessAssign(KWTask t, List<StaffProfile> sps, StaffProfile staff)
+        {
+            foreach(StaffProfile sp in sps)
+            {
+                if (sp.Tasks.Contains(t))
+                    sp.Tasks.Remove(t);
+            }
+            staff.Tasks.Add(t);
+            int verify = staffRepo.UpdateStaff(staff);
+            if (verify > 0)
+                return true;
+            else
+                return false;
+        }
+
+        private bool ProcessAssign(KWTask t, List<StaffProfile> sps, bool clear)
+        {
+            foreach (StaffProfile sp in sps)
+            {
+                if (sp.Tasks.Contains(t))
+                {
+                    sp.Tasks.Remove(t);
+                    staffRepo.UpdateStaff(sp);
+                }
+            }
+            return true;
+        }
     }
 }

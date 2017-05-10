@@ -16,14 +16,17 @@ namespace KWFCI.Controllers
     public class BrokersController : Controller
     {
         private IBrokerRepository brokerRepo;
+        private IKWTaskRepository taskRepo;
 
-        public BrokersController(IBrokerRepository repo)
+        public BrokersController(IBrokerRepository repo, IKWTaskRepository repo2)
         {
             brokerRepo = repo;
+            taskRepo = repo2;
         }
         
         public ViewResult AllBrokers()
         {
+            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             var vm = new BrokerVM();
             vm.Brokers = brokerRepo.GetAllBrokers().ToList();
             vm.NewBroker = new Broker();
@@ -54,8 +57,19 @@ namespace KWFCI.Controllers
                 LastName = b.LastName,
                 Email = b.Email,
                 Type = b.Type,
-                EmailNotifications = b.EmailNotifications
+                EmailNotifications = b.EmailNotifications,
+                Requirements = new List<KWTask>()
+                
             };
+
+            if (broker.Type == "New Broker")
+            {
+                var requirements = broker.CreateRequirementsList();
+
+                foreach (KWTask r in requirements)
+                    broker.Requirements.Add(r);
+            }
+            
 
             brokerRepo.AddBroker(broker);
             //TODO: See if there is a way to just close the modal and not refresh the page

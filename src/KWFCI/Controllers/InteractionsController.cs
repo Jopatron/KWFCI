@@ -29,18 +29,31 @@ namespace KWFCI.Controllers
         [Route("Brokers")]
         public IActionResult BrokerInteractions(int BrokerID)
         {
+            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             var broker = brokerRepo.GetBrokerByID(BrokerID);
             ViewBag.BrokerName = broker.FirstName + " " + broker.LastName;
+            ViewBag.CurrentBrokerID = broker.BrokerID;
             ViewBag.StaffEmail = Helper.StaffProfileLoggedIn.Email;
             var allInteractions = broker.Interactions; //This is where the issue seems to present
             var vm = new InteractionVM();
             vm.Interactions = allInteractions;
             vm.Broker = broker;
             vm.NewInteraction = new Interaction();
+            vm.AllBrokers = brokerRepo.GetAllBrokers().ToList();
             vm.Task = new KWTask();
+            vm.TasksCompleted = 0;
 
 
             List<KWTask> tasks = new List<KWTask>();
+            foreach (KWTask t in broker.Requirements)
+            {
+                tasks.Add(t);
+                if (t.IsComplete)
+                    vm.TasksCompleted++;
+                
+            }
+            ViewBag.Percent = Math.Round((vm.TasksCompleted / 16) * 100);
+
             foreach(Interaction i in broker.Interactions)
             {
                 if(i.TaskForeignKey != null)
@@ -92,7 +105,25 @@ namespace KWFCI.Controllers
             return RedirectToAction("BrokerInteractions", new {BrokerID = BrokerID });
 
         }
+        [Route("Onboarding")]
+        public IActionResult UpdateTasks()
+        {
+            var vm = new InteractionVM();
+            return View(vm);
+        }
 
+        [Route("Onboarding")]
+        [HttpPost]
+        public IActionResult UpdateTasks(InteractionVM vm)
+        {
+            foreach (KWTask t in vm.Tasks)
+            {
+                var task = taskRepo.GetKWTaskByID(t.KWTaskID);
+                task.IsComplete = t.IsComplete;
+                taskRepo.UpdateKWTask(task);
+            }
+            return RedirectToAction("BrokerInteractions", new { BrokerID = vm.BrokerID });
+        }
         [Route("Edit")]
         [HttpPost]
         public ActionResult Edit(InteractionVM iVM, string taskAction = "")
@@ -150,8 +181,7 @@ namespace KWFCI.Controllers
                         
                 }
                     
-                else if (iVM.Field == "Date Created")
-                    interaction.DateCreated = i.DateCreated;
+                    
                 
                 
                 
@@ -173,6 +203,29 @@ namespace KWFCI.Controllers
             }
 
             return RedirectToAction("BrokerInteractions", new { BrokerID = iVM.BrokerID});
+        }
+        [HttpPost]
+        [Route("ChangeBroker")]
+        public ActionResult ChangeBroker(string newBroker, int oldBrokerID, int interactionID)
+        {
+            Interaction i = intRepo.GetInteractionById(interactionID);
+            Broker oldB = brokerRepo.GetBrokerByID(oldBrokerID);
+            Broker newB = brokerRepo.GetBrokerByEmail(newBroker);
+            if (i != null && oldB != null && newB != null)
+            {
+                oldB.Interactions.Remove(i);
+                newB.Interactions.Add(i);
+
+                brokerRepo.UpdateBroker(oldB);
+                brokerRepo.UpdateBroker(newB);
+
+                return RedirectToAction("BrokerInteractions", new { BrokerID = oldBrokerID });
+            }
+            else
+            {
+                ModelState.AddModelError("", "Interaction or broker Not Found");
+            }
+            return RedirectToAction("BrokerInteractions", new { BrokerID = oldBrokerID });
         }
     }
 }

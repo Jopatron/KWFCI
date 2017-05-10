@@ -17,18 +17,21 @@ namespace KWFCI.Controllers
         private IStaffProfileRepository staffRepo;
         private UserManager<StaffUser> userManager;
         private IBrokerRepository brokerRepo;
+        private IKWTaskRepository taskRepo;
 
-        public AdminController(IInteractionsRepository repo, IStaffProfileRepository repo2, UserManager<StaffUser> usrMgr, IBrokerRepository repo3)
+        public AdminController(IInteractionsRepository repo, IStaffProfileRepository repo2, UserManager<StaffUser> usrMgr, IBrokerRepository repo3, IKWTaskRepository repo4)
         {
             intRepo = repo;
             staffRepo = repo2;
             userManager = usrMgr;
             brokerRepo = repo3;
+            taskRepo = repo4;
         }
 
         [Route("Home")]
         public IActionResult AdminHome(string Page)
         {
+            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             ViewBag.Page = Page;
             return View();
         }

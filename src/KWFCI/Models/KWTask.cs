@@ -13,9 +13,9 @@ namespace KWFCI.Models
         public string Message { get; set; }
         public DateTime? DateDue { get; set; }
         public DateTime? DateCreated { get; set; }
-        public string Type { get; set; } //Task or Alert
+        public string Type { get; set; } //Task, Onboarding or Alert
         public Interaction Interaction { get; set; }
-
+        public Boolean IsComplete { get; set; }
         public KWTask()
         {
             DateCreated = DateTime.Now;

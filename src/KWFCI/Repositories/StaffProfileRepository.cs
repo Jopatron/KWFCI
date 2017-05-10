@@ -22,7 +22,7 @@ namespace KWFCI.Repositories
             {
                 return (from s in context.StaffProfiles
                         where s.EmailNotifications == true
-                        select s).Include(u => u.User).Include(u => u.Interactions).AsQueryable();
+                        select s).Include(u => u.User).Include(u => u.Interactions).Include(sp => sp.Tasks).AsQueryable();
             }
              else
                 return context.StaffProfiles.Include(u => u.User).Include(u => u.Interactions).AsQueryable();
@@ -32,14 +32,14 @@ namespace KWFCI.Repositories
         {
             return (from sp in context.StaffProfiles
                     where sp.FirstName + sp.LastName == firstName + lastName
-                    select sp).Include(sp => sp.Interactions).Include(sp => sp.User).FirstOrDefault();
+                    select sp).Include(sp => sp.Interactions).Include(sp => sp.User).Include(sp => sp.Tasks).FirstOrDefault();
         }
 
         public StaffProfile GetStaffProfileByID(int id)
         {
             return (from sp in context.StaffProfiles
                     where sp.StaffProfileID == id
-                    select sp).Include(u => u.User).FirstOrDefault<StaffProfile>();
+                    select sp).Include(u => u.User).Include(sp => sp.Tasks).Include(sp => sp.Interactions).FirstOrDefault<StaffProfile>();
         }
 
         public int AddStaff(StaffProfile staff)
