@@ -36,11 +36,21 @@ body{
     border-bottom: unset;
     padding-bottom:unset;
 }
+
+
+.modal-content {
+    padding:20px;
+}
+
+
+.modal-form button, .modal-form .row {
+
 .modal-title{
     margin:unset;
 }
 .modal-header{
     text-align:center;
+
 }
 #changeBrokerModal .modal-content{
     height:800px;

@@ -181,8 +181,7 @@ namespace KWFCI.Controllers
                         
                 }
                     
-                else if (iVM.Field == "Date Created")
-                    interaction.DateCreated = i.DateCreated;
+                    
                 
                 
                 
