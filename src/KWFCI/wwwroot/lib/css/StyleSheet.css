@@ -37,13 +37,13 @@ body{
     border-bottom: unset;
     padding-bottom:unset;
 }
-
-
-.modal-form button, .modal-form .row {
+.modal-title{
+    margin:unset;
 }
-.modal-header {
-    padding-top:0px;
+.modal-header{
+    text-align:center;
 }
+
 
 .form-group {
     padding:10px;
