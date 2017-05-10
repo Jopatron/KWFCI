@@ -34,7 +34,10 @@ namespace KWFCI.Controllers
             Helper.StaffProfileLoggedIn = Helper.DetermineProfile(staffProfRepo);
 
             ViewBag.Name = Helper.StaffProfileLoggedIn.FirstName;
-            ViewBag.Alerts = Helper.StaffProfileLoggedIn.Tasks.Where(t => t.Type == "Alert").ToList();
+            ViewBag.Alerts = Helper.StaffProfileLoggedIn.Tasks.Where(
+                t => t.Type == "Alert" && 
+                DateTime.Compare(DateTime.Now, t.AlertDate.GetValueOrDefault()) == 0 ||
+                DateTime.Compare(DateTime.Now, t.AlertDate.GetValueOrDefault()) > 0).ToList();
 
             ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             
