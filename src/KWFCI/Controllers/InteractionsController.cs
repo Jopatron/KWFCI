@@ -41,6 +41,9 @@ namespace KWFCI.Controllers
 
 
             List<KWTask> tasks = new List<KWTask>();
+            foreach (KWTask t in broker.Requirements)
+                tasks.Add(t);
+
             foreach(Interaction i in broker.Interactions)
             {
                 if(i.TaskForeignKey != null)

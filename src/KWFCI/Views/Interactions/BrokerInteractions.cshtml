@@ -3,8 +3,26 @@
 @{
     ViewBag.Title = "Interactions";
 }
+<div class="row">
+    <div class="col-xs-5 col-xs-offset-4">
+        <div class="panel panel-default center-block">
+            <div class="panel-heading text-center">Onboarding Tasks</div>
+            
+            <div class="panel-body">
+                <ul>
+                    @foreach (KWTask t in Model.Tasks)
+                    {
+                        <li>@t.Message</li>
+                    }
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</div>
 
-<div>
+
+<div class="row">
     <div class="col-xs-12">
         
         <table class="table table-bordered editTable">
