@@ -83,6 +83,49 @@ namespace KWFCI.Controllers
             return RedirectToAction("Interactions");
         }
 
+        [Route("InteractionEdit")]
+        public ActionResult InteractionEdit(int id)
+        {
+            Interaction interaction = intRepo.GetInteractionById(id);
+            if (interaction != null)
+            {
+                return PartialView(interaction);
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+
+        [Route("InteractionEdit")]
+        [HttpPost]
+        public IActionResult InteractionEdit(Interaction i)
+        {
+            if (i != null)
+            {
+                Interaction interaction = intRepo.GetInteractionById(i.InteractionID);
+                interaction.Notes = i.Notes;
+                interaction.NextStep = i.NextStep;
+                interaction.Status = i.Status;
+
+                int verify = intRepo.UpdateInteraction(interaction);
+                if (verify == 1)
+                {
+                    //TODO add feedback of success
+                    return RedirectToAction("Interactions");
+                }
+                else
+                {
+                    //TODO add feedback for error
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Interaction Not Found");
+            }
+            return View(i);
+        }
+
         [HttpPost]
         [Route("StaffDelete")]
         public IActionResult StaffDelete(int id)
