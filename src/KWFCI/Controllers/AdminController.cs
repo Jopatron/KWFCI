@@ -105,6 +105,7 @@ namespace KWFCI.Controllers
             {
                 Interaction interaction = intRepo.GetInteractionById(i.InteractionID);
                 interaction.Notes = i.Notes;
+                interaction.DateCreated = i.DateCreated;
                 interaction.NextStep = i.NextStep;
                 interaction.Status = i.Status;
 
