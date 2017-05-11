@@ -11,5 +11,7 @@ namespace KWFCI.Models.ViewModels
         public StaffProfile NewStaff { get; set; }
         public string Password { get; set; }
         public List<Broker> Brokers { get; set; }
+        public Broker NewBroker { get; set; }
+        public Interaction NewInteraction { get; set; }
     }
 }

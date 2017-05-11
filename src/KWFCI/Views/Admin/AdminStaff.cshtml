@@ -9,6 +9,7 @@
         <table class="table table-bordered editTable">
             <thead>
                 <tr>
+                    <th>Edit</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
@@ -20,6 +21,12 @@
                 @foreach (StaffProfile sp in Model.Staff)
                 {
                     <tr>
+                        <td>
+                            <a class="btn btn-primary btn-md" asp-action="StaffEdit" data-toggle="modal" data-target="#adminEditStaff"
+                               asp-route-id="@sp.StaffProfileID">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </a>
+                        </td>
                         <td>
                             @sp.FirstName
                         </td>
@@ -48,6 +55,7 @@
                 }
             </tbody>
         </table>
+        @Html.Partial("Modals/_AdminEditStaffModal", Model.NewStaff)
     </div>
 </div>
 

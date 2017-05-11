@@ -42,6 +42,7 @@ namespace KWFCI.Controllers
             ViewBag.Page = "Staff";
             var vm = new AdminVM();
             vm.Staff = staffRepo.GetAllStaffProfiles().ToList();
+            vm.NewStaff = new StaffProfile();
             //TODO Ensure user is rerouted if not logged in
             return View("AdminHome", vm);
         }
@@ -62,6 +63,7 @@ namespace KWFCI.Controllers
             ViewBag.Page = "Brokers";
             var vm = new AdminVM();
             vm.Brokers = brokerRepo.GetAllBrokers(true, false).ToList();
+            vm.NewBroker = new Broker();
             //TODO Ensure user is rerouted if not logged in
             return View("AdminHome", vm);
         }
@@ -82,6 +84,50 @@ namespace KWFCI.Controllers
             return RedirectToAction("Interactions");
         }
 
+        [Route("InteractionEdit")]
+        public ActionResult InteractionEdit(int id)
+        {
+            Interaction interaction = intRepo.GetInteractionById(id);
+            if (interaction != null)
+            {
+                return PartialView(interaction);
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+
+        [Route("InteractionEdit")]
+        [HttpPost]
+        public IActionResult InteractionEdit(Interaction i)
+        {
+            if (i != null)
+            {
+                Interaction interaction = intRepo.GetInteractionById(i.InteractionID);
+                interaction.Notes = i.Notes;
+                interaction.DateCreated = i.DateCreated;
+                interaction.NextStep = i.NextStep;
+                interaction.Status = i.Status;
+
+                int verify = intRepo.UpdateInteraction(interaction);
+                if (verify == 1)
+                {
+                    //TODO add feedback of success
+                    return RedirectToAction("Interactions");
+                }
+                else
+                {
+                    //TODO add feedback for error
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Interaction Not Found");
+            }
+            return View(i);
+        }
+
         [HttpPost]
         [Route("StaffDelete")]
         public IActionResult StaffDelete(int id)
@@ -90,13 +136,57 @@ namespace KWFCI.Controllers
             if (profile != null)
             {
                 staffRepo.DeleteStaff(profile);
-                return RedirectToAction("Interactions");
+                return RedirectToAction("Staff");
             }
             else
             {
                 ModelState.AddModelError("", "Staff Not Found");
             }
             return RedirectToAction("Home");
+        }
+
+        [Route("StaffEdit")]
+        public ActionResult StaffEdit(int id)
+        {
+            StaffProfile staff = staffRepo.GetStaffProfileByID(id);
+            if (staff != null)
+            {
+                return PartialView(staff);
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+
+        [Route("StaffEdit")]
+        [HttpPost]
+        public IActionResult StaffEdit(StaffProfile sp)
+        {
+            if (sp != null)
+            {
+                StaffProfile staff = staffRepo.GetStaffProfileByID(sp.StaffProfileID);
+                staff.Email = sp.Email;
+                staff.FirstName = sp.FirstName;
+                staff.LastName = sp.LastName;
+                staff.Role = sp.Role;
+
+                int verify = staffRepo.UpdateStaff(staff);
+                if (verify == 1)
+                {
+                    //TODO add feedback of success
+                    return RedirectToAction("Staff");
+                }
+                else
+                {
+                    //TODO add feedback for error
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Staff Not Found");
+            }
+            return View(sp);
         }
 
         [HttpPost]
@@ -114,6 +204,52 @@ namespace KWFCI.Controllers
                 ModelState.AddModelError("", "Broker Not Found");
             }
             return RedirectToAction("Home");
+        }
+
+        [Route("BrokerEdit")]
+        public ActionResult BrokerEdit(int id)
+        {
+            Broker broker = brokerRepo.GetBrokerByID(id);
+            if (broker != null)
+            {
+                return PartialView(broker);
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+
+        [Route("BrokerEdit")]
+        [HttpPost]
+        public IActionResult BrokerEdit(Broker b)
+        {
+            if (b != null)
+            {
+                Broker broker = brokerRepo.GetBrokerByID(b.BrokerID);
+                broker.Email = b.Email;
+                broker.FirstName = b.FirstName;
+                broker.LastName = b.LastName;
+                broker.Status = b.Status;
+                broker.EmailNotifications = b.EmailNotifications;
+                broker.Type = b.Type;
+
+                int verify = brokerRepo.UpdateBroker(broker);
+                if (verify == 1)
+                {
+                    //TODO add feedback of success
+                    return RedirectToAction("Brokers");
+                }
+                else
+                {
+                    //TODO add feedback for error
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Broker Not Found");
+            }
+            return View(b);
         }
 
         [Route("Add")]
@@ -139,7 +275,7 @@ namespace KWFCI.Controllers
 
             staffRepo.AddStaff(profile);
 
-            return RedirectToAction("Home");
+            return RedirectToAction("Staff");
         }
     }
 }
