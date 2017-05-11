@@ -42,6 +42,7 @@ namespace KWFCI.Controllers
             ViewBag.Page = "Staff";
             var vm = new AdminVM();
             vm.Staff = staffRepo.GetAllStaffProfiles().ToList();
+            vm.NewStaff = new StaffProfile();
             //TODO Ensure user is rerouted if not logged in
             return View("AdminHome", vm);
         }
@@ -135,13 +136,57 @@ namespace KWFCI.Controllers
             if (profile != null)
             {
                 staffRepo.DeleteStaff(profile);
-                return RedirectToAction("Interactions");
+                return RedirectToAction("Staff");
             }
             else
             {
                 ModelState.AddModelError("", "Staff Not Found");
             }
             return RedirectToAction("Home");
+        }
+
+        [Route("StaffEdit")]
+        public ActionResult StaffEdit(int id)
+        {
+            StaffProfile staff = staffRepo.GetStaffProfileByID(id);
+            if (staff != null)
+            {
+                return PartialView(staff);
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+
+        [Route("StaffEdit")]
+        [HttpPost]
+        public IActionResult StaffEdit(StaffProfile sp)
+        {
+            if (sp != null)
+            {
+                StaffProfile staff = staffRepo.GetStaffProfileByID(sp.StaffProfileID);
+                staff.Email = sp.Email;
+                staff.FirstName = sp.FirstName;
+                staff.LastName = sp.LastName;
+                staff.Role = sp.Role;
+
+                int verify = staffRepo.UpdateStaff(staff);
+                if (verify == 1)
+                {
+                    //TODO add feedback of success
+                    return RedirectToAction("Staff");
+                }
+                else
+                {
+                    //TODO add feedback for error
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Staff Not Found");
+            }
+            return View(sp);
         }
 
         [HttpPost]
@@ -230,7 +275,7 @@ namespace KWFCI.Controllers
 
             staffRepo.AddStaff(profile);
 
-            return RedirectToAction("Home");
+            return RedirectToAction("Staff");
         }
     }
 }
