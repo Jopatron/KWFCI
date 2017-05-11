@@ -38,7 +38,7 @@ namespace KWFCI.Controllers
 
         [Route("Add")]
         [HttpPost]
-        public IActionResult AddKWTask(KWTaskVM vm, int? staffProfileID)
+        public IActionResult AddKWTask(KWTaskVM vm, int? staffProfileID, string returnURL)
         {
             var kwtask = new KWTask
             {
@@ -56,7 +56,7 @@ namespace KWFCI.Controllers
             taskRepo.AddKWTask(kwtask);
 
             //TODO: See if there is a way to just close the modal and not refresh the page
-            return RedirectToAction("AllKWTasks");
+            return Redirect(returnURL);
         }
 
         [HttpPost]

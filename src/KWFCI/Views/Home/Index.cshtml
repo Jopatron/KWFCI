@@ -1,4 +1,5 @@
 @model KWFCI.Models.ViewModels.HomeVM
+@using KWFCI.Models.ViewModels
 <div class="row">
     <div class="col-xs-12" style="text-align:center;">
 
@@ -60,9 +61,9 @@
                     <a href="#" class="btn btn-success btn-lg grab-url" data-toggle="modal" data-target="#newBroker" style="height:100%;width:20%;">
                         Add Broker
                     </a>
-                    <button class="btn btn-success  btn-lg" style="height:100%;width:20%;">
+                    <a class="btn btn-lg btn-success grab-url" href="#" style="height:100%;width:20%;" data-target="#addKWTaskModal" data-toggle="modal" >
                         Create Task
-                    </button>
+                    </a>
                     <a href="/Settings" class="btn btn-success  btn-lg" style="height:100%;width:20%;">
                         My Settings 
                     </a>
@@ -82,3 +83,5 @@
 </div>
 
 @Html.Partial("Modals/_AddBrokerModal", Model.NewBroker);
+
+@Html.Partial("Modals/_AddKWTaskModal", new KWTaskVM() { NewKWTask = Model.NewTask})
