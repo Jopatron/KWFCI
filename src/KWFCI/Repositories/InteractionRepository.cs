@@ -53,12 +53,7 @@ namespace KWFCI.Repositories
                 return 0;
         }
 
-        //public IQueryable<Interaction> GetInteractionsByStaff(StaffProfile stafProf)
-        //{
-        //    return (from i in context.Interactions
-        //            where i.StaffProfile.StaffProfileID == stafProf.StaffProfileID
-        //            select i);
-        //}
+        
 
         public int UpdateInteraction(Interaction interaction)
         {
@@ -66,6 +61,10 @@ namespace KWFCI.Repositories
             return context.SaveChanges();
         }
 
-        
+        public List<Interaction> GetAllInteractionsForStaff(int staffID)
+        {
+            return context.Interactions.FromSql("SELECT * FROM dbo.Interactions WHERE StaffProfileID =" + staffID).ToList();
+        }
+
     }
 }

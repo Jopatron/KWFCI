@@ -1,4 +1,4 @@
-﻿@model KWFCI.Models.ViewModels.HomeVM
+﻿@model List<KWTask>
 
 <div class="row">
     <div class="col-xs-12">
@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (KWTask t in Model.PersonalTasks)
+                @foreach (KWTask t in Model)
                 {
                     <tr>
                         <td>@t.Message</td>
@@ -35,7 +35,7 @@
                             }
                         </td>
                     </tr>
-                  }
+                                }
             </tbody>
         </table>
     </div>

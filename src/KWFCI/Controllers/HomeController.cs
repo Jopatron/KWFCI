@@ -55,20 +55,31 @@ namespace KWFCI.Controllers
             /*Populate ViewModel Logic*/
             var vm = new HomeVM();
             
-            string sql = "SELECT * FROM dbo.KWTasks WHERE StaffProfileID IS NULL";
-            vm.GlobalTasks = taskRepo.GetTasksFromSQL(sql).Where(t => t.Type != "Onboarding").ToList();
-            vm.PersonalTasks = new List<KWTask>();
-            vm.PersonalInteractions = new List<Interaction>();
+            /*TODO Be aware this directly queries the database, may break if StaffProfile or KWTask models change*/
+            string sqlGlobal = "SELECT * FROM dbo.KWTasks WHERE StaffProfileID IS NULL";
+            string sqlPersonal = "SELECT * FROM dbo.KWTasks WHERE StaffProfileID = " + Helper.StaffProfileLoggedIn.StaffProfileID;
+            vm.GlobalTasks = taskRepo.GetTasksFromSQL(sqlGlobal).Where(t => t.Type != "Onboarding").ToList();
+            vm.PersonalTasks = taskRepo.GetTasksFromSQL(sqlPersonal).Where(t => t.Type != "Onboarding").ToList();
+
+
+            foreach(Interaction i in Helper.StaffProfileLoggedIn.Interactions)
+            {
+                foreach (Broker b in brokerRepo.GetAllBrokers())
+                {
+                    if(b.Interactions.Contains(i))
+                    {
+                        i.BrokerName = b.FirstName + " " + b.LastName;
+                    }
+                }
+            }
+
+
+            vm.PersonalInteractions = Helper.StaffProfileLoggedIn.Interactions;
             vm.NewTask = new KWTask();
             vm.NewBroker = new Broker();
             /*End Populate ViewModel Logic*/
 
             return View(vm);
         }
-
-        //public IActionResult HomePageMyTasks(List<KWTask> personalTasks)
-        //{
-        //    return View("index");
-        //}
     }
 }
