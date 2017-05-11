@@ -16,9 +16,6 @@
                     <th>Type</th>
                     <th>Notifications</th>
                     <th>Archive</th>
-
-
-                    
                 </tr>
             </thead>
             <tbody>
@@ -57,7 +54,12 @@
                 }
             </tbody>
         </table>
+        
+        <a href="#" class="btn btn-success btn-lg grab-url" data-toggle="modal" data-target="#newBroker">
+            Add Broker
+        </a>
         @Html.Partial("Modals/_EditBrokerModal", Model.NewBroker)
+        @Html.Partial("Modals/_AddBrokerModal", Model.NewBroker)
     </div>
 </div>
 

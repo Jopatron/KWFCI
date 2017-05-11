@@ -1,9 +1,5 @@
 ﻿@model KWFCI.Models.Broker
 
-<button type="button" class="newBrokerBtn btn btn-default" data-toggle="modal" data-target="#newBroker">New Broker</button>
-
-
-
 
 <div class="modal fade" id="newBroker" tabindex="-1" role="dialog" aria-labelledby="newBrokerModal">
     <div class="modal-dialog" role="document">
@@ -56,8 +52,8 @@
                         </div>
                     </div>
                     <br />
-
-                        <button type="submit" class="btn btn-primary btn-block">Create Broker</button>
+                    <input class="return-url" type="hidden" name="returnURL" value="" />
+                    <button type="submit" class="btn btn-primary btn-block">Create Broker</button>
                 </form>
             </div>
         </div>

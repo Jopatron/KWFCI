@@ -50,7 +50,7 @@ namespace KWFCI.Controllers
         }
         [Route("Add")]
         [HttpPost]
-        public IActionResult AddBroker(Broker b)
+        public IActionResult AddBroker(Broker b, string returnURL)
         {
             var broker = new Broker {
                 FirstName = b.FirstName,
@@ -73,7 +73,7 @@ namespace KWFCI.Controllers
 
             brokerRepo.AddBroker(broker);
             //TODO: See if there is a way to just close the modal and not refresh the page
-            return RedirectToAction("Index","Home");
+            return Redirect(returnURL);
         
         }
         [Route("Edit")]

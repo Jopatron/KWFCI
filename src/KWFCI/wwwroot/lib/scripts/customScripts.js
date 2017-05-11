@@ -209,6 +209,11 @@ $(document).ready(function () {
     //End List.js code
 
     //Apply filter text to KWTask table filter for critical alerts
+
+    $('.grab-url').on('click', function () {
+        var url = window.location.pathname;
+        $('.return-url').val(url);
+    });
     
 });
 $(window).on("load", function () {
