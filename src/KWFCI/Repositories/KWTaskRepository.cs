@@ -1,6 +1,9 @@
 ﻿using KWFCI.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 using System.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace KWFCI.Repositories
 {
@@ -63,6 +66,11 @@ namespace KWFCI.Repositories
             return (from kwt in context.KWTasks
                     where kwt.KWTaskID == id
                     select kwt).FirstOrDefault<KWTask>();
+        }
+
+        public List<KWTask> GetTasksFromSQL(string sql)
+        {
+            return context.KWTasks.FromSql(sql).ToList();
         }
     }
 }

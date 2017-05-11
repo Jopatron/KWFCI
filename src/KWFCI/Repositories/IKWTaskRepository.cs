@@ -1,4 +1,5 @@
 ﻿using KWFCI.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace KWFCI.Repositories
@@ -12,5 +13,6 @@ namespace KWFCI.Repositories
         KWTask GetKWTaskByID(int id);
         IQueryable<KWTask> GetAllTasksByType(string type);
         Interaction GetAssociatedInteraction(KWTask task);
+        List<KWTask> GetTasksFromSQL(string sql);
     }
 }
