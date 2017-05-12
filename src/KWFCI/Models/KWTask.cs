@@ -16,6 +16,8 @@ namespace KWFCI.Models
         public string Type { get; set; } //Task, Onboarding or Alert
         public Interaction Interaction { get; set; }
         public Boolean IsComplete { get; set; }
+        public string StaffName { get; set; } //For use in assigning staff to tasks
+        public string StaffEmail { get; set; }
         public KWTask()
         {
             DateCreated = DateTime.Now;

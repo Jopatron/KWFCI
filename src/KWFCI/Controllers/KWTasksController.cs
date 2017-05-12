@@ -31,7 +31,20 @@ namespace KWFCI.Controllers
             ViewBag.Filter = filter;
             var vm = new KWTaskVM();
             vm.StaffList = staffRepo.GetAllStaffProfiles().ToList();
-            vm.KWTasks = taskRepo.GetAllKWTasks().Where(t => t.Type != "Onboarding").ToList();
+            var KWTasks = taskRepo.GetAllKWTasks().Where(t => t.Type != "Onboarding").ToList();
+
+            foreach(KWTask t in KWTasks)
+            {
+                foreach(StaffProfile s in vm.StaffList)
+                {
+                    if(s.Tasks.Contains(t))
+                    {
+                        t.StaffName = s.FirstName + " " + s.LastName;
+                        t.StaffEmail = s.Email;
+                    }
+                }
+            }
+            vm.KWTasks = KWTasks;
             vm.NewKWTask = new KWTask();
             return View(vm);
         }

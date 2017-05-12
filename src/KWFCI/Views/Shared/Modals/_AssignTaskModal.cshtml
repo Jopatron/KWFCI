@@ -1,0 +1,63 @@
+﻿@model KWFCI.Models.ViewModels.KWTaskVM
+
+<div class="modal fade" id="assignStaffModal" tabindex="-1" role="dialog" aria-labelledby="assignStaffModal" style="max-height:600px;overflow-y:scroll;overflow-x:hidden;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title">Choose a Staff Member:</h2>
+            </div>
+            <div class="modal-body" id="assignStaffList">
+                <div class="row">
+                    <div class="col-xs-12">
+                        @*<div class="center-block" style="width:60%;">*@
+                        <div class="input-group">
+                            <input type="text" class="form-control search" placeholder="Search" aria-describedby="search-broker">
+                            <span class="input-group-addon" id="search-staff"><i class="fa fa-search" aria-hidden="true"></i></span>
+                            @*</div>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul class="list list-group" style="padding:10px 0px;" data-taskid="@Model.NewKWTask.KWTaskID">
+                            @if (Model.NewKWTask.StaffName != "")
+                            {
+                                <li class="list-group-item" data-value="Clear">Clear</li>
+                            }
+
+                            @foreach (StaffProfile staff in Model.StaffList)
+                            {
+                                string currentName = staff.FirstName + " " + staff.LastName;
+                                string currentEmail = staff.Email;
+                                if (currentName != Model.NewKWTask.StaffName)
+                                {
+                                    <li class="list-group-item" data-id="@staff.StaffProfileID" data-value="@currentName" style="display:flex;justify-content:space-between;">
+                                        <div class="name" style="width:49%;">
+                                            @currentName
+                                        </div>
+                                        <div style="width:2%;">
+                                            |
+                                        </div>
+                                        <div style="width:49%;text-align:right;">
+                                            <span class="email">@currentEmail</span>
+                                        </div>
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+                        <form class="hidden" asp-action="Assign" asp-controller="Tasks" id="assignStaffForm" method="post">
+                            <!--Value is populated with jQuery based on what value was entered into the date box-->
+                            <input type="hidden" class="addTaskID" name="KWTaskID" value="" />
+                            <input type="hidden" class="addStaffProfileID" name="StaffProfileName" value="" />
+
+                            <!--Triggered with jQuery-->
+                            <button type="submit" class="hidden submitButton"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

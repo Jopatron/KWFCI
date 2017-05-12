@@ -172,15 +172,17 @@ $(document).ready(function () {
         });
     });
     
-    $('.editTable .dropdown-menu a').on('click', function (ev) {
-        ev.preventDefault();
-        
-        var $staffName = $(this).text();
-        var $taskID = $(this).closest('td').find("button[data-id]").attr('data-id');
+    $('#assignStaffModal').on('click', 'li', function (ev) {
+
+        console.log($(this));
+        console.log($(this).attr("data-id"));
+        var $staffName = $(this).attr('data-value');
+        console.log($staffName);
+        var $taskID = $(this).closest('ul').attr('data-taskid');
 
         $('#assignStaffForm .addTaskID').val($taskID);
         $('#assignStaffForm .addStaffProfileID').val($staffName);
-        $('#assignStaffForm .submitButton').trigger('click');
+        //$('#assignStaffForm .submitButton').trigger('click');
     });
 
     
@@ -204,7 +206,7 @@ $(document).ready(function () {
     var options = {
         valueNames: ['name', 'email']
     };
-
+    var listID = $();
     var brokersList = new List('changeBrokerList', options);
     //End List.js code
 
