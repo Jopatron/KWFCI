@@ -21,30 +21,26 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <ul class="list list-group" style="padding:10px 0px;" data-taskid="@Model.NewKWTask.KWTaskID">
-                            @if (Model.NewKWTask.StaffName != "")
-                            {
-                                <li class="list-group-item" data-value="Clear">Clear</li>
-                            }
+                            <li class="list-group-item" data-value="Clear">Clear</li>
 
                             @foreach (StaffProfile staff in Model.StaffList)
                             {
-                                string currentName = staff.FirstName + " " + staff.LastName;
-                                string currentEmail = staff.Email;
-                                if (currentName != Model.NewKWTask.StaffName)
-                                {
-                                    <li class="list-group-item" data-id="@staff.StaffProfileID" data-value="@currentName" style="display:flex;justify-content:space-between;">
-                                        <div class="name" style="width:49%;">
-                                            @currentName
-                                        </div>
-                                        <div style="width:2%;">
-                                            |
-                                        </div>
-                                        <div style="width:49%;text-align:right;">
-                                            <span class="email">@currentEmail</span>
-                                        </div>
-                                    </li>
-                                }
+                                string staffName = staff.FirstName + " " + staff.LastName;
+                                
+                                
+                                <li class="list-group-item" data-id="@staff.StaffProfileID" data-value="@staffName" style="display:flex;justify-content:space-between;">
+                                    <div class="name" style="width:49%;">
+                                        @staffName
+                                    </div>
+                                    <div style="width:2%;">
+                                        |
+                                    </div>
+                                    <div style="width:49%;text-align:right;">
+                                        <span class="email">@staff.Email</span>
+                                    </div>
+                                </li>
                             }
+                            
 
                         </ul>
                         <form class="hidden" asp-action="Assign" asp-controller="Tasks" id="assignStaffForm" method="post">

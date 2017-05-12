@@ -81,7 +81,6 @@
                                 <a class="alignCell assign-staff-task" href="#" data-toggle="modal" data-target="#assignStaffModal" data-id="@t.KWTaskID">
                                     @t.StaffName
                                 </a>
-                                @Html.Partial("Modals/_AssignTaskModal", new KWTaskVM() { NewKWTask = t, StaffList = Model.StaffList})
                             </div>
                         </td>
                         <td>
@@ -100,7 +99,7 @@
                 data-target="#addKWTaskModal" data-toggle="modal">
             <span>New Task</span>
         </button>
-        
+        @Html.Partial("Modals/_AssignTaskModal", Model)
         @Html.Partial("Modals/_AddKWTaskModal", Model)
         @Html.Partial("Modals/_EditKWTaskModal", Model)
     </div>

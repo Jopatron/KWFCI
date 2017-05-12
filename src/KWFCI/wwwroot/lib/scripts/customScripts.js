@@ -192,7 +192,7 @@ $(document).ready(function () {
         $(this).button('loading');
     });
   
-    $('.editTable').DataTable();
+    
 
     $('#changeBrokerModal .list-group li').on('click', function () {
         var $newBroker = $(this).find('span').text();
@@ -214,6 +214,7 @@ $(document).ready(function () {
     
 });
 $(window).on("load", function () {
+    $('.editTable').DataTable();
     if (window.location.pathname == "/Tasks") {
         var filter = $('body').find('.filter').text();
         setTimeout(function () {
