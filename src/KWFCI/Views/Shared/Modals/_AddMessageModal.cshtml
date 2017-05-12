@@ -1,5 +1,5 @@
 ﻿@model KWFCI.Models.Message
-<button type="button" class="btn btn-success kwAddButton" data-toggle="modal" data-target="#newMessage">Create Message</button>
+
 
 
 
@@ -33,6 +33,7 @@
 
                         <label asp-for="Body">Body:</label>
                         <textarea asp-for="Body" class="form-control"></textarea><br />
+                        <input type="hidden" class="return-url" name="returnURL" value="" />
 
                         <button id="buttonSelector" 
                                 type="submit" 

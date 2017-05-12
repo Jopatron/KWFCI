@@ -12,6 +12,7 @@ namespace KWFCI.Models.ViewModels
         public List<Interaction> PersonalInteractions { get; set; }
         public Broker NewBroker { get; set; }
         public KWTask NewTask { get; set; }
+        public Message NewMessage { get; set; }
 
     }
 }
