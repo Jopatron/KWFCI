@@ -126,7 +126,7 @@ namespace KWFCI.Controllers
 
         [Route("Assign")]
         [HttpPost]
-        public ActionResult Assign(string StaffProfileName, int KWTaskID)
+        public ActionResult Assign(int KWTaskID, string StaffProfileName)
         {
             bool verify;
             var task = taskRepo.GetKWTaskByID(KWTaskID);

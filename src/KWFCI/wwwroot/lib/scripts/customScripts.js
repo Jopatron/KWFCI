@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     $(".editTable").click(function (event) {
         var target = $(event.target);
-
+        //console.log(target);
         if (event.target.nodeName == "DIV" || event.target.nodeName == "BUTTON")
         {
             var entityID = target.attr("data-id");
@@ -172,17 +172,15 @@ $(document).ready(function () {
         });
     });
     
+    $(".editTable").on('click', "#assign-task", function (ev) {
+        var taskID = $(this).find(".assign-staff-task").attr("data-id");
+        $("#assignStaffModal .addTaskID").val(taskID);
+    });
     $('#assignStaffModal').on('click', 'li', function (ev) {
-
-        console.log($(this));
-        console.log($(this).attr("data-id"));
         var $staffName = $(this).attr('data-value');
-        console.log($staffName);
-        var $taskID = $(this).closest('ul').attr('data-taskid');
-
-        $('#assignStaffForm .addTaskID').val($taskID);
+        
         $('#assignStaffForm .addStaffProfileID').val($staffName);
-        //$('#assignStaffForm .submitButton').trigger('click');
+        $('#assignStaffForm .submitButton').trigger('click');
     });
 
     
@@ -206,8 +204,8 @@ $(document).ready(function () {
     var options = {
         valueNames: ['name', 'email']
     };
-    var listID = $();
     var brokersList = new List('changeBrokerList', options);
+    var staffList = new List('assignStaffList', options);
     //End List.js code
 
     //Apply filter text to KWTask table filter for critical alerts
