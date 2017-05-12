@@ -77,6 +77,7 @@ namespace KWFCI.Controllers
             vm.PersonalInteractions = Helper.StaffProfileLoggedIn.Interactions;
             vm.NewTask = new KWTask();
             vm.NewBroker = new Broker();
+            vm.NewMessage = new Message();
             /*End Populate ViewModel Logic*/
 
             return View(vm);

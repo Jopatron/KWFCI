@@ -47,7 +47,7 @@ namespace KWFCI.Controllers
         }
         [Route("Add")]
         [HttpPost]
-        public IActionResult SendMessage(Message m, bool checkAll = false, bool checkAllBrokers = false, bool checkStaff = false,
+        public IActionResult SendMessage(Message m, string returnURL, bool checkAll = false, bool checkAllBrokers = false, bool checkStaff = false,
             bool checkNewBrokers = false, bool checkBrokersInTransition = false, bool checkTransferBrokers = false)
         {
 
@@ -157,7 +157,7 @@ namespace KWFCI.Controllers
 
 
 
-            return RedirectToAction("AllMessages", "Messages");
+            return Redirect(returnURL);
         }
     }
 }
