@@ -12,6 +12,7 @@ namespace KWFCI.Models
         public int? TaskForeignKey { get; set; }
         public string Status { get; set; }
         public KWTask Task { get; set; }
+        public string BrokerName { get; set; }
 
 
         public Interaction()

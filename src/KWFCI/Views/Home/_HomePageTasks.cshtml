@@ -1,0 +1,42 @@
+﻿@model List<KWTask>
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Message</th>
+                    <th>Date Due</th>
+                    <th>Priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (KWTask t in Model)
+                {
+                    <tr>
+                        <td>@t.Message</td>
+                        <td>
+                            @{
+                                //Remove the time from the display
+                                string[] splitDateDue = t.DateDue.ToString().Split(' ');
+                                string dateDue = splitDateDue[0];
+
+                                @dateDue
+                            }
+                        </td>
+                        <td>
+                            @if (t.Priority == 5)
+                            {
+                                @:Critical
+                            }
+                            else
+                            {
+                                @t.Priority
+                            }
+                        </td>
+                    </tr>
+                                }
+            </tbody>
+        </table>
+    </div>
+</div>

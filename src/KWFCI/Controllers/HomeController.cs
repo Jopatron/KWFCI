@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using KWFCI.Models;
 using Microsoft.AspNetCore.Identity;
 using KWFCI.Repositories;
+using KWFCI.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace KWFCI.Controllers
 {
@@ -19,30 +21,65 @@ namespace KWFCI.Controllers
         private UserManager<StaffUser> userManager;
         private IStaffProfileRepository staffProfRepo;
         private IKWTaskRepository taskRepo;
+        private IInteractionsRepository intRepo;
+        private IBrokerRepository brokerRepo;
+        
 
-        public HomeController(UserManager<StaffUser> usrMgr, IStaffProfileRepository repo, IKWTaskRepository repo2)
+        public HomeController(UserManager<StaffUser> usrMgr, IStaffProfileRepository repo, IKWTaskRepository repo2, IInteractionsRepository repo3, IBrokerRepository repo4)
         {
             staffProfRepo = repo;
             userManager = usrMgr;
             taskRepo = repo2;
+            intRepo = repo3;
+            brokerRepo = repo4;
         }
         
         public async Task <IActionResult> Index()
         {
+            /*Login Logic*/
             StaffUser user = await userManager.FindByNameAsync(User.Identity.Name);
             Helper.StaffUserLoggedIn = user;
             Helper.StaffProfileLoggedIn = Helper.DetermineProfile(staffProfRepo);
+            /*End Login Logic*/
 
+            /*Display Alerts Logic*/
             ViewBag.Name = Helper.StaffProfileLoggedIn.FirstName;
             ViewBag.Alerts = Helper.StaffProfileLoggedIn.Tasks.Where(
                 t => t.Type == "Alert" && 
-                DateTime.Compare(DateTime.Now, t.AlertDate.GetValueOrDefault()) == 0 ||
-                DateTime.Compare(DateTime.Now, t.AlertDate.GetValueOrDefault()) > 0).ToList();
+                (DateTime.Compare(DateTime.Now, t.AlertDate.GetValueOrDefault()) == 0 ||
+                DateTime.Compare(DateTime.Now, t.AlertDate.GetValueOrDefault()) > 0)).ToList();
 
             ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
+            /*End Display Alerts Logic*/
+
+            /*Populate ViewModel Logic*/
+            var vm = new HomeVM();
             
-            //TODO Ensure user is rerouted if not logged in
-            return View();
+            /*TODO Be aware this directly queries the database, may break if StaffProfile or KWTask models change*/
+            string sqlGlobal = "SELECT * FROM dbo.KWTasks WHERE StaffProfileID IS NULL";
+            string sqlPersonal = "SELECT * FROM dbo.KWTasks WHERE StaffProfileID = " + Helper.StaffProfileLoggedIn.StaffProfileID;
+            vm.GlobalTasks = taskRepo.GetTasksFromSQL(sqlGlobal).Where(t => t.Type != "Onboarding").ToList();
+            vm.PersonalTasks = taskRepo.GetTasksFromSQL(sqlPersonal).Where(t => t.Type != "Onboarding").ToList();
+
+
+            foreach(Interaction i in Helper.StaffProfileLoggedIn.Interactions)
+            {
+                foreach (Broker b in brokerRepo.GetAllBrokers())
+                {
+                    if(b.Interactions.Contains(i))
+                    {
+                        i.BrokerName = b.FirstName + " " + b.LastName;
+                    }
+                }
+            }
+
+
+            vm.PersonalInteractions = Helper.StaffProfileLoggedIn.Interactions;
+            vm.NewTask = new KWTask();
+            vm.NewBroker = new Broker();
+            /*End Populate ViewModel Logic*/
+
+            return View(vm);
         }
     }
 }

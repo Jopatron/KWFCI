@@ -105,16 +105,18 @@
                             <!--Attribute necessary for datepicker to function: data-provide="datepicker"
                                 Attributes that serve as configuration options: all attributes that start with data-date- -->
                             <input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" class="form-control interactionDate" data-id="@entityID"
-                                   @if (a.DateCreated != null) { //Remove the time from the display string[] splitDate = a.DateCreated.ToString().Split(' '); string date = splitDate[0];  @: value="@date" />
+                            @if (a.DateCreated != null)
+                            {
+                                //Remove the time from the display
+                                string[] splitDate = a.DateCreated.ToString().Split(' ');
+                                string date = splitDate[0];  @: value="@date" /> 
                             }
-else
-{
-    @:value="" />
+                            else
+                            {
+                            @:value="" />
                             }
-</td>
 
-
-                        
+                        </td>
                         <td style="min-width:380px;max-width:380px;height:100%;">
                             <div class="col-xs-10" style="height:100%;">
                                 <a href="#" class="inactive" data-toggle="modal" data-target="#editInteractionNextStep" data-id="@entityID" style="height:100%;">
@@ -159,8 +161,6 @@ else
                                 </div>
                             }
                         </td>
-                        
-                        
                         <td style="width:200px;text-align:center;">
                             <a href="#" class="inactive" data-toggle="modal" data-target="#changeBrokerModal" data-id="@entityID">
                                 <div class="alignCell-Parent">
@@ -169,15 +169,13 @@ else
                             </a>
                         </td>
                     </tr>
-             }
-
+                }
             </tbody>
         </table>
         <button class="btn btn-sm btn-success kwAddButton" type="button" style="margin-top:10px;"
                 onclick="location.href='@Url.Action("Add", "Interactions", new { BrokerID = Model.Broker.BrokerID })'">
             <span>New Interaction</span>
         </button>
-
     </div>
 </div>
 
