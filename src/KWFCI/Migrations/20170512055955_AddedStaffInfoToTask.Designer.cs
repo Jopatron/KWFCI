@@ -8,12 +8,13 @@ using KWFCI.Repositories;
 namespace KWFCI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170512055955_AddedStaffInfoToTask")]
+    partial class AddedStaffInfoToTask
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
+                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("KWFCI.Models.Broker", b =>
@@ -44,8 +45,6 @@ namespace KWFCI.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("BrokerID");
-
-                    b.Property<string>("BrokerName");
 
                     b.Property<DateTime?>("DateCreated");
 
@@ -153,8 +152,7 @@ namespace KWFCI.Migrations
 
             modelBuilder.Entity("KWFCI.Models.StaffUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<int>("AccessFailedCount");
 
@@ -203,8 +201,7 @@ namespace KWFCI.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -288,6 +285,8 @@ namespace KWFCI.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserRoles");
                 });

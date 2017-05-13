@@ -1,4 +1,5 @@
 ﻿@model KWFCI.Models.ViewModels.KWTaskVM
+@using KWFCI.Models.ViewModels
 
 @{ ViewBag.Title = "Tasks";  }
 
@@ -7,24 +8,6 @@
     <div class="hidden filter">@ViewBag.Filter</div> @*Grabbing this with JS*@
 }
 
-
-@functions{
-
-    public string GetStaffProfileName(KWTask task, List<StaffProfile> staff)
-    {
-        string name = "";
-        foreach (StaffProfile sp in staff)
-        {
-            if (sp.Tasks.Contains(task))
-            {
-                name = sp.FirstName + " " + sp.LastName;
-                return name;
-            }
-        }
-        return name;
-    }
-
-}
 
 <div class="row">
     <div class="col-xs-12">
@@ -93,37 +76,11 @@
                                 @t.Priority
                             }
                         </td>
-                        <td>
-                            @{var activeName = GetStaffProfileName(t, Model.StaffList);}
-                            
-                            <div class="dropdown" style="height:100%;width:100%;">
-                                <button class="btn btn-default dropdown-toggle assign-staff-task" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="@activeName" data-id="@t.KWTaskID" style="width:100%;">
-                                    <div class="row">
-                                        @if (activeName == "")
-                                        {
-                                            @:<div class="col-xs-9"></div>
-                                        }
-                                        else
-                                        {
-                                            @:<div class="col-xs-9" style="text-align:left;"><span>@activeName</span></div>
-                                        }
-                                        <div class="col-xs-3" style="height:100%;"><span class="caret"></span></div>
-                                    </div>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    @if (activeName != "")
-                                    {
-                                        <li class="col-xs-12" value="Clear"><a href="#" >Clear</a></li>
-                                    }
-                                    @foreach (StaffProfile staff in Model.StaffList)
-                                    {
-                                        string currentName = staff.FirstName + " " + staff.LastName;
-                                        if (currentName != activeName)
-                                        {
-                                            <li class="col-xs-12" value="@currentName"><a href="#">@currentName</a></li>
-                                        }
-                                    }
-                                </ul>
+                        <td id="assign-task">
+                            <div class="alignCell-Parent">
+                                <a class="alignCell assign-staff-task" href="#" data-toggle="modal" data-target="#assignStaffModal" data-id="@t.KWTaskID">
+                                    @t.StaffName
+                                </a>
                             </div>
                         </td>
                         <td>
@@ -142,22 +99,28 @@
                 data-target="#addKWTaskModal" data-toggle="modal">
             <span>New Task</span>
         </button>
+        @Html.Partial("Modals/_AssignTaskModal", Model)
         @Html.Partial("Modals/_AddKWTaskModal", Model)
         @Html.Partial("Modals/_EditKWTaskModal", Model)
     </div>
 </div>
 
-<form class="hidden" asp-action="Assign" asp-controller="Tasks" id="assignStaffForm" method="post">
-    <!--Value is populated with jQuery based on what value was entered into the date box-->
-    <input type="hidden" class="addTaskID" name="KWTaskID" value="" />
-    <input type="hidden" class="addStaffProfileID" name="StaffProfileName" value="" />
-    
-    <!--Triggered with jQuery-->
-    <button type="submit" class="hidden submitButton"></button>
-</form>
+
 
 <style>
     table {
         border: none;
     }
 </style>
+
+@*<li class="list-group-item" data-id="@b.BrokerID" style="display:flex;justify-content:space-between;">
+        <div class="name" style="width:49%;">
+            @name
+        </div>
+        <div style="width:2%;">
+            |
+        </div>
+        <div style="width:49%;text-align:right;">
+            <span class="email">@email</span>
+        </div>
+    </li>*@
