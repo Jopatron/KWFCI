@@ -46,7 +46,7 @@
       "wwwroot",
       "**/*.cshtml",
       "web.config",
-      "appsettings.production.json"
+      "appsettings.Production.json"
     ]
   },
   "runtimeOptions": {
