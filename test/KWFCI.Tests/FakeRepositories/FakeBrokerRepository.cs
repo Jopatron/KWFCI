@@ -63,6 +63,11 @@ namespace KWFCI.Tests.FakeRepositories
             throw new NotImplementedException();
         }
 
+        public Broker GetBrokerByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public Broker GetBrokerByID(int id)
         {
             //var broker = brokers.Where(b => b.BrokerID == id) as Broker;
