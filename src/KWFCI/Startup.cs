@@ -55,6 +55,7 @@ namespace KWFCI
         {
             loggerFactory.AddConsole();
             app.UseDeveloperExceptionPage();
+            app.UseExceptionHandler();
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseIdentity();
