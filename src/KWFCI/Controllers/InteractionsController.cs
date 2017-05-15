@@ -180,11 +180,14 @@ namespace KWFCI.Controllers
                     }
                         
                 }
-                    
-                    
-                
-                
-                
+                else if (iVM.Field == "Date Created")
+                {
+                    interaction.DateCreated = i.DateCreated;
+                }
+
+
+
+
                 int verify = intRepo.UpdateInteraction(interaction); //Repository and broker.Interactions reflect proper values here
                 if (verify == 1)
                 {

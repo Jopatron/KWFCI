@@ -145,7 +145,6 @@ $(document).ready(function () {
 
         $(".editTable .interactionDate").on("change", function () {
             $(".addDate").attr("value", $(this).val());
-            
             $("#date-created-form .submitButton").trigger("click");
         });
     });
