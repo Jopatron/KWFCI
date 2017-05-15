@@ -302,3 +302,14 @@ tbody{
     cursor:pointer;
     background-color:rgba(211, 211, 211, .8);
 }
+
+#homepage-tasks .panel{
+    max-height:375px;
+    overflow:hidden;
+}
+#homepage-tasks .panel-body{
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-bottom: 50px;
+}
