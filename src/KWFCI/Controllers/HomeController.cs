@@ -42,6 +42,25 @@ namespace KWFCI.Controllers
             Helper.StaffProfileLoggedIn = Helper.DetermineProfile(staffProfRepo);
             /*End Login Logic*/
 
+            /* Priority reassignment Logic */
+            var tasks = taskRepo.GetAllKWTasks();
+
+            
+            foreach (KWTask t in tasks.ToList())
+            {
+                if (DateTime.Now > t.DateDue && t.Priority != 5)
+                {
+                    StaffProfile profile = staffProfRepo.GetProfileByTask(t);
+
+                    t.Priority = 5;
+                    profile.Tasks.Remove(t);
+                    staffProfRepo.UpdateStaff(profile);
+
+
+                }
+            }
+            
+
             /*Display Alerts Logic*/
             ViewBag.Name = Helper.StaffProfileLoggedIn.FirstName;
             ViewBag.Alerts = Helper.StaffProfileLoggedIn.Tasks.Where(
