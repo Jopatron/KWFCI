@@ -33,8 +33,17 @@ namespace KWFCI.Controllers
             vm.StaffList = staffRepo.GetAllStaffProfiles().ToList();
             var KWTasks = taskRepo.GetAllKWTasks().Where(t => t.Type != "Onboarding").ToList();
 
-            foreach(KWTask t in KWTasks)
+            foreach(KWTask t in KWTasks.ToList())
             {
+                if(t.Priority == 5)
+                {
+                    StaffProfile profile = staffRepo.GetProfileByTask(t);
+                    if(profile != null)
+                    {
+                        profile.Tasks.Remove(t);
+                        staffRepo.UpdateStaff(profile);
+                    }
+                }
                 foreach(StaffProfile s in vm.StaffList)
                 {
                     if(s.Tasks.Contains(t))
