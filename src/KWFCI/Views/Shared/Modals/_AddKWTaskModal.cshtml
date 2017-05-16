@@ -44,7 +44,7 @@
                             <div class="col-xs-5"><input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" asp-for="@Model.NewKWTask.AlertDate" value="@alertDate" class="form-control modal-TaskAlertDate" /></div>
                         </div>
 
-                        <div class="row priorityRow hidden">
+                        <div class="row priorityRow">
                             <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.NewKWTask.Priority">Priority:</label></div>
                             <div class="col-xs-2">
                                 <select class="form-control" asp-for="@Model.NewKWTask.Priority">
@@ -57,10 +57,47 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-xs-3" style="width:20%;margin-top:7px;"><label>Assign:</label></div>
+                            <div class="col-xs-8">
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Select a staff member
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-menu" style="padding-bottom:0px;">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control search" placeholder="Search" aria-describedby="search-broker">
+                                            <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                        </div>
+                                        <ul class="list list-group" style="margin-bottom:0px; width:100%;">
+                                            <li class="list-group-item" data-value="Clear">Clear</li>
+
+                                            @foreach (StaffProfile staff in Model.StaffList)
+                                            {
+                                                string staffName = staff.FirstName + " " + staff.LastName;
+                                                <li class="list-group-item" data-id="@staff.StaffProfileID" data-value="@staffName" style="display:flex;justify-content:space-between;">
+                                                    <div class="name" style="width:36%;">
+                                                        @staffName
+                                                    </div>
+                                                    <div style="width:2%;">
+                                                        |
+                                                    </div>
+                                                    <div style="width:49%;text-align:right;">
+                                                        <span class="email">@staff.Email</span>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
                         <input type="hidden" asp-for="@Model.NewKWTask.DateCreated" />
                         <input type="hidden" class="return-url" name="returnURL" value="" />
-                        
-                      
+                        <input type="hidden" name="StaffProfileID" value="" />
 
                         <button type="submit" class="btn btn-primary pull-right">Create Task</button>
                     </div>
