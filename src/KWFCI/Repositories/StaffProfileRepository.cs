@@ -16,6 +16,15 @@ namespace KWFCI.Repositories
             context = ctx;
         }
 
+        public StaffProfile GetProfileByTask(KWTask task)
+        {
+            foreach (var p in context.StaffProfiles)
+            {
+                if (p.Tasks.Contains(task))
+                    return p;
+            }
+            return null;
+        }
         public IQueryable<StaffProfile> GetAllStaffProfiles(bool getNotifications = false)
         {
              if (getNotifications == true)

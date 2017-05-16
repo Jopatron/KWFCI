@@ -5,6 +5,7 @@ namespace KWFCI.Repositories
 {
     public interface IStaffProfileRepository
     {
+        StaffProfile GetProfileByTask(KWTask task);
         IQueryable<StaffProfile> GetAllStaffProfiles(bool getNotifications = false);
         StaffProfile GetStaffProfileByFullName(string firstName, string lastName);
         StaffProfile GetStaffProfileByID(int id);
