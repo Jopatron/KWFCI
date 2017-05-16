@@ -56,7 +56,7 @@
         <div class="panel panel-default" style="width:96%; height:375px; margin-top:50px;">
             <div class="panel-heading text-center"><h2><a href="/Tasks?filter=@ViewBag.Name">My Tasks</a></h2></div>
             <div class="panel-body">
-                @Html.Partial("_HomePageTasks", Model.PersonalTasks);
+                @Html.Partial("_HomePageTasks", Model.PersonalTasks)
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
         <div class="panel panel-default" style="width:96%; height:375px; margin-top:50px;">
             <div class="pull-right panel-heading text-center" style="width:100%;"><h2><a href="/Tasks">All Tasks</a></h2></div>
             <div class="panel-body">
-                @Html.Partial("_HomePageTasks", Model.GlobalTasks);
+                @Html.Partial("_HomePageTasks", Model.GlobalTasks)
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
         <div class="panel panel-default" style="width:100%; margin-top:30px;">
             <div class="panel-heading text-center" style="width:100%;"><h2>My Interactions</h2></div>
             <div class="panel-body">
-                @Html.Partial("_StaffInteractions", Model.PersonalInteractions);
+                @Html.Partial("_StaffInteractions", Model.PersonalInteractions)
             </div>
         </div>
     </div>
