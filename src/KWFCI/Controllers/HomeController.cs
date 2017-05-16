@@ -86,7 +86,15 @@ namespace KWFCI.Controllers
                 (DateTime.Compare(DateTime.Now, t.AlertDate.GetValueOrDefault()) == 0 ||
                 DateTime.Compare(DateTime.Now, t.AlertDate.GetValueOrDefault()) > 0)).ToList();
 
-            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
+            var criticalVB = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
+
+            foreach(KWTask task in taskRepo.GetAllTasksByType("Task").Where(t => t.Priority == 5).ToList())
+            {
+                criticalVB.Add(task);
+            }
+
+            ViewBag.Critical = criticalVB;
+             
             /*End Display Alerts Logic*/
 
             /*Populate ViewModel Logic*/
