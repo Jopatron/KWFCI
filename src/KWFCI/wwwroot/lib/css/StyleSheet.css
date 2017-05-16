@@ -308,8 +308,11 @@ tbody{
     overflow:hidden;
 }
 #homepage-tasks .panel-body{
-    height: 100%;
+    height: 78%;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-bottom: 50px;
+    padding-bottom: 0px;
+}
+#homepage-tasks .panel-body table{
+    margin-bottom:0px;
 }
