@@ -48,17 +48,35 @@ namespace KWFCI.Controllers
             
             foreach (KWTask t in tasks.ToList())
             {
-                if (DateTime.Now > t.DateDue && t.Priority != 5)
+                int diff = (int)(t.DateDue - DateTime.Today).Value.TotalDays;
+                if (DateTime.Today > t.DateDue && t.Priority != 5)
                 {
                     StaffProfile profile = staffProfRepo.GetProfileByTask(t);
 
                     t.Priority = 5;
                     profile.Tasks.Remove(t);
                     staffProfRepo.UpdateStaff(profile);
+                    taskRepo.UpdateKWTask(t);
+                }
+                else if (DateTime.Today == t.DateDue)
+                {
+                    t.Priority = 4;
+                    taskRepo.UpdateKWTask(t);
+                }
 
+                else if (diff == 2)
+                {
+                    t.Priority = 3;
+                    taskRepo.UpdateKWTask(t);
+                }
 
+                else if (diff == 3)
+                {
+                    t.Priority = 2;
+                    taskRepo.UpdateKWTask(t);
                 }
             }
+
             
 
             /*Display Alerts Logic*/
