@@ -78,9 +78,14 @@
                         </td>
                         <td id="assign-task">
                             <div class="alignCell-Parent">
-                                <a class="alignCell assign-staff-task" href="#" data-toggle="modal" data-target="#assignStaffModal" data-id="@t.KWTaskID">
-                                    @t.StaffName
-                                </a>
+                                @if (t.Priority != 5)
+                                {
+                                    <a class="alignCell assign-staff-task" href="#" data-toggle="modal" data-target="#assignStaffModal" data-id="@t.KWTaskID">
+                                        @t.StaffName
+                                    </a>
+
+                                }
+                                
                             </div>
                         </td>
                         <td>
