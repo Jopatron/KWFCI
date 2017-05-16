@@ -316,3 +316,8 @@ tbody{
 #homepage-tasks .panel-body table{
     margin-bottom:0px;
 }
+
+.input-validation-error {
+    border-color: red;
+    background-color: #fee;
+}
