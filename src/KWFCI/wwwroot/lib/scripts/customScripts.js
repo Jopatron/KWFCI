@@ -197,7 +197,14 @@ $(document).ready(function () {
         $(this).closest('.col-xs-12').find('.submitButton').trigger('click');
     });
 
-
+    $('#addKWTaskModal .dropdown-menu li').on('click', function () {
+        var $name = $(this).find('.name').text().trim();
+        var $staffID = $(this).attr('data-id');
+        
+        $('#addKWTaskModal .dropdown-toggle').text($name);
+        $('#addKWTaskModal .dropdown-toggle').append('<span class="caret" style="margin-left: 10px;"></span>');
+        $('#addKWTaskModal [name="StaffProfileID"]').val($staffID);
+    });
     
     //List.js code
     var options = {
@@ -205,6 +212,7 @@ $(document).ready(function () {
     };
     var brokersList = new List('changeBrokerList', options);
     var staffList = new List('assignStaffList', options);
+    var taskStaffList = new List('testList', options);
     //End List.js code
 
     //Apply filter text to KWTask table filter for critical alerts

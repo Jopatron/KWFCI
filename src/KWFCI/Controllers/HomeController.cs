@@ -78,6 +78,7 @@ namespace KWFCI.Controllers
             vm.NewTask = new KWTask();
             vm.NewBroker = new Broker();
             vm.NewMessage = new Message();
+            vm.StaffList = staffProfRepo.GetAllStaffProfiles().ToList();
             /*End Populate ViewModel Logic*/
 
             return View(vm);

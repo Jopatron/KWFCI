@@ -66,6 +66,12 @@ namespace KWFCI.Controllers
             else
                 kwtask.Type = "Alert";
 
+            if(staffProfileID != null)
+            {
+                StaffProfile staff = staffRepo.GetStaffProfileByID((int)staffProfileID);
+                staff.Tasks.Add(kwtask);
+            }
+
             taskRepo.AddKWTask(kwtask);
 
             //TODO: See if there is a way to just close the modal and not refresh the page

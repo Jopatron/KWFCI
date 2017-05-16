@@ -13,6 +13,7 @@ namespace KWFCI.Models.ViewModels
         public Broker NewBroker { get; set; }
         public KWTask NewTask { get; set; }
         public Message NewMessage { get; set; }
+        public List<StaffProfile> StaffList { get; set; }
 
     }
 }
