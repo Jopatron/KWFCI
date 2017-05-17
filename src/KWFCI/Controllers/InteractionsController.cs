@@ -124,6 +124,22 @@ namespace KWFCI.Controllers
             }
             return RedirectToAction("BrokerInteractions", new { BrokerID = vm.BrokerID });
         }
+
+        [Route("Onboarding/Delete")]
+        [HttpGet]
+        public IActionResult DeleteTasks(int id)
+        {
+            Broker broker = brokerRepo.GetBrokerByID(id);
+            var tasks = broker.Requirements;
+
+            foreach(KWTask t in tasks.ToList())
+            {
+                taskRepo.DeleteKWTask(t);
+            }
+
+            return RedirectToAction("BrokerInteractions", new { BrokerID = id });
+        }
+
         [Route("Edit")]
         [HttpPost]
         public ActionResult Edit(InteractionVM iVM, string taskAction = "")

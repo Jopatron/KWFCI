@@ -82,7 +82,8 @@
                             <button type="submit" class="btn btn-primary btn-block">Update Tasks</button>
                             @if (Model.TasksCompleted == 16)
                             {
-                                <button type="button" class="btn btn-danger btn-block">Delete Tasks</button>
+                                @Html.ActionLink("Delete Tasks", "DeleteTasks", "Interactions", new { @id = Model.Broker.BrokerID }, new { @class = "btn btn-danger btn-block" })
+                                @*<a href="Onboarding/Delete" method="post" class="btn btn-danger btn-block">Delete Tasks</a>*@
 
                             }
 
