@@ -19,8 +19,13 @@
                 <br />
                 <div class="progress">
                     <div class="progress-bar
+                         @if (ViewBag.Percent == 0)
+                         {
+                             @:progress-bar-success
 
-                         @if (ViewBag.Percent < 50)
+                         }
+
+                         else if (ViewBag.Percent < 50)
                          {
                             @:progress-bar-danger
                          }
@@ -34,8 +39,20 @@
                              @: progress-bar-success
                              }
                          progress-bar" role="progressbar"
-                         aria-valuenow="@Model.TasksCompleted" aria-valuemin="0" aria-valuemax="100" style="width:@ViewBag.Percent%">
-                        @ViewBag.Percent % Complete
+                         
+                         @if(Model.Tasks.Count == 0)
+                         {
+                             @:aria-valuenow="16" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                             @:100% Complete
+
+                         }
+                         else
+                         {
+                             @:aria-valuenow="@Model.TasksCompleted" aria-valuemin="0" aria-valuemax="100" style="width:@ViewBag.Percent%">
+                            @ViewBag.Percent @:% Complete
+
+                         }
+                         
                     </div>
                 </div>
             </div>
