@@ -43,7 +43,7 @@ namespace KWFCI.Controllers
             /*End Login Logic*/
 
             /* Priority reassignment Logic */
-            var tasks = taskRepo.GetAllKWTasks();
+            var tasks = taskRepo.GetAllKWTasks().Where(t => t.Type != "Onboarding");
 
             
             foreach (KWTask t in tasks.ToList())
