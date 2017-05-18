@@ -37,20 +37,15 @@ body{
     padding-bottom:unset;
 }
 
-
 .modal-content {
     padding:20px;
 }
 
-
-.modal-form button, .modal-form .row {
-}
 .modal-title{
     margin:unset;
 }
 .modal-header{
     text-align:center;
-
 }
 #changeBrokerModal .modal-content{
     max-height:600px;
@@ -316,3 +311,29 @@ tbody{
 #homepage-tasks .panel-body table{
     margin-bottom:0px;
 }
+
+
+#addKWTaskModal form .row,
+#editKWTaskModal form .row,
+#newKWTaskFromInteractionModal form .row{
+    padding-bottom:10px;
+}
+
+
+#addKWTaskModal .modal-dialog,
+#editKWTaskModal .modal-dialog,
+#newKWTaskFromInteractionModal .modal-dialog{
+     width:400px;
+}
+
+#addKWTaskModal .dropdown button{
+    margin-top:0px;
+    width:100%;
+}
+
+.dropdown-menu.assign{
+    padding-bottom: 0px;
+    padding-top: 0px;
+    width: 180%;
+}
+
