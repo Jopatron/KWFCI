@@ -1,4 +1,6 @@
-﻿@model List<Interaction>
+﻿@model KWFCI.Models.ViewModels.HomeStaffInteractionsVM
+@using KWFCI.Models.ViewModels
+
 <div class="row">
     <div class="col-xs-12">
         <table class="table table-bordered editTable">
@@ -11,12 +13,22 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (Interaction a in Model)
+                @foreach (Interaction a in Model.PersonalInteractions)
                 {
+                    foreach (Broker b in Model.Brokers)
+                    {
+                        if (b.Interactions.Contains(a))
+                        {
                     <tr style="height:100%;">
+
                         <td style="width:200px;text-align:center;">
                             <div class="alignCell-Parent">
-                                <div class="alignCell">@a.BrokerName</div>
+
+                                <div class="alignCell">
+                                       <a href="@Url.Action("BrokerInteractions", "Interactions", new { BrokerID = b.BrokerID })">
+                                    @b.FirstName @b.LastName</a> 
+                                    
+                                </div>
                             </div>
                         </td>
                         <td style="min-width:350px;max-width:380px;">
@@ -33,6 +45,8 @@
                             </div>
                         </td>
                     </tr>
+                        }
+                    }
                 }
             </tbody>
         </table>

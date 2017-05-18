@@ -110,7 +110,7 @@ namespace KWFCI.Controllers
             vm.GlobalTasks = taskRepo.GetTasksFromSQL(sqlGlobal).Where(t => t.Type != "Onboarding").ToList();
             vm.PersonalTasks = taskRepo.GetTasksFromSQL(sqlPersonal).Where(t => t.Type != "Onboarding").ToList();
 
-
+            List<Broker> brokers = new List<Broker>();
             foreach(Interaction i in Helper.StaffProfileLoggedIn.Interactions)
             {
                 foreach (Broker b in brokerRepo.GetAllBrokers())
@@ -118,9 +118,11 @@ namespace KWFCI.Controllers
                     if(b.Interactions.Contains(i))
                     {
                         i.BrokerName = b.FirstName + " " + b.LastName;
+                        brokers.Add(b);
                     }
                 }
             }
+            ViewBag.Brokers = brokers;
 
 
             vm.PersonalInteractions = Helper.StaffProfileLoggedIn.Interactions;
