@@ -43,7 +43,7 @@ namespace KWFCI.Controllers
             /*End Login Logic*/
 
             /* Priority reassignment Logic */
-            var tasks = taskRepo.GetAllKWTasks();
+            var tasks = taskRepo.GetAllKWTasks().Where(t => t.Type != "Onboarding");
 
             
             foreach (KWTask t in tasks.ToList())
@@ -54,9 +54,13 @@ namespace KWFCI.Controllers
                     StaffProfile profile = staffProfRepo.GetProfileByTask(t);
 
                     t.Priority = 5;
-                    profile.Tasks.Remove(t);
-                    staffProfRepo.UpdateStaff(profile);
                     taskRepo.UpdateKWTask(t);
+
+                    if (profile != null)
+                    {
+                        profile.Tasks.Remove(t);
+                        staffProfRepo.UpdateStaff(profile);
+                    }
                 }
                 else if (diff == 0 && t.Priority < 4)
                 {
