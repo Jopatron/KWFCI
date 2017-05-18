@@ -56,10 +56,12 @@
                                         <!--Attribute necessary for datepicker to function: data-provide="datepicker"
                                             Attributes that serve as configuration options: all attributes that start with data-date- -->
                                         <input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" class="form-control interactionDate" data-id="@entityID"
-                                               @if (a.DateCreated != null) { //Remove the time from the display string[] splitDate = a.DateCreated.ToString().Split(' '); string date = splitDate[0];  @: value="@date" />
-                                }
-    else
-    {
+                                               @if (a.DateCreated != null)
+                                               { //Remove the time from the display 
+                                                   string[] splitDate = a.DateCreated.ToString().Split(' '); string date = splitDate[0];  @: value="@date" />
+                                               }
+                                               else
+                                               {
         @:value="" />
                                 }
 
