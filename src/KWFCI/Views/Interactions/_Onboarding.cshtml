@@ -1,0 +1,76 @@
+﻿@model KWFCI.Models.ViewModels.InteractionVM
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default center-block">
+            <div class="panel-heading text-center">
+                @if (Model.Tasks.Count == 0)
+                {
+                    @:Onboarding Tasks
+                }
+
+                else
+                {
+                    <a data-toggle="collapse" href="#onboardingCollapse">Onboarding Tasks</a>
+                }
+
+                <br />
+                <div class="progress">
+                    <div class="progress-bar
+                         @if (ViewBag.Percent == 0)
+                         {
+                             @:progress-bar-success
+                         }
+                         else if (ViewBag.Percent < 50)
+                         {
+                            @:progress-bar-danger
+                         }
+                         else if (ViewBag.Percent < 100)
+                         {
+                             @: progress-bar-warning
+                         }
+                         else
+                         {
+                             @: progress-bar-success
+                         }
+
+                         progress-bar" role="progressbar"
+
+                         @if (Model.Tasks.Count == 0)
+                         {
+                             @: aria-valuenow="16" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                @:100% Complete
+                         }
+                         else
+                         {
+                            @:aria-valuenow="@Model.TasksCompleted" aria-valuemin="0" aria-valuemax="100" style="width:@ViewBag.Percent%">
+                            @ViewBag.Percent @:% Complete
+                         }
+
+                    </div>
+                </div>
+         </div>
+         <div id="onboardingCollapse" class="panel-collapse collapse">
+            <div class="panel-body">
+                <form class="form-horizontal" asp-action="UpdateTasks" method="post">
+                    <input type="hidden" asp-for="BrokerID" />
+                    <div class="form-group">
+                        @for (var t = 0; t < Model.Tasks.Count; t++)
+                        {
+                            <label class="control-label col-sm-4">@Model.Tasks[t].Message</label>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="form-control" asp-for="@Model.Tasks[t].IsComplete">
+                                <input type="hidden" asp-for="@Model.Tasks[t].KWTaskID" />
+                            </div>
+                        }
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Update Tasks</button>
+                    @if (Model.TasksCompleted == 16)
+                    {
+                        @Html.ActionLink("Delete Tasks", "DeleteTasks", "Interactions", new { @id = Model.Broker.BrokerID }, new { @class = "btn btn-danger btn-block" })
+                    }
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
