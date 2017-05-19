@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace KWFCI.Models
 {
@@ -12,6 +12,9 @@ namespace KWFCI.Models
         public List<KWTask> Requirements { get; set; }
         public string Type { get; set; } //New Broker, In Transition, or Transfer
         public string Status { get; set; } //Active or Inactive
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
         public Broker()
         {

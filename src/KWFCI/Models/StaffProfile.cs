@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace KWFCI.Models
 {
@@ -9,6 +10,8 @@ namespace KWFCI.Models
         public int StaffProfileID { get; set; }
         public List<Interaction> Interactions { get; set; }
         public List<KWTask> Tasks { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
         public StaffProfile()
         {

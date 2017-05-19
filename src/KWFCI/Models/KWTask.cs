@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace KWFCI.Models
 {
@@ -19,6 +17,8 @@ namespace KWFCI.Models
         public Boolean IsComplete { get; set; }
         public string StaffName { get; set; } //For use in assigning staff to tasks
         public string StaffEmail { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
         public KWTask()
         {
             DateCreated = DateTime.Now;

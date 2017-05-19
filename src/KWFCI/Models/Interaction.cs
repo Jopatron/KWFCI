@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace KWFCI.Models
 {
@@ -13,6 +13,8 @@ namespace KWFCI.Models
         public string Status { get; set; }
         public KWTask Task { get; set; }
         public string BrokerName { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
 
         public Interaction()

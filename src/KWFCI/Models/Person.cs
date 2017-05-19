@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 
 namespace KWFCI.Models
 {
@@ -11,5 +8,6 @@ namespace KWFCI.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public bool EmailNotifications { get; set; }
+
     }
 }

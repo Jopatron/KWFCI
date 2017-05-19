@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace KWFCI.Models
 {
@@ -12,5 +9,6 @@ namespace KWFCI.Models
         public string Body { get; set; }
         public StaffProfile From { get; set; }
         public DateTime DateSent { get; set; }
+
     }
 }
