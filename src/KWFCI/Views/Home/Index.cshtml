@@ -76,13 +76,14 @@
         <div class="panel panel-default" style="width:100%; margin-top:30px;">
             <div class="panel-heading text-center" style="width:100%;"><h2>My Interactions</h2></div>
             <div class="panel-body">
-                @Html.Partial("_StaffInteractions", Model.PersonalInteractions)
+                @Html.Partial("_StaffInteractions", new HomeStaffInteractionsVM() {Brokers = ViewBag.Brokers, PersonalInteractions = Model.PersonalInteractions })
+                
             </div>
         </div>
     </div>
 </div>
 
-@Html.Partial("Modals/_AddBrokerModal", Model.NewBroker)
+@Html.Partial("Modals/_AddBrokerModal", Model.NewBroker)    
 
 @Html.Partial("Modals/_AddKWTaskModal", new KWTaskVM() { NewKWTask = Model.NewTask, StaffList=Model.StaffList })
 @Html.Partial("Modals/_AddMessageModal", Model.NewMessage)
