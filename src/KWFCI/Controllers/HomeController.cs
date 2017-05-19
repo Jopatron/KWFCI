@@ -118,7 +118,9 @@ namespace KWFCI.Controllers
                     if(b.Interactions.Contains(i))
                     {
                         i.BrokerName = b.FirstName + " " + b.LastName;
-                        brokers.Add(b);
+
+                        if (!brokers.Contains(b))
+                            brokers.Add(b);
                     }
                 }
             }
