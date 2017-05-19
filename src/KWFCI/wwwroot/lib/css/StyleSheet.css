@@ -337,3 +337,20 @@ tbody{
     width: 180%;
 }
 
+#editBroker .modal-content{
+    width:30%;
+    margin: 0 auto;
+    padding:unset;
+}
+#editBroker .modal-body{
+    padding:20px;
+}
+#editBroker .modal-dialog{
+    width: unset;
+}
+#editBroker label{
+    margin:7px 0 0 0;
+}
+#editBroker .row{
+    padding-bottom:20px;
+}
