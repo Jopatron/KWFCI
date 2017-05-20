@@ -8,12 +8,12 @@ namespace KWFCI.Models
 {
     public class Person
     {
-        [Required]
+        [Required(ErrorMessage = "First Name required.")]
         public string FirstName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Last Name required.")]
         public string LastName { get; set; }
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email required.")]
+        [EmailAddress(ErrorMessage = "Email must be a valid email address.")]
         public string Email { get; set; }
         public bool EmailNotifications { get; set; }
     }
