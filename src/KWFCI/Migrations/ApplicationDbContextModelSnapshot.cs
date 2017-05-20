@@ -21,13 +21,16 @@ namespace KWFCI.Migrations
                     b.Property<int>("BrokerID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
                     b.Property<bool>("EmailNotifications");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<string>("Status");
 
@@ -51,7 +54,8 @@ namespace KWFCI.Migrations
 
                     b.Property<string>("NextStep");
 
-                    b.Property<string>("Notes");
+                    b.Property<string>("Notes")
+                        .HasAnnotation("MaxLength", 1000);
 
                     b.Property<int?>("StaffProfileID");
 
@@ -82,11 +86,14 @@ namespace KWFCI.Migrations
 
                     b.Property<DateTime?>("DateCreated");
 
-                    b.Property<DateTime?>("DateDue");
+                    b.Property<DateTime?>("DateDue")
+                        .IsRequired();
 
                     b.Property<bool>("IsComplete");
 
-                    b.Property<string>("Message");
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 1000);
 
                     b.Property<int>("Priority");
 
@@ -112,13 +119,16 @@ namespace KWFCI.Migrations
                     b.Property<int>("MessageID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Body");
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 1000);
 
                     b.Property<DateTime>("DateSent");
 
                     b.Property<int?>("FromStaffProfileID");
 
-                    b.Property<string>("Subject");
+                    b.Property<string>("Subject")
+                        .IsRequired();
 
                     b.HasKey("MessageID");
 
@@ -132,13 +142,16 @@ namespace KWFCI.Migrations
                     b.Property<int>("StaffProfileID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
                     b.Property<bool>("EmailNotifications");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<string>("Role");
 

@@ -34,11 +34,18 @@ namespace KWFCI
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                   Configuration["KWFCI_Db:ConnectionString"]));
 
+            // Sets identity password specifications as well as LoginPath
             services.AddIdentity<StaffUser, IdentityRole>(opts =>
-                { opts.Cookies.ApplicationCookie.LoginPath = "/Auth/Login"; })
+                { opts.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+                    opts.Password.RequireDigit = true;
+                    opts.Password.RequireLowercase = true;
+                    opts.Password.RequireNonAlphanumeric = false;
+                    opts.Password.RequireUppercase = true;
+                    opts.Password.RequiredLength = 8;
+                    opts.User.AllowedUserNameCharacters = null;
+                })
             .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders(); 
-
+            .AddDefaultTokenProviders();
 
             // Add framework services.
             services.AddMvc();
