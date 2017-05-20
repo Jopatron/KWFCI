@@ -13,6 +13,7 @@
                     <div class="form-group center-block modal-form">
 
                         <textarea asp-for="@Model.NewInteraction.Notes" class="form-control" rows="7" cols="10"></textarea>
+                        <span asp-validation-for="@Model.NewInteraction.Notes" class="text-danger"></span>
 
                         <input type="hidden" class="addID" asp-for="@Model.NewInteraction.InteractionID" value=""/>
                         <input type="hidden" asp-for="@Model.BrokerID" />

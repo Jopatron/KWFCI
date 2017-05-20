@@ -12,12 +12,15 @@
 
                     <label asp-for="FirstName">First Name:</label>
                     <input asp-for="FirstName" class="form-control" /><br />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
 
                     <label asp-for="LastName">Last Name:</label>
                     <input asp-for="LastName" class="form-control" /><br />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
 
                     <label asp-for="Email">Email:</label>
                     <input asp-for="Email" class="form-control" /><br />
+                    <span asp-validation-for="Email" class="text-danger"></span>
 
                     <label asp-for="Type">Broker Type:</label>
                     <select class="form-control" asp-for="Type">

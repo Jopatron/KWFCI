@@ -29,11 +29,13 @@
 
 
                         <label asp-for="Subject">Subject:</label>
-                        <input asp-for="Subject" class="form-control" /><br />
+                        <input asp-for="Subject" class="form-control" />
+                        <span asp-validation-for="Subject" class="text-danger"></span><br />
 
                         <label asp-for="Body">Body:</label>
-                        <textarea asp-for="Body" class="form-control"></textarea><br />
+                        <textarea asp-for="Body" class="form-control"></textarea>
                         <input type="hidden" class="return-url" name="returnURL" value="" />
+                        <span asp-validation-for="Body" class="text-danger"></span>
 
                         <button id="buttonSelector" 
                                 type="submit" 

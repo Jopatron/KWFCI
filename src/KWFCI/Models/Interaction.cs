@@ -6,7 +6,7 @@ namespace KWFCI.Models
     public class Interaction
     {
         public int InteractionID { get; set; }
-        [StringLength(1000, MinimumLength = 10)]
+        [StringLength(1000, MinimumLength = 10, ErrorMessage = "Notes requires between 10 and 1000 characters.")]
         public string Notes { get; set; }
         public DateTime? DateCreated { get; set; }
         public string NextStep { get; set; }

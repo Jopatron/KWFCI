@@ -118,7 +118,7 @@ namespace KWFCI.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "User Not Found");
+                ModelState.AddModelError("", "Broker Not Found");
             }
             return View(b);
         }
