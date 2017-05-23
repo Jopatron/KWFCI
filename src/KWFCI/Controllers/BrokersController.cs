@@ -76,19 +76,19 @@ namespace KWFCI.Controllers
             return Redirect(returnURL);
         
         }
-        [Route("Edit")]
-        public ActionResult Edit(int id)
-        {
-            Broker broker = brokerRepo.GetBrokerByID(id);
-            if (broker != null)
-            {
-                return PartialView(broker);
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-        }
+        //[Route("Edit")]
+        //public ActionResult Edit(int id)
+        //{
+        //    Broker broker = brokerRepo.GetBrokerByID(id);
+        //    if (broker != null)
+        //    {
+        //        return PartialView(broker);
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //}
 
         [Route("Edit")]
         [HttpPost]

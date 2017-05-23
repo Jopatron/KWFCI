@@ -63,22 +63,25 @@ $(document).ready(function () {
             }
             else if(target[0].parentNode.nodeName == "BUTTON")
             {
-                var text = target.closest('td').find($('.view-TaskMessage')).val();
-                $('#editKWTaskModal textarea').val(text);
+                if (window.location.pathname == '/Tasks')
+                {
+                    var text = target.closest('td').find($('.view-TaskMessage')).val();
+                    $('#editKWTaskModal textarea').val(text);
 
-                var dateDueFull = target.closest('td').find($('.view-TaskDateDue')).val();
-                var dateDueMonth = dateDueFull.split(" ")[0];
-                $('#editKWTaskModal .modal-TaskDateDue').val(dateDueMonth);
+                    var dateDueFull = target.closest('td').find($('.view-TaskDateDue')).val();
+                    var dateDueMonth = dateDueFull.split(" ")[0];
+                    $('#editKWTaskModal .modal-TaskDateDue').val(dateDueMonth);
 
-                var alertDateFull = target.closest('td').find($('.view-TaskAlertDate')).val();
-                var alertDateMonth = alertDateFull.split(" ")[0];
-                $('#editKWTaskModal .modal-TaskAlertDate').val(alertDateMonth);
+                    var alertDateFull = target.closest('td').find($('.view-TaskAlertDate')).val();
+                    var alertDateMonth = alertDateFull.split(" ")[0];
+                    $('#editKWTaskModal .modal-TaskAlertDate').val(alertDateMonth);
 
-                var priority = target.closest('td').find($('.view-TaskPriority')).val();
-                $('#editKWTaskModal .modal-TaskPriority').val(priority);
+                    var priority = target.closest('td').find($('.view-TaskPriority')).val();
+                    $('#editKWTaskModal .modal-TaskPriority').val(priority);
 
-                var taskID = target.closest('td').find($('.view-TaskKWTaskID')).val();
-                $('#editKWTaskModal .modal-TaskKWTaskID').val(taskID);
+                    var taskID = target.closest('td').find($('.view-TaskKWTaskID')).val();
+                    $('#editKWTaskModal .modal-TaskKWTaskID').val(taskID);
+                }
             }
         }
         else if (event.target.nodeName == "I") //if they click on the <i> tag
@@ -221,6 +224,51 @@ $(document).ready(function () {
         var url = window.location.pathname;
         $('.return-url').val(url);
     });
+
+    //Code for grabbing and setting edit broker modal values
+    //console.log(notifications);
+    $('.editTable').on('click', 'button', function (ev) {
+        
+        
+        if ($(this).attr("data-target") == ("#editBroker"))
+        {
+            var element = $(ev.target);
+            
+            if (ev.target.nodeName == "SPAN")
+            {
+                var id = element.closest('button').attr('data-id');
+            }
+            else
+                var id = element.attr('data-id');
+
+            var name = element.closest('.broker-parentElem').find('.broker-name').text().trim();            
+            var splitname = name.split(' ');
+            var first = splitname[0];
+            var last = splitname[1];
+            var email = element.closest('.broker-parentElem').find('.broker-email').text().trim();
+            var notifications = element.closest('.broker-parentElem').find('.broker-notifications').text().trim();
+            var type = element.closest('.broker-parentElem').find('.broker-type').text().trim();
+            var status = element.closest('.broker-parentElem').find('.broker-status').val();
+           
+            //console.log(id);
+
+            $("#editBroker #FirstName").val(first);
+            $("#editBroker #LastName").val(last);
+            $("#editBroker #Email").val(email);
+            if (notifications == 'Yes')
+            {
+                $("#editBroker #EmailNotifications").prop('checked', true);
+            }
+            else
+            {
+                $("#editBroker #EmailNotifications").prop('checked', false);
+            }
+            $("#editBroker #Type").val(type);
+            $("#editBroker #Status").val(status);
+            $('#editBroker .broker-id').val(id);
+        }
+    })
+
     
 });
 $(window).on("load", function () {

@@ -21,27 +21,31 @@
             <tbody>
                 @foreach (Broker b in Model.Brokers)
                 {
-                    <tr>
+                    <tr class="broker-parentElem">
                         <td>
-                            <a class="btn btn-primary btn-md" asp-action="Edit" data-toggle="modal" data-target="#editBroker"
-                               asp-route-id="@b.BrokerID"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#editBroker"
+                               data-id="@b.BrokerID"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                        <td class="broker-name">
+                            <a 
+                                href="@Url.Action("BrokerInteractions", "Interactions", b)">
+                                @b.FirstName @b.LastName
                             </a>
                         </td>
-                            <td><a 
-                                href="@Url.Action("BrokerInteractions", "Interactions", b)">
-                             @b.FirstName @b.LastName
-                            </a></td>
                         <td>@b.Interactions.Count/10</td>
 
-                        <td>@b.Email</td>
-                        <td>@b.Type</td>
+                        <td class="broker-email">@b.Email
+                            <input type="hidden" class="broker-status" value="@b.Status"/>
+                        </td>
+                        <td class="broker-type">@b.Type</td>
                         @if (b.EmailNotifications == true)
                         {
-                            <td>Yes</td>
+                            <td class="broker-notifications">Yes</td>
                         }
                         else
                         {
-                            <td>No</td>
+                            <td class="broker-notifications">No</td>
                         }
                         <td>
                             <form asp-action="Archive" asp-route-id="@b.BrokerID" method="post">
@@ -50,6 +54,7 @@
                                     <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                                 </button>
                             </form>
+                        </td>
                     </tr>
                 }
             </tbody>
