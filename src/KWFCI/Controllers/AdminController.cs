@@ -7,6 +7,7 @@ using KWFCI.Repositories;
 using KWFCI.Models.ViewModels;
 using KWFCI.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Data.Entity.Infrastructure;
 
 namespace KWFCI.Controllers
 {

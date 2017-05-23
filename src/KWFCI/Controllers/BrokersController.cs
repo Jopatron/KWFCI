@@ -8,6 +8,8 @@ using KWFCI.Repositories;
 using KWFCI.Models;
 using KWFCI.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using System.Data.Entity.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace KWFCI.Controllers
 {
@@ -17,11 +19,13 @@ namespace KWFCI.Controllers
     {
         private IBrokerRepository brokerRepo;
         private IKWTaskRepository taskRepo;
+        private readonly ApplicationDbContext _context;
 
-        public BrokersController(IBrokerRepository repo, IKWTaskRepository repo2)
+        public BrokersController(IBrokerRepository repo, IKWTaskRepository repo2, ApplicationDbContext context)
         {
             brokerRepo = repo;
             taskRepo = repo2;
+            _context = context;
         }
         
         public ViewResult AllBrokers()
@@ -92,8 +96,22 @@ namespace KWFCI.Controllers
 
         [Route("Edit")]
         [HttpPost]
-        public IActionResult Edit(Broker b)
+        public async Task<IActionResult> Edit(Broker b, byte[] rowVersion)
         {
+            var brokerToUpdate = //TODO take logic from getbrokerbyID and put it here, make it await async
+
+            _context.Entry(brokerToUpdate).Property("RowVersion").OriginalValue = rowVersion;
+
+            if (brokerToUpdate == null)
+            {
+                Department deletedDepartment = new Department();
+                await TryUpdateModelAsync(deletedDepartment);
+                ModelState.AddModelError(string.Empty,
+                    "Unable to save changes. The department was deleted by another user.");
+                ViewData["InstructorID"] = new SelectList(_context.Instructors, "ID", "FullName", deletedDepartment.InstructorID);
+                return View(deletedDepartment);
+            }
+
             if (b != null)
             {
                 Broker broker = brokerRepo.GetBrokerByID(b.BrokerID);
@@ -121,6 +139,9 @@ namespace KWFCI.Controllers
                 ModelState.AddModelError("", "User Not Found");
             }
             return View(b);
+            
+            
+            
         }
     }
 }
