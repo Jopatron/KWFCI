@@ -236,7 +236,7 @@ $(document).ready(function () {
             var status = element.closest('.broker-parentElem').find('.broker-status').val();
             var rowversion = element.closest('.broker-parentElem').find('.broker-rowversion').val();
 
-            console.log(rowversion);
+            //console.log(type);
 
             $("#editBroker #FirstName").val(first);
             $("#editBroker #LastName").val(last);

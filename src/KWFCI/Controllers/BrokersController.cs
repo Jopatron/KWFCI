@@ -9,6 +9,7 @@ using KWFCI.Models;
 using KWFCI.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace KWFCI.Controllers
 {
@@ -29,6 +30,13 @@ namespace KWFCI.Controllers
         
         public ViewResult AllBrokers()
         {
+            if (TempData["ModelState"] != null)
+            {
+                //ViewData.ModelState = TempData["ModelState"];
+                ViewBag.ModelErrors = TempData["ModelState"];
+            }
+
+            //ViewBag.ModelState = TempData["ModelState"];
             ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             var vm = new BrokerVM();
             vm.Brokers = brokerRepo.GetAllBrokers().ToList();
@@ -79,19 +87,7 @@ namespace KWFCI.Controllers
             return Redirect(returnURL);
         
         }
-        //[Route("Edit")]
-        //public ActionResult Edit(int id)
-        //{
-        //    Broker broker = brokerRepo.GetBrokerByID(id);
-        //    if (broker != null)
-        //    {
-        //        return PartialView(broker);
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-        //}
+        
 
         [Route("Edit")]
         [HttpPost]
@@ -101,10 +97,11 @@ namespace KWFCI.Controllers
 
             if (brokerToUpdate == null)
             {
-                Broker deletedBroker = new Broker();
-                await TryUpdateModelAsync(deletedBroker);
+                //Broker deletedBroker = new Broker();
+                //await TryUpdateModelAsync(deletedBroker);
                 ModelState.AddModelError(string.Empty,
                     "Unable to save changes. The broker was deleted by another user.");
+                ViewBag.ModelState = ModelState;
                 return View("AllBrokers");
             }
 
@@ -167,38 +164,15 @@ namespace KWFCI.Controllers
                                 + "the Save button again. Otherwise click the X in the corner.");
                         brokerToUpdate.RowVersion = (byte[])databaseValues.RowVersion;
                         ModelState.Remove("RowVersion");
+
                     }
                 }
             }
 
-            //if (b != null)
-            //{
-            //    Broker broker = brokerRepo.GetBrokerByID(b.BrokerID);
-            //    broker.Email = b.Email;
-            //    broker.FirstName = b.FirstName;
-            //    broker.LastName = b.LastName;
-            //    broker.Status = b.Status;
-            //    broker.EmailNotifications = b.EmailNotifications;
-            //    broker.Type = b.Type;
-            //    //broker.UserName = member.UserName;
-
-            //    int verify = brokerRepo.UpdateBroker(broker);
-            //    if (verify == 1)
-            //    {
-            //        //TODO add feedback of success
-            //        return RedirectToAction("Index");
-            //    }
-            //    else
-            //    {
-            //        //TODO add feedback for error
-            //    }
-            //}
-            //else
-            //{
-            //    ModelState.AddModelError("", "User Not Found");
-            //}
+            var viewData = ViewData;
+            var modelState = ViewData.ModelState;
+            TempData["ModelState"] = modelState;
             return Redirect(returnURL);
-
         }
     }
 }
