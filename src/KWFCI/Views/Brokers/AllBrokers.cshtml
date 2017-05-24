@@ -1,70 +1,79 @@
 ﻿@model KWFCI.Models.ViewModels.BrokerVM
 
-@{ 
+@{
     ViewBag.Title = "Brokers";
 }
 
 <div class="row">
     <div class="col-xs-12">
-        <table class="table table-bordered editTable">
-            <thead>
-                <tr>
-                    <th>Edit</th>
-                    <th>Name</th>
-                    <th>Interactions</th>
-                    <th>Email</th>
-                    <th>Type</th>
-                    <th>Notifications</th>
-                    <th>Archive</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (Broker b in Model.Brokers)
-                {
-                    <tr>
-                        <td>
-                            <a class="btn btn-primary btn-md" asp-action="Edit" data-toggle="modal" data-target="#editBroker"
-                               asp-route-id="@b.BrokerID"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </a>
-                        </td>
-                            <td><a 
-                                href="@Url.Action("BrokerInteractions", "Interactions", b)">
-                             @b.FirstName @b.LastName
-                            </a></td>
-                        <td>@b.Interactions.Count/10</td>
+        <div class="panel panel-default" style="width:100%; height:100%;">
+            <div class="panel-heading text-center">
+                <a href="#" class="btn btn-success btn-sm kwAddButton pull-left grab-url" data-toggle="modal" data-target="#newBroker">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Broker
+                </a>
+                All Brokers
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-hover editTable">
+                    <thead>
+                        <tr>
+                            <th>Edit</th>
+                            <th>Name</th>
+                            <th>Interactions</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Notifications</th>
+                            <th>Archive</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Broker b in Model.Brokers)
+                        {
+                            <tr>
+                                <td>
+                                    <a class="btn btn-primary btn-md" asp-action="Edit" data-toggle="modal" data-target="#editBroker"
+                                       asp-route-id="@b.BrokerID">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("BrokerInteractions", "Interactions", b)">
+                                        @b.FirstName @b.LastName
+                                    </a>
+                                </td>
+                                <td>@b.Interactions.Count/10</td>
 
-                        <td>@b.Email</td>
-                        <td>@b.Type</td>
-                        @if (b.EmailNotifications == true)
-                        {
-                            <td>Yes</td>
+                                <td>@b.Email</td>
+                                <td>@b.Type</td>
+                                @if (b.EmailNotifications == true)
+                                {
+                                    <td>Yes</td>
+                                }
+                                else
+                                {
+                                    <td>No</td>
+                                }
+                                <td>
+                                    <form asp-action="Archive" asp-route-id="@b.BrokerID" method="post">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger center-block">
+                                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                                        </button>
+                                    </form>
+                            </tr>
                         }
-                        else
-                        {
-                            <td>No</td>
-                        }
-                        <td>
-                            <form asp-action="Archive" asp-route-id="@b.BrokerID" method="post">
-                                <button type="submit"
-                                        class="btn btn-sm btn-danger center-block">
-                                    <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-                                </button>
-                            </form>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         
-        <a href="#" class="btn btn-success btn-lg grab-url" data-toggle="modal" data-target="#newBroker">
-            Add Broker
-        </a>
         @Html.Partial("Modals/_EditBrokerModal", Model.NewBroker)
         @Html.Partial("Modals/_AddBrokerModal", Model.NewBroker)
     </div>
 </div>
 
 <style>
-    table, tr, th{
+    table, tr, th {
         border: 1px solid black;
     }
 </style>
