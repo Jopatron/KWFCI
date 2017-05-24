@@ -42,7 +42,7 @@ namespace KWFCI.Controllers
             Broker broker = brokerRepo.GetBrokerByID(id);
             if (broker != null)
             {
-                brokerRepo.ChangeStatus(broker, "Archived");
+                brokerRepo.ChangeStatus(broker, "Inactive");
                 return RedirectToAction("Index");
             }
             else
@@ -79,27 +79,25 @@ namespace KWFCI.Controllers
             return Redirect(returnURL);
         
         }
-        [Route("Edit")]
-        public ActionResult Edit(int id)
-        {
-            Broker broker = brokerRepo.GetBrokerByID(id);
-            if (broker != null)
-            {
-                return PartialView(broker);
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-        }
+        //[Route("Edit")]
+        //public ActionResult Edit(int id)
+        //{
+        //    Broker broker = brokerRepo.GetBrokerByID(id);
+        //    if (broker != null)
+        //    {
+        //        return PartialView(broker);
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //}
 
         [Route("Edit")]
         [HttpPost]
-        public async Task<IActionResult> Edit(Broker b, byte[] rowVersion)
+        public async Task<IActionResult> Edit(Broker b, byte[] rowVersion, string returnURL)
         {
             var brokerToUpdate = await _context.Brokers.Include(i => i.Interactions).Include(i => i.Requirements).SingleOrDefaultAsync(i => i.BrokerID == b.BrokerID);
-
-            _context.Entry(brokerToUpdate).Property("RowVersion").OriginalValue = rowVersion;
 
             if (brokerToUpdate == null)
             {
@@ -109,6 +107,8 @@ namespace KWFCI.Controllers
                     "Unable to save changes. The broker was deleted by another user.");
                 return View("AllBrokers");
             }
+
+            _context.Entry(brokerToUpdate).Property("RowVersion").OriginalValue = rowVersion;
 
             if (await TryUpdateModelAsync<Broker>(
                 brokerToUpdate, 
@@ -122,7 +122,7 @@ namespace KWFCI.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    return Redirect(returnURL);
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {
@@ -197,8 +197,8 @@ namespace KWFCI.Controllers
             //{
             //    ModelState.AddModelError("", "User Not Found");
             //}
-            return View(b);
-            
+            return Redirect(returnURL);
+
         }
     }
 }

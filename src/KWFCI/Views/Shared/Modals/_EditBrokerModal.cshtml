@@ -1,6 +1,6 @@
 ﻿@model KWFCI.Models.Broker
 
-<div class="modal fade" id="editBroker" tabindex="-1" role="dialog" aria-labelledby="editBrokerModal">
+<div class="modal fade" id="editBroker" tabindex="-1" role="dialog" aria-labelledby="editBroker">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -42,7 +42,8 @@
                             </label>
                         </div>
                             <input type="hidden" class="broker-id" asp-for="BrokerID" value="" />
-                            <input type="hidden" class="broker-rowversion" asp-for="RowVersion" value=""/>
+                            <input type="hidden" class="broker-modal-rowversion" asp-for="RowVersion" value=""/>
+                            <input type="hidden" class="return-url" name="returnURL" value="" />
                         <button type="submit" class="btn btn-primary pull-right">Save</button>
                     </div>
                 </form>

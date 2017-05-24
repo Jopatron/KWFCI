@@ -234,8 +234,9 @@ $(document).ready(function () {
             var notifications = element.closest('.broker-parentElem').find('.broker-notifications').text().trim();
             var type = element.closest('.broker-parentElem').find('.broker-type').text().trim();
             var status = element.closest('.broker-parentElem').find('.broker-status').val();
+            var rowversion = element.closest('.broker-parentElem').find('.broker-rowversion').val();
 
-            //console.log(id);
+            console.log(rowversion);
 
             $("#editBroker #FirstName").val(first);
             $("#editBroker #LastName").val(last);
@@ -249,6 +250,7 @@ $(document).ready(function () {
             $("#editBroker #Type").val(type);
             $("#editBroker #Status").val(status);
             $('#editBroker .broker-id').val(id);
+            $('#editBroker .broker-modal-rowversion').val(rowversion);
         }
     })
 
