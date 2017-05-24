@@ -11,121 +11,129 @@
 
 <div class="row">
     <div class="col-xs-12">
-        <table class="table table-bordered editTable">
-            <thead>
-                <tr>
-                    <th>Edit Task</th>
-                    <th>Date Created</th>
-                    <th>Task Type</th>
-                    <th>Date Due</th>
-                    <th>Message</th>
-                    <th>Alert Date</th>
-                    <th>Priority</th>
-                    <th>Assigned To:</th>
-                    <th>Delete Task</th>
-                </tr>
-            </thead>
-            <tbody >
-                @foreach (KWTask t in Model.KWTasks)
-                {
-                    <tr>
-                        <td>
-                            <div class="col-xs-12 " style="height:100%;">
-                                <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#editKWTaskModal"
-                                   data-id="@t.KWTaskID">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="vertical-align:unset;"></span>
-                                </button>
-                            </div>
-                            <input type="hidden" class="view-TaskAlertDate" value="@t.AlertDate" />
-                            <input type="hidden" class="view-TaskDateDue" value="@t.DateDue" />
-                            <input type="hidden" class="view-TaskMessage" value="@t.Message" />
-                            <input type="hidden" class="view-TaskPriority" value="@t.Priority" />
-                            <input type="hidden" class="view-TaskKWTaskID" value="@t.KWTaskID" />
-                        </td>
+        <div class="panel panel-default" style="width:100%; height:100%;">
+            <div class="panel-heading text-center">
+                <button class="btn btn-sm btn-success kwAddButton pull-left grab-url" type="button" style="margin-top:10px;"
+                        data-target="#addKWTaskModal" data-toggle="modal">
+                    <span><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Task</span>
+                </button>
+                KW Task Board
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-hover editTable">
+                    <thead>
+                        <tr>
+                            <th>Edit Task</th>
+                            <th>Date Created</th>
+                            <th>Task Type</th>
+                            <th>Date Due</th>
+                            <th>Message</th>
+                            <th>Alert Date</th>
+                            <th>Priority</th>
+                            <th>Assigned To:</th>
+                            <th>Delete Task</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (KWTask t in Model.KWTasks)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="col-xs-12 " style="height:100%;">
+                                        <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#editKWTaskModal"
+                                                data-id="@t.KWTaskID">
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="vertical-align:unset;"></span>
+                                        </button>
+                                    </div>
+                                    <input type="hidden" class="view-TaskAlertDate" value="@t.AlertDate" />
+                                    <input type="hidden" class="view-TaskDateDue" value="@t.DateDue" />
+                                    <input type="hidden" class="view-TaskMessage" value="@t.Message" />
+                                    <input type="hidden" class="view-TaskPriority" value="@t.Priority" />
+                                    <input type="hidden" class="view-TaskKWTaskID" value="@t.KWTaskID" />
+                                </td>
 
-                        <td>
-                            @t.DateCreated
-                        </td>
-                        <td>@t.Type</td>
-                        <td>
-                            @{
-                                //Remove the time from the display
-                                string[] splitDateDue = t.DateDue.ToString().Split(' ');
-                                string dateDue = splitDateDue[0];
+                                <td>
+                                    @t.DateCreated
+                                </td>
+                                <td>@t.Type</td>
+                                <td>
+                                    @{
+                                        //Remove the time from the display
+                                        string[] splitDateDue = t.DateDue.ToString().Split(' ');
+                                        string dateDue = splitDateDue[0];
 
-                                @dateDue
+                                        @dateDue
+                                    }
+                                </td>
+                                <td>@t.Message</td>
+                                <td>
+                                    @{
+                                        //Remove the time from the display
+                                        string[] splitAlertDate = t.AlertDate.ToString().Split(' ');
+                                        string alertDate = splitAlertDate[0];
+
+                                        @alertDate
+                                    }
+                                </td>
+                                <td>
+                                    @if (t.Priority == 5)
+                                    {
+                                        @:Critical
                             }
-                        </td>
-                        <td>@t.Message</td>
-                        <td>
-                        @{
-                            //Remove the time from the display
-                            string[] splitAlertDate = t.AlertDate.ToString().Split(' ');
-                            string alertDate = splitAlertDate[0];
+                                    else
+                                    {
+                                        @t.Priority
+                                    }
+                                </td>
+                                <td id="assign-task">
+                                    <div class="alignCell-Parent">
+                                        @if (t.Priority != 5)
+                                        {
+                                            <a class="alignCell assign-staff-task" href="#" data-toggle="modal" data-target="#assignStaffModal" data-id="@t.KWTaskID">
+                                                @t.StaffName
+                                            </a>
 
-                            @alertDate
-                        }
-                        </td>
-                        <td>
-                            @if(t.Priority == 5)
-                            {
-                                @:Critical
-                            }
-                            else
-                            {
-                                @t.Priority
-                            }
-                        </td>
-                        <td id="assign-task">
-                            <div class="alignCell-Parent">
-                                @if (t.Priority != 5)
-                                {
-                                    <a class="alignCell assign-staff-task" href="#" data-toggle="modal" data-target="#assignStaffModal" data-id="@t.KWTaskID">
-                                        @t.StaffName
-                                    </a>
+                                        }
 
-                                }
-                                
-                            </div>
-                        </td>
-                        <td>
-                            <form asp-action="Delete" asp-route-id="@t.KWTaskID" method="post">
-                                <button type="submit"
-                                        class="btn btn-md btn-danger center-block">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true" style="vertical-align:unset;"></span>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <button class="btn btn-sm btn-success kwAddButton grab-url" type="button" style="margin-top:10px;"
-                data-target="#addKWTaskModal" data-toggle="modal">
-            <span>New Task</span>
-        </button>
-        @Html.Partial("Modals/_AssignTaskModal", Model)
-        @Html.Partial("Modals/_AddKWTaskModal", Model)
-        @Html.Partial("Modals/_EditKWTaskModal", Model)
-    </div>
-</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <form asp-action="Delete" asp-route-id="@t.KWTaskID" method="post">
+                                        <button type="submit"
+                                                class="btn btn-md btn-danger center-block">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true" style="vertical-align:unset;"></span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                                        }
+                    </tbody>
+                </table>
+                </div>
+            </div>
 
-
-
-<style>
-    table {
-        border: none;
-    }
-</style>
-
-@*<li class="list-group-item" data-id="@b.BrokerID" style="display:flex;justify-content:space-between;">
-        <div class="name" style="width:49%;">
-            @name
+                @Html.Partial("Modals/_AssignTaskModal", Model)
+                @Html.Partial("Modals/_AddKWTaskModal", Model)
+                @Html.Partial("Modals/_EditKWTaskModal", Model)
+            </div>
         </div>
-        <div style="width:2%;">
-            |
-        </div>
-        <div style="width:49%;text-align:right;">
-            <span class="email">@email</span>
-        </div>
-    </li>*@
+
+
+
+        <style>
+            table {
+                border: none;
+            }
+        </style>
+
+        @*<li class="list-group-item" data-id="@b.BrokerID" style="display:flex;justify-content:space-between;">
+                <div class="name" style="width:49%;">
+                    @name
+                </div>
+                <div style="width:2%;">
+                    |
+                </div>
+                <div style="width:49%;text-align:right;">
+                    <span class="email">@email</span>
+                </div>
+            </li>*@
