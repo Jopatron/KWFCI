@@ -217,8 +217,6 @@ $(document).ready(function () {
     //Code for grabbing and setting edit broker modal values
     //console.log(notifications);
     $('.editTable').on('click', 'button', function (ev) {
-
-
         if ($(this).attr("data-target") == ("#editBroker")) {
             var element = $(ev.target);
 
