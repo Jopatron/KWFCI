@@ -9,7 +9,7 @@ using KWFCI.Repositories;
 using Microsoft.AspNetCore.Identity;
 using MimeKit;
 using MailKit.Net.Smtp;
-using System.Data.Entity.Infrastructure;
+
 
 namespace KWFCI.Controllers
 {

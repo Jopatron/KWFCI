@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using KWFCI.Repositories;
 using KWFCI.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Entity.Infrastructure;
+
 
 namespace KWFCI.Controllers
 {

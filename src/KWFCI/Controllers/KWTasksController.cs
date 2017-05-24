@@ -3,11 +3,8 @@ using KWFCI.Models.ViewModels;
 using KWFCI.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Data.Entity.Infrastructure;
 
 namespace KWFCI.Controllers
 {

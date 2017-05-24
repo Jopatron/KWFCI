@@ -8,7 +8,6 @@ using KWFCI.Repositories;
 using KWFCI.Models;
 using KWFCI.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
-using System.Data.Entity.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace KWFCI.Controllers
@@ -98,49 +97,107 @@ namespace KWFCI.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Broker b, byte[] rowVersion)
         {
-            var brokerToUpdate = //TODO take logic from getbrokerbyID and put it here, make it await async
+            var brokerToUpdate = await _context.Brokers.Include(i => i.Interactions).Include(i => i.Requirements).SingleOrDefaultAsync(i => i.BrokerID == b.BrokerID);
 
             _context.Entry(brokerToUpdate).Property("RowVersion").OriginalValue = rowVersion;
 
             if (brokerToUpdate == null)
             {
-                Department deletedDepartment = new Department();
-                await TryUpdateModelAsync(deletedDepartment);
+                Broker deletedBroker = new Broker();
+                await TryUpdateModelAsync(deletedBroker);
                 ModelState.AddModelError(string.Empty,
-                    "Unable to save changes. The department was deleted by another user.");
-                ViewData["InstructorID"] = new SelectList(_context.Instructors, "ID", "FullName", deletedDepartment.InstructorID);
-                return View(deletedDepartment);
+                    "Unable to save changes. The broker was deleted by another user.");
+                return View("AllBrokers");
             }
 
-            if (b != null)
+            if (await TryUpdateModelAsync<Broker>(
+                brokerToUpdate, 
+                "", 
+                br => br.Email, 
+                br => br.FirstName, 
+                br => br.LastName, 
+                br => br.Status,
+                br => br.Type))
             {
-                Broker broker = brokerRepo.GetBrokerByID(b.BrokerID);
-                broker.Email = b.Email;
-                broker.FirstName = b.FirstName;
-                broker.LastName = b.LastName;
-                broker.Status = b.Status;
-                broker.EmailNotifications = b.EmailNotifications;
-                broker.Type = b.Type;
-                //broker.UserName = member.UserName;
-
-                int verify = brokerRepo.UpdateBroker(broker);
-                if (verify == 1)
+                try
                 {
-                    //TODO add feedback of success
+                    await _context.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
-                else
+                catch (DbUpdateConcurrencyException ex)
                 {
-                    //TODO add feedback for error
+                    var exceptionEntry = ex.Entries.Single();
+                    var clientValues = (Broker)exceptionEntry.Entity;
+                    var databaseEntry = _context.Brokers.AsNoTracking().Single(bro => bro.BrokerID == ((Broker)exceptionEntry.Entity).BrokerID);
+                    if (databaseEntry == null)
+                    {
+                        ModelState.AddModelError(string.Empty,
+                            "Unable to save changes. The department was deleted by another user.");
+                    }
+                    else
+                    {
+                        var databaseValues = databaseEntry;
+
+                        if (databaseValues.FirstName != clientValues.FirstName)
+                        {
+                            ModelState.AddModelError("FirstName", $"Current value: {databaseValues.FirstName}");
+                        }
+                        if (databaseValues.LastName != clientValues.LastName)
+                        {
+                            ModelState.AddModelError("LastName", $"Current value: {databaseValues.LastName}");
+                        }
+                        if (databaseValues.Type != clientValues.Type)
+                        {
+                            ModelState.AddModelError("Type", $"Current value: {databaseValues.Type}");
+                        }
+                        if (databaseValues.Email != clientValues.Email)
+                        {
+                            ModelState.AddModelError("Email", $"Current value: {databaseValues.Email}");
+                        }
+                        if (databaseValues.Status != clientValues.Status)
+                        {
+                            //Instructor databaseInstructor = await _context.Instructors.SingleOrDefaultAsync(i => i.ID == databaseValues.InstructorID);
+                            ModelState.AddModelError("Status", $"Current value: {databaseValues.Status}");
+                        }
+
+                        ModelState.AddModelError(string.Empty, "The record you attempted to edit "
+                                + "was modified by another user after you got the original value. The "
+                                + "edit operation was canceled and the current values in the database "
+                                + "have been displayed. If you still want to edit this record, click "
+                                + "the Save button again. Otherwise click the X in the corner.");
+                        brokerToUpdate.RowVersion = (byte[])databaseValues.RowVersion;
+                        ModelState.Remove("RowVersion");
+                    }
                 }
             }
-            else
-            {
-                ModelState.AddModelError("", "User Not Found");
-            }
+
+            //if (b != null)
+            //{
+            //    Broker broker = brokerRepo.GetBrokerByID(b.BrokerID);
+            //    broker.Email = b.Email;
+            //    broker.FirstName = b.FirstName;
+            //    broker.LastName = b.LastName;
+            //    broker.Status = b.Status;
+            //    broker.EmailNotifications = b.EmailNotifications;
+            //    broker.Type = b.Type;
+            //    //broker.UserName = member.UserName;
+
+            //    int verify = brokerRepo.UpdateBroker(broker);
+            //    if (verify == 1)
+            //    {
+            //        //TODO add feedback of success
+            //        return RedirectToAction("Index");
+            //    }
+            //    else
+            //    {
+            //        //TODO add feedback for error
+            //    }
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError("", "User Not Found");
+            //}
             return View(b);
-            
-            
             
         }
     }
