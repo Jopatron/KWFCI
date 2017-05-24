@@ -14,34 +14,46 @@
             <div class="modal-body">
 
                 <form asp-controller="Messages" asp-action="SendMessage" method="post">
+                    <div class="panel panel-default center-block" style="width:50%; height:100%;">
+                        <div class="text-center">
+                            <a data-toggle="collapse" href="#messageCollapse">   Send To:<i style="padding: 3px;" class="fa fa-arrow-circle-down pull-right" aria-hidden="true"></i></a>
 
-                    <div class="form-group center-block modal-form">
-                        <label>All: </label>
-                        <input id="all" name="checkAll" value="true" type="checkbox" /><br />
-                        <label>All Brokers: </label>
-                        <input id="allBrokers" name="checkAllBrokers" value="true" type="checkbox" /><br />
-                        <label>Staff: </label>
-                        <input id="staff" name="checkStaff" value="true" type="checkbox" /><br />
-                        <label>New Brokers: </label>
-                        <input id="newBrokers" name="checkNewBrokers" value="true" type="checkbox" /><br />
-                        <label>Brokers In Transition: </label>
-                        <input id="inTransition" name="checkBrokersInTransition" value="true" type="checkbox" /><br />
+</div>
 
+                        <div id="messageCollapse" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="form-group modal-form text-right pull-left">
+                                    <label>All: </label>
+                                    <input id="all" name="checkAll" value="true" type="checkbox"/><br />
+                                    <label>All Brokers: </label>
+                                    <input id="allBrokers" name="checkAllBrokers" value="true" type="checkbox" /><br />
+                                    <label>Staff: </label>
+                                    <input id="staff" name="checkStaff" value="true" type="checkbox" /><br />
+                                    <label>New Brokers: </label>
+                                    <input id="newBrokers" name="checkNewBrokers" value="true" type="checkbox" /><br />
+                                    <label>Brokers In Transition: </label>
+                                    <input id="inTransition" name="checkBrokersInTransition" value="true" type="checkbox" /><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                        <label asp-for="Subject">Subject:</label>
-                        <input asp-for="Subject" class="form-control" /><br />
+                    <div class="form-group center-block" style="width:75%;">
+                        <input asp-for="Subject" class="form-control" placeholder="Enter Subject Here..." /><br />
 
-                        <label asp-for="Body">Body:</label>
-                        <textarea asp-for="Body" class="form-control"></textarea><br />
+                        <textarea rows="7" asp-for="Body" class="form-control" placeholder="Enter a message to send here..." style="resize:none;"></textarea><br />
                         <input type="hidden" class="return-url" name="returnURL" value="" />
 
-                        <button id="buttonSelector" 
-                                type="submit" 
+                        <button id="buttonSelector"
+                                type="submit"
                                 class="btn btn-primary pull-right"
                                 data-loading-text="<span class='glyphicon-left glyphicon glyphicon-refresh spinning'></span>... Sending ...">
-                        Send</button>
+                            Send
+                        </button>
 
                     </div>
+
+
                 </form>
             </div>
         </div>
