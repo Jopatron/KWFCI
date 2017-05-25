@@ -29,7 +29,14 @@ namespace KWFCI.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
+            var criticalVB = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
+
+            foreach (KWTask task in taskRepo.GetAllTasksByType("Task").Where(t => t.Priority == 5).ToList())
+            {
+                criticalVB.Add(task);
+            }
+
+            ViewBag.Critical = criticalVB;
             if (Helper.StaffProfileLoggedIn == null)
                 return RedirectToAction("Login", "Auth");
             // TODO: Grab logged in user profile
