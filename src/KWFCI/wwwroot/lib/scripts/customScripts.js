@@ -226,7 +226,6 @@ $(document).ready(function () {
     });
 
     //Code for grabbing and setting edit broker modal values
-    //console.log(notifications);
     $('.editTable').on('click', 'button', function (ev) {
         
         
@@ -269,7 +268,37 @@ $(document).ready(function () {
         }
     })
 
-    
+    //edit for admin staff
+    $('.editTable').on('click', 'button', function (ev) {
+
+        if ($(this).attr("data-target") == ("#adminEditStaff")) {
+            var element = $(ev.target);
+
+            if (ev.target.nodeName == "SPAN") {
+                var id = element.closest('button').attr('data-id');
+            }
+            else
+                var id = element.attr('data-id');
+
+            var first = element.closest('.staff-parentElem').find('.staff-firstName').text().trim();
+            var last = element.closest('.staff-parentElem').find('.staff-lastName').text().trim();
+            var email = element.closest('.staff-parentElem').find('.staff-email').text().trim();
+            var role = element.closest('.staff-parentElem').find('.staff-role').text().trim();
+
+            //console.log(id);
+            //console.log(first);
+            //console.log(last);
+            //console.log(email);
+            //console.log(role);
+
+            $("#adminEditStaff #FirstName").val(first);
+            $("#adminEditStaff #LastName").val(last);
+            $("#adminEditStaff #Email").val(email);
+            $("#adminEditStaff #Role").val(role);
+            $('#adminEditStaff .staff-id').val(id);
+        }
+    })
+ 
 });
 $(window).on("load", function () {
     $('.editTable').DataTable();

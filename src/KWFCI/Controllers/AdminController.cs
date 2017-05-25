@@ -145,19 +145,19 @@ namespace KWFCI.Controllers
             return RedirectToAction("Home");
         }
 
-        [Route("StaffEdit")]
-        public ActionResult StaffEdit(int id)
-        {
-            StaffProfile staff = staffRepo.GetStaffProfileByID(id);
-            if (staff != null)
-            {
-                return PartialView(staff);
-            }
-            else
-            {
-                return RedirectToAction("Home");
-            }
-        }
+        //[Route("StaffEdit")]
+        //public ActionResult StaffEdit(int id)
+        //{
+        //    StaffProfile staff = staffRepo.GetStaffProfileByID(id);
+        //    if (staff != null)
+        //    {
+        //        return PartialView(staff);
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Home");
+        //    }
+        //}
 
         [Route("StaffEdit")]
         [HttpPost]
