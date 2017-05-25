@@ -85,20 +85,6 @@ namespace KWFCI.Controllers
         }
 
         [Route("InteractionEdit")]
-        public ActionResult InteractionEdit(int id)
-        {
-            Interaction interaction = intRepo.GetInteractionById(id);
-            if (interaction != null)
-            {
-                return PartialView(interaction);
-            }
-            else
-            {
-                return RedirectToAction("Home");
-            }
-        }
-
-        [Route("InteractionEdit")]
         [HttpPost]
         public IActionResult InteractionEdit(Interaction i)
         {
@@ -145,20 +131,6 @@ namespace KWFCI.Controllers
             return RedirectToAction("Home");
         }
 
-        //[Route("StaffEdit")]
-        //public ActionResult StaffEdit(int id)
-        //{
-        //    StaffProfile staff = staffRepo.GetStaffProfileByID(id);
-        //    if (staff != null)
-        //    {
-        //        return PartialView(staff);
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Home");
-        //    }
-        //}
-
         [Route("StaffEdit")]
         [HttpPost]
         public IActionResult StaffEdit(StaffProfile sp)
@@ -204,20 +176,6 @@ namespace KWFCI.Controllers
                 ModelState.AddModelError("", "Broker Not Found");
             }
             return RedirectToAction("Home");
-        }
-
-        [Route("BrokerEdit")]
-        public ActionResult BrokerEdit(int id)
-        {
-            Broker broker = brokerRepo.GetBrokerByID(id);
-            if (broker != null)
-            {
-                return PartialView(broker);
-            }
-            else
-            {
-                return RedirectToAction("Home");
-            }
         }
 
         [Route("BrokerEdit")]

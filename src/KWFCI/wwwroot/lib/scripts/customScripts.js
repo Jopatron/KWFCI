@@ -225,7 +225,7 @@ $(document).ready(function () {
         $('.return-url').val(url);
     });
 
-    //Code for grabbing and setting edit broker modal values
+    //Code for grabbing and setting edit broker modal values, admin or staff
     $('.editTable').on('click', 'button', function (ev) {
         
         
@@ -243,14 +243,26 @@ $(document).ready(function () {
             else
                 var id = element.attr('data-id');
 
-            var name = element.closest('.broker-parentElem').find('.broker-name').text().trim();            
-            var splitname = name.split(' ');
-            var first = splitname[0];
-            var last = splitname[1];
-            var email = element.closest('.broker-parentElem').find('.broker-email').text().trim();
-            var notifications = element.closest('.broker-parentElem').find('.broker-notifications').text().trim();
+            if (dataTarget == "#editBroker")
+            {
+                var name = element.closest('.broker-parentElem').find('.broker-name').text().trim();
+                var splitname = name.split(' ');
+                var first = splitname[0];
+                var last = splitname[1];
+                var status = element.closest('.broker-parentElem').find('.broker-status').val();
+                var notifications = element.closest('.broker-parentElem').find('.broker-notifications').text().trim();
+            }
+            else
+            {
+                //Should only occur in #adminEditBrokerModal
+                var first = element.closest('.broker-parentElem').find('.broker-firstName').text().trim();
+                var last = element.closest('.broker-parentElem').find('.broker-lastName').text().trim();
+                var status = element.closest('.broker-parentElem').find('.broker-status').text().trim();
+                var notifications = element.closest('.broker-parentElem').find('.broker-notifications').val();
+            }
+
+            var email = element.closest('.broker-parentElem').find('.broker-email').text().trim();          
             var type = element.closest('.broker-parentElem').find('.broker-type').text().trim();
-            var status = element.closest('.broker-parentElem').find('.broker-status').val();
            
             //console.log(id);
 
@@ -261,9 +273,14 @@ $(document).ready(function () {
             {
                 $(dataTarget + " #EmailNotifications").prop('checked', true);
             }
-            else
+            else if (notifications == 'No')
             {
                 $(dataTarget + " #EmailNotifications").prop('checked', false);
+            }
+            else
+            {
+                //Should only occur in #adminEditBrokerModal
+                $(dataTarget + " #EmailNotifications").prop('checked', notifications);
             }
             $(dataTarget + " #Type").val(type);
             $(dataTarget + " #Status").val(status);
