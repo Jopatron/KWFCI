@@ -216,6 +216,7 @@ $(document).ready(function () {
     var brokersList = new List('changeBrokerList', options);
     var staffList = new List('assignStaffList', options);
     var taskStaffList = new List('testList', options);
+    var staffList2 = new List('assignStaffList2', options);
     //End List.js code
 
     //Apply filter text to KWTask table filter for critical alerts

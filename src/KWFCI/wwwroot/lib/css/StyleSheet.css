@@ -37,20 +37,15 @@ body{
     padding-bottom:unset;
 }
 
-
 .modal-content {
     padding:20px;
 }
 
-
-.modal-form button, .modal-form .row {
-}
 .modal-title{
     margin:unset;
 }
 .modal-header{
     text-align:center;
-
 }
 #changeBrokerModal .modal-content{
     max-height:600px;
@@ -317,7 +312,51 @@ tbody{
     margin-bottom:0px;
 }
 
+<<<<<<< HEAD
 .input-validation-error{
     background: #FEF1EC;
     border: 1px solid #CD0A0A;
+=======
+
+#addKWTaskModal form .row,
+#editKWTaskModal form .row,
+#newKWTaskFromInteractionModal form .row{
+    padding-bottom:10px;
+}
+
+
+#addKWTaskModal .modal-dialog,
+#editKWTaskModal .modal-dialog,
+#newKWTaskFromInteractionModal .modal-dialog{
+     width:400px;
+}
+
+#addKWTaskModal .dropdown button{
+    margin-top:0px;
+    width:100%;
+}
+
+.dropdown-menu.assign{
+    padding-bottom: 0px;
+    padding-top: 0px;
+    width: 180%;
+}
+
+#editBroker .modal-content{
+    width:30%;
+    margin: 0 auto;
+    padding:unset;
+}
+#editBroker .modal-body{
+    padding:20px;
+}
+#editBroker .modal-dialog{
+    width: unset;
+}
+#editBroker label{
+    margin:7px 0 0 0;
+}
+#editBroker .row{
+    padding-bottom:20px;
+>>>>>>> master
 }

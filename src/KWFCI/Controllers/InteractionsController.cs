@@ -42,7 +42,7 @@ namespace KWFCI.Controllers
             vm.AllBrokers = brokerRepo.GetAllBrokers().ToList();
             vm.Task = new KWTask();
             vm.TasksCompleted = 0;
-
+            vm.AllStaff = staffRepo.GetAllStaffProfiles().ToList();
 
             List<KWTask> tasks = new List<KWTask>();
             foreach (KWTask t in broker.Requirements)

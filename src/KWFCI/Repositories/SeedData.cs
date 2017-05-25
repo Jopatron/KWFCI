@@ -235,8 +235,8 @@ namespace KWFCI.Repositories
 
                 StaffProfile profile = context.StaffProfiles.First();
 
-                KWTask kwt1 = new KWTask { Message = "A task to be accomplished", Priority = 3, DateDue = Convert.ToDateTime("4/22/2017") };
-                KWTask kwt2 = new KWTask { Message = "Enjoy your day", Priority = 5, DateDue = Convert.ToDateTime("4/12/2017") };
+                KWTask kwt1 = new KWTask { Message = "A task to be accomplished", Priority = 3, Type="Alert", DateDue = Convert.ToDateTime("4/22/2017") };
+                KWTask kwt2 = new KWTask { Message = "Enjoy your day", Priority = 5, Type="Alert", DateDue = Convert.ToDateTime("4/12/2017") };
 
                 context.KWTasks.Add(kwt1);
                 context.KWTasks.Add(kwt2);
