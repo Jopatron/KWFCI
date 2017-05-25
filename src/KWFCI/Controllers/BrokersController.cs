@@ -30,10 +30,9 @@ namespace KWFCI.Controllers
         
         public ViewResult AllBrokers()
         {
-            if (TempData["ViewData"] != null)
+            if (TempData["ErrorMessages"] != null)
             {
-                ViewData = (ViewDataDictionary)TempData["ViewData"];
-                ViewBag.ModelErrors = ViewData.ModelState;
+                ViewBag.Errors = TempData["ErrorMessages"];
             }
 
             //ViewBag.ModelState = TempData["ModelState"];
@@ -169,7 +168,23 @@ namespace KWFCI.Controllers
                 }
             }
 
-            TempData["ViewData"] = ViewData;
+            //TempData["ViewData"] = ViewData.ModelState;
+            List<string> errorMessages = new List<string>();
+
+            var errors = ModelState.Select(x => x.Value.Errors)
+                           .Where(y => y.Count > 0)
+                           .ToList();
+            
+            foreach(var layer1 in errors)
+            {
+                foreach(var layer2 in layer1)
+                {
+                    errorMessages.Add(layer2.ErrorMessage);
+                }
+            }
+
+            TempData["ErrorMessages"] = errorMessages;
+
             return Redirect(returnURL);
         }
     }

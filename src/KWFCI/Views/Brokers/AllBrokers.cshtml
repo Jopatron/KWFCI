@@ -4,16 +4,18 @@
     ViewBag.Title = "Brokers";
 }
 
-@if(ViewBag.ModelState != null)
+@if (ViewBag.Errors != null)
 {
-    foreach(var modelError in ViewBag.ModelState)
-    {
-        string propertyName = modelError.Key;
-        if (modelError.Value.Errors.Count > 0)
-        {
-            @:test
-        }
-    }
+    <div class="text-danger">
+        <ul>
+            @foreach(string error in ViewBag.Errors)
+            {
+                <li>
+                    @error
+                </li>
+            }
+        </ul>
+    </div>
 }
 
 <div asp-validation-summary="All" class="text-danger"></div>
