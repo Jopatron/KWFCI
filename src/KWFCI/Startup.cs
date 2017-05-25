@@ -37,9 +37,11 @@ namespace KWFCI
             services.AddIdentity<StaffUser, IdentityRole>(opts =>
                 { opts.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";  })
             .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders(); 
+            .AddDefaultTokenProviders();
 
-
+            //Add Session
+            services.AddDistributedMemoryCache();
+            services.AddSession(/* options go here */);
             // Add framework services.
             services.AddMvc();
 
@@ -53,6 +55,7 @@ namespace KWFCI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseSession();
             loggerFactory.AddConsole();
             app.UseDeveloperExceptionPage();
             app.UseExceptionHandler();

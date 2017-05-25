@@ -30,10 +30,10 @@ namespace KWFCI.Controllers
         
         public ViewResult AllBrokers()
         {
-            if (TempData["ModelState"] != null)
+            if (TempData["ViewData"] != null)
             {
-                //ViewData.ModelState = TempData["ModelState"];
-                ViewBag.ModelErrors = TempData["ModelState"];
+                ViewData = (ViewDataDictionary)TempData["ViewData"];
+                ViewBag.ModelErrors = ViewData.ModelState;
             }
 
             //ViewBag.ModelState = TempData["ModelState"];
@@ -169,9 +169,7 @@ namespace KWFCI.Controllers
                 }
             }
 
-            var viewData = ViewData;
-            var modelState = ViewData.ModelState;
-            TempData["ModelState"] = modelState;
+            TempData["ViewData"] = ViewData;
             return Redirect(returnURL);
         }
     }
