@@ -13,8 +13,16 @@
     {
         <div class="row">
             <div class="col-xs-12" style="text-align:center;">
+                @if (ViewBag.Alerts.Count > 1)
+                {
                 <h3><a href="@Url.Action("AllKWTasks", "KWTasks", new { filter = "Alert" })">You have @ViewBag.Alerts.Count Alerts</a></h3>
-            </div>
+                }
+                else
+                {
+                    <h3><a href="@Url.Action("AllKWTasks", "KWTasks", new { filter = "Alert" })">You have @ViewBag.Alerts.Count Alert</a></h3>
+
+                }
+             </div>
         </div>
     }
 }
