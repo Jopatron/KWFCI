@@ -13,20 +13,23 @@
                     <div class="form-group center-block">
 
                         <label asp-for="FirstName">First Name:</label>
-                        <input asp-for="FirstName" class="form-control" /><br />
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span><br />
 
                         <label asp-for="LastName">Last Name:</label>
-                        <input asp-for="LastName" class="form-control" /><br />
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span><br />
 
                         <label asp-for="Email">Email:</label>
-                        <input asp-for="Email" class="form-control" /><br />
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span><br />
 
                         <label asp-for="Role"></label>
                         <div><span asp-validation-for="Role" class="text-danger"></span></div>
                         <select asp-for="Role" class="form-control">
                             <option value="Staff" selected="selected">Staff</option>
                             <option value="Admin">Admin</option>
-                        </select>
+                        </select><br />
 
                         <button type="submit" class="btn btn-primary pull-right">Save</button>
                     </div>

@@ -229,9 +229,12 @@ $(document).ready(function () {
     $('.editTable').on('click', 'button', function (ev) {
         
         
-        if ($(this).attr("data-target") == ("#editBroker"))
+        if ($(this).attr("data-target") == ("#editBroker") || $(this).attr("data-target") == ("#adminEditBroker"))
         {
+            var dataTarget = $(this).attr("data-target");
             var element = $(ev.target);
+
+            console.log(dataTarget);
             
             if (ev.target.nodeName == "SPAN")
             {
@@ -251,20 +254,20 @@ $(document).ready(function () {
            
             //console.log(id);
 
-            $("#editBroker #FirstName").val(first);
-            $("#editBroker #LastName").val(last);
-            $("#editBroker #Email").val(email);
+            $(dataTarget + " #FirstName").val(first);
+            $(dataTarget + " #LastName").val(last);
+            $(dataTarget + " #Email").val(email);
             if (notifications == 'Yes')
             {
-                $("#editBroker #EmailNotifications").prop('checked', true);
+                $(dataTarget + " #EmailNotifications").prop('checked', true);
             }
             else
             {
-                $("#editBroker #EmailNotifications").prop('checked', false);
+                $(dataTarget + " #EmailNotifications").prop('checked', false);
             }
-            $("#editBroker #Type").val(type);
-            $("#editBroker #Status").val(status);
-            $('#editBroker .broker-id').val(id);
+            $(dataTarget + " #Type").val(type);
+            $(dataTarget + " #Status").val(status);
+            $(dataTarget + ' .broker-id').val(id);
         }
     })
 
@@ -285,17 +288,36 @@ $(document).ready(function () {
             var email = element.closest('.staff-parentElem').find('.staff-email').text().trim();
             var role = element.closest('.staff-parentElem').find('.staff-role').text().trim();
 
-            //console.log(id);
-            //console.log(first);
-            //console.log(last);
-            //console.log(email);
-            //console.log(role);
-
             $("#adminEditStaff #FirstName").val(first);
             $("#adminEditStaff #LastName").val(last);
             $("#adminEditStaff #Email").val(email);
             $("#adminEditStaff #Role").val(role);
             $('#adminEditStaff .staff-id').val(id);
+        }
+    })
+
+    //edit for admin interactions
+    $('.editTable').on('click', 'button', function (ev) {
+
+        if ($(this).attr("data-target") == ("#adminEditInteraction")) {
+            var element = $(ev.target);
+
+            if (ev.target.nodeName == "SPAN") {
+                var id = element.closest('button').attr('data-id');
+            }
+            else
+                var id = element.attr('data-id');
+
+            var notes = element.closest('.interaction-parentElem').find('.interaction-notes').text().trim();
+            var date = element.closest('.interaction-parentElem').find('.interaction-date').text().trim();
+            var nextStep = element.closest('.interaction-parentElem').find('.interaction-nextStep').text().trim();
+            var status = element.closest('.interaction-parentElem').find('.interaction-status').text().trim();
+
+            $("#adminEditInteraction #Notes").val(notes);
+            $("#adminEditInteraction #DateCreated").val(date);
+            $("#adminEditInteraction #NextStep").val(nextStep);
+            $("#adminEditInteraction #Status").val(status);
+            $('#adminEditInteraction .interaction-id').val(id);
         }
     })
  
