@@ -189,7 +189,8 @@ $(document).ready(function () {
 
 
     $("#buttonSelector").click(function () {
-        $(this).button('loading');
+        if ($('.validation-summary-errors').length == 0)
+            $(this).button('loading');
     });
   
     

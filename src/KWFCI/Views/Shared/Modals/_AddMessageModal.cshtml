@@ -14,11 +14,12 @@
             <div class="modal-body">
 
                 <form asp-controller="Messages" asp-action="SendMessage" method="post">
+                    <div asp-validation-summary="All" class="text-danger center-block"></div>
                     <div class="panel panel-default center-block" style="width:75%; height:100%;">
                         <div class="text-center">
                             <a data-toggle="collapse" href="#messageCollapse">   Send To:<i style="padding: 3px;" class="fa fa-arrow-circle-down pull-right" aria-hidden="true"></i></a>
 
-</div>
+                        </div>
 
                         <div id="messageCollapse" class="panel-collapse collapse">
                             <div class="panel-body">
@@ -40,12 +41,9 @@
 
                     <div class="form-group center-block" style="width:75%;">
                         <input asp-for="Subject" class="form-control" placeholder="Enter Subject Here..." /><br />
-                        <span asp-validation-for="Subject" class="text-danger"></span><br />
-
                         <textarea rows="7" asp-for="Body" class="form-control" placeholder="Enter a message to send here..." style="resize:none;"></textarea><br />
-
                         <input type="hidden" class="return-url" name="returnURL" value="" />
-                        <span asp-validation-for="Body" class="text-danger"></span>
+
 
                         <button id="buttonSelector"
                                 type="submit"
