@@ -188,9 +188,11 @@ $(document).ready(function () {
     
 
 
-    $("#buttonSelector").click(function () {
-        if ($('.validation-summary-errors').length == 0)
-            $(this).button('loading');
+    $("#MessageForm").submit(function () {
+        if ($(this).valid()) {
+            $('#buttonSelector').button('loading');
+        }
+        
     });
   
     
