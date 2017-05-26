@@ -354,3 +354,16 @@ tbody{
 #editBroker .row{
     padding-bottom:20px;
 }
+.concurrency-errors{
+    width:50%;
+    margin:0 auto;
+    background-color:#eee;
+}
+.concurrency-errors li{
+    list-style:none;
+    font-weight:700;
+    padding-bottom: 10px;
+}
+.concurrency-errors li:first-of-type {
+    padding-top:10px;
+}

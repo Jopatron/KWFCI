@@ -6,7 +6,7 @@
 
 @if (ViewBag.Errors != null)
 {
-    <div class="text-danger">
+    <div class="text-danger concurrency-errors">
         <ul>
             @foreach(string error in ViewBag.Errors)
             {

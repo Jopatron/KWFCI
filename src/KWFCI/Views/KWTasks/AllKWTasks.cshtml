@@ -1,4 +1,4 @@
-﻿@model KWFCI.Models.ViewModels.KWTaskVM
+﻿@model KWTaskVM
 @using KWFCI.Models.ViewModels
 
 @{ ViewBag.Title = "Tasks";  }
@@ -8,6 +8,19 @@
     <div class="hidden filter">@ViewBag.Filter</div> @*Grabbing this with JS*@
 }
 
+@if (ViewBag.Errors != null)
+{
+    <div class="text-danger concurrency-errors">
+        <ul>
+            @foreach (string error in ViewBag.Errors)
+            {
+                <li>
+                    @error
+                </li>
+            }
+        </ul>
+    </div>
+}
 
 <div class="row">
     <div class="col-xs-12">
@@ -41,6 +54,7 @@
                             <input type="hidden" class="view-TaskMessage" value="@t.Message" />
                             <input type="hidden" class="view-TaskPriority" value="@t.Priority" />
                             <input type="hidden" class="view-TaskKWTaskID" value="@t.KWTaskID" />
+                            <input type="hidden" class="task-rowversion" asp-for="@t.RowVersion" />
                         </td>
 
                         <td>

@@ -71,7 +71,11 @@ $(document).ready(function () {
 
                     var taskID = target.closest('td').find($('.view-TaskKWTaskID')).val();
                     $('#editKWTaskModal .modal-TaskKWTaskID').val(taskID);
+
+                    var rowVersion = target.closest('td').find($('.task-rowversion')).val();
+                    $('#editKWTaskModal .task-modal-rowversion').val(rowVersion);
                 }
+                //console.log("Fired first logic block");
             }
         }
         else if (event.target.nodeName == "I") //if they click on the <i> tag
@@ -111,23 +115,27 @@ $(document).ready(function () {
         {
             if (target.attr("data-target") == "#editKWTaskFromInteractionModal" || target.attr("data-target") == "#editKWTaskModal") //Identical to if they clicked the <i> tag
             {
+                //console.log("Fired second logic block");
                 var text = target.closest('td').find($('.view-TaskMessage')).val();
-                console.log(text);
+                //console.log(text);
                 $(target.attr("data-target") + ' textarea').val(text);
 
                 var dateDueFull = target.closest('td').find($('.view-TaskDateDue')).val();
                 var dateDueMonth = dateDueFull.split(" ")[0];
-                console.log(dateDueMonth);
+                //console.log(dateDueMonth);
                 $(target.attr("data-target") + ' .modal-TaskDateDue').val(dateDueMonth);
 
                 var alertDateFull = target.closest('td').find($('.view-TaskAlertDate')).val();
                 var alertDateMonth = alertDateFull.split(" ")[0];
-                console.log(alertDateMonth);
+                //console.log(alertDateMonth);
                 $(target.attr("data-target") + ' .modal-TaskAlertDate').val(alertDateMonth);
 
                 var priority = target.closest('td').find($('.view-TaskPriority')).val();
-                console.log(priority);
+                //console.log(priority);
                 $(target.attr("data-target") + ' .modal-TaskPriority').val(priority);
+
+                var rowVersion = target.closest('td').find($('.task-rowversion')).val();
+                $(target.attr("data-target") + ' .task-modal-rowversion').val(rowVersion);
             }
             else if (target.attr("data-target") == "#newKWTaskFromInteractionModal") {
                 var text = target.closest('td').children('.col-xs-10').children('a').text().replace(/\n/g, "").trim(); //Find parent table cell, find child <a> tag, grab its contents, put it in the modal textarea field
@@ -149,18 +157,18 @@ $(document).ready(function () {
         //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
         //set a function for when it changes to hide/show the subsequent .priorityRow
 
-        $alertDate.on('change', function () {
-            var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
-            if ($alertDate.val() != "") {
-                if ($priorityRow.hasClass('hidden'))
-                    $priorityRow.removeClass("hidden");
-            }
-            else {
-                if (!$priorityRow.hasClass("hidden"))
-                    $priorityRow.addClass("hidden");
-            }
+        //$alertDate.on('change', function () {
+        //    var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
+        //    if ($alertDate.val() != "") {
+        //        if ($priorityRow.hasClass('hidden'))
+        //            $priorityRow.removeClass("hidden");
+        //    }
+        //    else {
+        //        if (!$priorityRow.hasClass("hidden"))
+        //            $priorityRow.addClass("hidden");
+        //    }
 
-        });
+        //});
     });
 
     $(".editTable").on('click', "#assign-task", function (ev) {

@@ -84,7 +84,6 @@ namespace KWFCI.Controllers
             brokerRepo.AddBroker(broker);
             //TODO: See if there is a way to just close the modal and not refresh the page
             return Redirect(returnURL);
-        
         }
         
 
@@ -128,7 +127,7 @@ namespace KWFCI.Controllers
                     if (databaseEntry == null)
                     {
                         ModelState.AddModelError(string.Empty,
-                            "Unable to save changes. The department was deleted by another user.");
+                            "Unable to save changes. The Broker was deleted by another user.");
                     }
                     else
                     {
@@ -136,31 +135,35 @@ namespace KWFCI.Controllers
 
                         if (databaseValues.FirstName != clientValues.FirstName)
                         {
-                            ModelState.AddModelError("FirstName", $"Current value: {databaseValues.FirstName}");
+                            ModelState.AddModelError("FirstName", $"Unable to save User entered value for FirstName: {clientValues.FirstName}");
+                            ModelState.AddModelError("FirstName", $"FirstName Current Value: {databaseValues.FirstName}");
                         }
                         if (databaseValues.LastName != clientValues.LastName)
                         {
-                            ModelState.AddModelError("LastName", $"Current value: {databaseValues.LastName}");
+                            ModelState.AddModelError("LastName", $"Unable to save User entered value for LastName: { clientValues.LastName}");
+                            ModelState.AddModelError("LastName", $"LastName Current value: {databaseValues.LastName}");
                         }
                         if (databaseValues.Type != clientValues.Type)
                         {
-                            ModelState.AddModelError("Type", $"Current value: {databaseValues.Type}");
+                            ModelState.AddModelError("Type", $"Unable to save User entered value for Type: {clientValues.Type}");
+                            ModelState.AddModelError("Type", $"Type Current value: {databaseValues.Type}");
                         }
                         if (databaseValues.Email != clientValues.Email)
                         {
-                            ModelState.AddModelError("Email", $"Current value: {databaseValues.Email}");
+                            ModelState.AddModelError("Email", $"Unable to save User entered value for Email: { clientValues.Email}");
+                            ModelState.AddModelError("Email", $"Email Current value: {databaseValues.Email}");
                         }
                         if (databaseValues.Status != clientValues.Status)
                         {
-                            //Instructor databaseInstructor = await _context.Instructors.SingleOrDefaultAsync(i => i.ID == databaseValues.InstructorID);
-                            ModelState.AddModelError("Status", $"Current value: {databaseValues.Status}");
+                            ModelState.AddModelError("Status", $"Unable to save User entered value for Status: { clientValues.Status}");
+                            ModelState.AddModelError("Status", $"Status Current value: {databaseValues.Status}");
                         }
 
                         ModelState.AddModelError(string.Empty, "The record you attempted to edit "
                                 + "was modified by another user after you got the original value. The "
                                 + "edit operation was canceled and the current values in the database "
-                                + "have been displayed. If you still want to edit this record, click "
-                                + "the Save button again. Otherwise click the X in the corner.");
+                                + "have been displayed. If you still want to edit this record, open "
+                                + "the Edit window again and re-enter your changes.");
                         brokerToUpdate.RowVersion = (byte[])databaseValues.RowVersion;
                         ModelState.Remove("RowVersion");
 
@@ -168,7 +171,6 @@ namespace KWFCI.Controllers
                 }
             }
 
-            //TempData["ViewData"] = ViewData.ModelState;
             List<string> errorMessages = new List<string>();
 
             var errors = ModelState.Select(x => x.Value.Errors)

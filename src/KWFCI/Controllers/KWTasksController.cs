@@ -3,8 +3,10 @@ using KWFCI.Models.ViewModels;
 using KWFCI.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KWFCI.Controllers
 {
@@ -15,12 +17,14 @@ namespace KWFCI.Controllers
         private IKWTaskRepository taskRepo;
         private IStaffProfileRepository staffRepo;
         private IInteractionsRepository intRepo;
+        private readonly ApplicationDbContext _context;
 
-        public KWTasksController(IKWTaskRepository repo, IStaffProfileRepository repo2, IInteractionsRepository repo3)
+        public KWTasksController(IKWTaskRepository repo, IStaffProfileRepository repo2, IInteractionsRepository repo3, ApplicationDbContext context)
         {
             taskRepo = repo;
             staffRepo = repo2;
             intRepo = repo3;
+            _context = context;
         }
         //[Route("Index")]
         public IActionResult AllKWTasks(string filter)
@@ -119,31 +123,148 @@ namespace KWFCI.Controllers
 
         [Route("Edit")]
         [HttpPost]
-        public ActionResult Edit(KWTaskVM vm, int KWTaskID)
+        public async Task<IActionResult> Edit(KWTaskVM vm, byte[] rowVersion, int KWTaskID)
         {
-            KWTask kwtask = taskRepo.GetKWTaskByID(KWTaskID);
-            kwtask.Message = vm.NewKWTask.Message;
-            kwtask.AlertDate = vm.NewKWTask.AlertDate;
-            kwtask.DateDue = vm.NewKWTask.DateDue;
-            kwtask.Priority = vm.NewKWTask.Priority;
-            kwtask.Type = vm.NewKWTask.Type;
+            var kwtaskToUpdate = await _context.KWTasks.Include(t => t.Interaction).SingleOrDefaultAsync(t => t.KWTaskID == vm.NewKWTask.KWTaskID);
 
-            if (kwtask.AlertDate == null)
-                kwtask.Type = "Task";
-            else
-                kwtask.Type = "Alert";
+            if (kwtaskToUpdate == null)
+            {
+                //Broker deletedBroker = new Broker();
+                //await TryUpdateModelAsync(deletedBroker);
+                ModelState.AddModelError(string.Empty,
+                    "Unable to save changes. The broker was deleted by another user.");
+                ViewBag.ModelState = ModelState;
+                return View("AllBrokers");
+            }
 
-            int verify = taskRepo.UpdateKWTask(kwtask);
-            if (verify == 1)
+            _context.Entry(kwtaskToUpdate).Property("RowVersion").OriginalValue = rowVersion;
+
+            if (await TryUpdateModelAsync<KWTask>(
+                kwtaskToUpdate,
+                "",
+                t => t.Message,
+                t => t.Priority,
+                t => t.Type,
+                t => t.AlertDate,
+                t => t.DateCreated,
+                t => t.DateDue,
+                t => t.StaffEmail,
+                t => t.StaffName))
+                
             {
-                return RedirectToAction("AllKWTasks");
+                try
+                {
+                    if (kwtaskToUpdate.AlertDate == null)
+                        kwtaskToUpdate.Type = "Task";
+                    else
+                        kwtaskToUpdate.Type = "Alert";
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("AllKWTasks");
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    var exceptionEntry = ex.Entries.Single();
+                    var clientValues = (KWTask)exceptionEntry.Entity;
+                    var databaseEntry = _context.KWTasks.AsNoTracking().Single(task => task.KWTaskID == ((KWTask)exceptionEntry.Entity).KWTaskID);
+                    if (databaseEntry == null)
+                    {
+                        ModelState.AddModelError(string.Empty,
+                            "Unable to save changes. The Task was deleted by another user.");
+                    }
+                    else
+                    {
+                        var databaseValues = databaseEntry;
+
+                        if (databaseValues.Message != clientValues.Message)
+                        {
+                            ModelState.AddModelError("Message", $"Unable to save User entered value for Message: {clientValues.Message}");
+                            ModelState.AddModelError("Message", $"Message Current Value: {databaseValues.Message}");
+                        }
+                        if (databaseValues.Priority != clientValues.Priority)
+                        {
+                            ModelState.AddModelError("Priority", $"Unable to save User entered value for Priority: { clientValues.Priority}");
+                            ModelState.AddModelError("Priority", $"Priority Current value: {databaseValues.Priority}");
+                        }
+                        if (databaseValues.Type != clientValues.Type)
+                        {
+                            ModelState.AddModelError("Type", $"Unable to save User entered value for Type: {clientValues.Type}");
+                            ModelState.AddModelError("Type", $"Type Current value: {databaseValues.Type}");
+                        }
+                        if (databaseValues.AlertDate != clientValues.AlertDate)
+                        {
+                            ModelState.AddModelError("AlertDate", $"Unable to save User entered value for AlertDate: { clientValues.AlertDate}");
+                            ModelState.AddModelError("AlertDate", $"AlertDate Current value: {databaseValues.AlertDate}");
+                        }
+                        if (databaseValues.DateDue != clientValues.DateDue)
+                        {
+                            ModelState.AddModelError("DateDue", $"Unable to save User entered value for DateDue: { clientValues.DateDue}");
+                            ModelState.AddModelError("DateDue", $"DateDue Current value: {databaseValues.DateDue}");
+                        }
+                        if (databaseValues.StaffEmail != clientValues.StaffEmail)
+                        {
+                            ModelState.AddModelError("StaffEmail", $"Unable to save User entered value for StaffEmail: { clientValues.StaffEmail}");
+                            ModelState.AddModelError("StaffEmail", $"StaffEmail Current value: {databaseValues.StaffEmail}");
+                        }
+                        if (databaseValues.StaffName != clientValues.StaffName)
+                        {
+                            ModelState.AddModelError("StaffName", $"Unable to save User entered value for StaffName: { clientValues.StaffName}");
+                            ModelState.AddModelError("StaffName", $"StaffName Current value: {databaseValues.StaffName}");
+                        }
+
+                        ModelState.AddModelError(string.Empty, "The record you attempted to edit "
+                                + "was modified by another user after you got the original value. The "
+                                + "edit operation was canceled and the current values in the database "
+                                + "have been displayed. If you still want to edit this record, open "
+                                + "the Edit window again and re-enter your changes.");
+                        kwtaskToUpdate.RowVersion = (byte[])databaseValues.RowVersion;
+                        ModelState.Remove("RowVersion");
+
+                    }
+                }
             }
-            else
+
+            List<string> errorMessages = new List<string>();
+
+            var errors = ModelState.Select(x => x.Value.Errors)
+                           .Where(y => y.Count > 0)
+                           .ToList();
+
+            foreach (var layer1 in errors)
             {
-                ModelState.AddModelError("", "Task Not Found");
+                foreach (var layer2 in layer1)
+                {
+                    errorMessages.Add(layer2.ErrorMessage);
+                }
             }
-            return RedirectToAction("AllKWTasks");
+
+            TempData["ErrorMessages"] = errorMessages;
+
+            return Redirect(returnURL);
         }
+
+        //    //KWTask kwtask = taskRepo.GetKWTaskByID(KWTaskID);
+        //    //kwtask.Message = vm.NewKWTask.Message;
+        //    //kwtask.AlertDate = vm.NewKWTask.AlertDate;
+        //    //kwtask.DateDue = vm.NewKWTask.DateDue;
+        //    //kwtask.Priority = vm.NewKWTask.Priority;
+        //    //kwtask.Type = vm.NewKWTask.Type;
+
+        //    //if (kwtask.AlertDate == null)
+        //    //    kwtask.Type = "Task";
+        //    //else
+        //    //    kwtask.Type = "Alert";
+
+        //    //int verify = taskRepo.UpdateKWTask(kwtask);
+        //    //if (verify == 1)
+        //    //{
+        //    //    return RedirectToAction("AllKWTasks");
+        //    //}
+        //    //else
+        //    //{
+        //    //    ModelState.AddModelError("", "Task Not Found");
+        //    //}
+        //    //return RedirectToAction("AllKWTasks");
+    }
 
         [Route("Assign")]
         [HttpPost]
