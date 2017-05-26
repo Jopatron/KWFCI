@@ -3,7 +3,8 @@ body{
     height:100%;
 }
 .kw-logo{                
-    margin: 20px 0px 5px 0;
+    margin: 20px 0px 5px 15px;
+    float: left;
 }
 .kw-logo a{
     float:right;
@@ -353,4 +354,20 @@ tbody{
 }
 #editBroker .row{
     padding-bottom:20px;
+}
+.checkbox input{
+    position: static !important;
+    margin: unset;
+    max-height: 20px;
+    width: 4%;
+}
+
+@media screen and (max-width:1200px){
+    .adminBtns{
+        width:50%;
+    }
+    #editBroker .modal-content {
+        width:50%;
+    }
+
 }
