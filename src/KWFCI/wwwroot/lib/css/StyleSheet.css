@@ -1,3 +1,9 @@
+.ellipsis {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 body{
     font-family:  Arial, Helvetica, sans-serif;
     height:100%;
@@ -375,3 +381,4 @@ tbody{
     }
 
 }
+
