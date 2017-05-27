@@ -10,6 +10,7 @@
             <div class="modal-body clearfix">
 
                 <form asp-controller="Interactions" asp-action="Edit" method="post">
+                    <div asp-validation-summary="All" class="text-danger center-block"></div>
                     <div class="form-group center-block modal-form">
 
                         <textarea asp-for="@Model.NewInteraction.Notes" class="form-control" rows="7" cols="10"></textarea>

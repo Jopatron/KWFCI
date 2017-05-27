@@ -63,22 +63,25 @@ $(document).ready(function () {
             }
             else if(target[0].parentNode.nodeName == "BUTTON")
             {
-                var text = target.closest('td').find($('.view-TaskMessage')).val();
-                $('#editKWTaskModal textarea').val(text);
+                if (window.location.pathname == '/Tasks')
+                {
+                    var text = target.closest('td').find($('.view-TaskMessage')).val();
+                    $('#editKWTaskModal textarea').val(text);
 
-                var dateDueFull = target.closest('td').find($('.view-TaskDateDue')).val();
-                var dateDueMonth = dateDueFull.split(" ")[0];
-                $('#editKWTaskModal .modal-TaskDateDue').val(dateDueMonth);
+                    var dateDueFull = target.closest('td').find($('.view-TaskDateDue')).val();
+                    var dateDueMonth = dateDueFull.split(" ")[0];
+                    $('#editKWTaskModal .modal-TaskDateDue').val(dateDueMonth);
 
-                var alertDateFull = target.closest('td').find($('.view-TaskAlertDate')).val();
-                var alertDateMonth = alertDateFull.split(" ")[0];
-                $('#editKWTaskModal .modal-TaskAlertDate').val(alertDateMonth);
+                    var alertDateFull = target.closest('td').find($('.view-TaskAlertDate')).val();
+                    var alertDateMonth = alertDateFull.split(" ")[0];
+                    $('#editKWTaskModal .modal-TaskAlertDate').val(alertDateMonth);
 
-                var priority = target.closest('td').find($('.view-TaskPriority')).val();
-                $('#editKWTaskModal .modal-TaskPriority').val(priority);
+                    var priority = target.closest('td').find($('.view-TaskPriority')).val();
+                    $('#editKWTaskModal .modal-TaskPriority').val(priority);
 
-                var taskID = target.closest('td').find($('.view-TaskKWTaskID')).val();
-                $('#editKWTaskModal .modal-TaskKWTaskID').val(taskID);
+                    var taskID = target.closest('td').find($('.view-TaskKWTaskID')).val();
+                    $('#editKWTaskModal .modal-TaskKWTaskID').val(taskID);
+                }
             }
         }
         else if (event.target.nodeName == "I") //if they click on the <i> tag
@@ -185,8 +188,11 @@ $(document).ready(function () {
     
 
 
-    $("#buttonSelector").click(function () {
-        $(this).button('loading');
+    $("#MessageForm").submit(function () {
+        if ($(this).valid()) {
+            $('#buttonSelector').button('loading');
+        }
+        
     });
   
     
@@ -222,7 +228,120 @@ $(document).ready(function () {
         var url = window.location.pathname;
         $('.return-url').val(url);
     });
-    
+
+    //Code for grabbing and setting edit broker modal values, admin or staff
+    $('.editTable').on('click', 'button', function (ev) {
+        
+        
+        if ($(this).attr("data-target") == ("#editBroker") || $(this).attr("data-target") == ("#adminEditBroker"))
+        {
+            var dataTarget = $(this).attr("data-target");
+            var element = $(ev.target);
+
+            console.log(dataTarget);
+            
+            if (ev.target.nodeName == "SPAN")
+            {
+                var id = element.closest('button').attr('data-id');
+            }
+            else
+                var id = element.attr('data-id');
+
+            if (dataTarget == "#editBroker")
+            {
+                var name = element.closest('.broker-parentElem').find('.broker-name').text().trim();
+                var splitname = name.split(' ');
+                var first = splitname[0];
+                var last = splitname[1];
+                var status = element.closest('.broker-parentElem').find('.broker-status').val();
+                var notifications = element.closest('.broker-parentElem').find('.broker-notifications').text().trim();
+            }
+            else
+            {
+                //Should only occur in #adminEditBrokerModal
+                var first = element.closest('.broker-parentElem').find('.broker-firstName').text().trim();
+                var last = element.closest('.broker-parentElem').find('.broker-lastName').text().trim();
+                var status = element.closest('.broker-parentElem').find('.broker-status').text().trim();
+                var notifications = element.closest('.broker-parentElem').find('.broker-notifications').val();
+            }
+
+            var email = element.closest('.broker-parentElem').find('.broker-email').text().trim();          
+            var type = element.closest('.broker-parentElem').find('.broker-type').text().trim();
+           
+            //console.log(id);
+
+            $(dataTarget + " #FirstName").val(first);
+            $(dataTarget + " #LastName").val(last);
+            $(dataTarget + " #Email").val(email);
+            if (notifications == 'Yes')
+            {
+                $(dataTarget + " #EmailNotifications").prop('checked', true);
+            }
+            else if (notifications == 'No')
+            {
+                $(dataTarget + " #EmailNotifications").prop('checked', false);
+            }
+            else
+            {
+                //Should only occur in #adminEditBrokerModal
+                $(dataTarget + " #EmailNotifications").prop('checked', notifications);
+            }
+            $(dataTarget + " #Type").val(type);
+            $(dataTarget + " #Status").val(status);
+            $(dataTarget + ' .broker-id').val(id);
+        }
+    })
+
+    //edit for admin staff
+    $('.editTable').on('click', 'button', function (ev) {
+
+        if ($(this).attr("data-target") == ("#adminEditStaff")) {
+            var element = $(ev.target);
+
+            if (ev.target.nodeName == "SPAN") {
+                var id = element.closest('button').attr('data-id');
+            }
+            else
+                var id = element.attr('data-id');
+
+            var first = element.closest('.staff-parentElem').find('.staff-firstName').text().trim();
+            var last = element.closest('.staff-parentElem').find('.staff-lastName').text().trim();
+            var email = element.closest('.staff-parentElem').find('.staff-email').text().trim();
+            var role = element.closest('.staff-parentElem').find('.staff-role').text().trim();
+
+            $("#adminEditStaff #FirstName").val(first);
+            $("#adminEditStaff #LastName").val(last);
+            $("#adminEditStaff #Email").val(email);
+            $("#adminEditStaff #Role").val(role);
+            $('#adminEditStaff .staff-id').val(id);
+        }
+    })
+
+    //edit for admin interactions
+    $('.editTable').on('click', 'button', function (ev) {
+
+        if ($(this).attr("data-target") == ("#adminEditInteraction")) {
+            var element = $(ev.target);
+
+            if (ev.target.nodeName == "SPAN") {
+                var id = element.closest('button').attr('data-id');
+            }
+            else
+                var id = element.attr('data-id');
+
+            var notes = element.closest('.interaction-parentElem').find('.interaction-notes').text().trim();
+            var date = element.closest('.interaction-parentElem').find('.interaction-date').text().trim();
+            var nextStep = element.closest('.interaction-parentElem').find('.interaction-nextStep').text().trim();
+            var status = element.closest('.interaction-parentElem').find('.interaction-status').text().trim();
+
+            $("#adminEditInteraction #Notes").val(notes);
+            $("#adminEditInteraction #DateCreated").val(date);
+            $("#adminEditInteraction #NextStep").val(nextStep);
+            $("#adminEditInteraction #Status").val(status);
+            $('#adminEditInteraction .interaction-id').val(id);
+        }
+    })
+ 
 });
 $(window).on("load", function () {
     $('.editTable').DataTable();

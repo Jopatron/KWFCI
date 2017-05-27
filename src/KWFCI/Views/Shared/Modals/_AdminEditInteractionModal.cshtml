@@ -8,8 +8,34 @@
                 <h2 class="modal-title" id="settingsLabel">Edit Interaction</h2>
             </div>
             <div class="modal-body">
+                <form asp-action="InteractionEdit" method="post">
+                    <div asp-validation-summary="All" class="text-danger center-block"></div>
+                    <input type="hidden" asp-for="InteractionID" class="interaction-id" value="" />
+                    <div class="form-group center-block">
 
+                        <label asp-for="Notes">Notes:</label>
+                        <input asp-for="Notes" class="form-control" />
 
+                        <label asp-for="DateCreated">Date:</label>
+                        <input type="text" data-date-autoclose="true"
+                               data-date-clear-btn="true"
+                               data-date-today-highlight="true"
+                               data-provide="datepicker"
+                               class="form-control interactionDate" data-id="InteractionID"
+                               asp-for="DateCreated" /><br />
+
+                        <label asp-for="NextStep">Next Step:</label>
+                        <input asp-for="NextStep" class="form-control" />
+
+                        <label asp-for="Status"></label>
+                        <select asp-for="Status" class="form-control">
+                            <option value="Active" selected="selected">Active</option>
+                            <option value="Archived">Archived</option>
+                        </select><br />
+
+                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

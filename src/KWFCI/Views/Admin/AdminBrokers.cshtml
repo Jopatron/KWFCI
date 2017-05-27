@@ -18,31 +18,32 @@
             <tbody>
                 @foreach (Broker b in Model.Brokers)
                 {
-                    <tr>
+                    <tr class="broker-parentElem">
                         <td>
-                            <a class="btn btn-primary btn-md" asp-action="BrokerEdit" data-toggle="modal" data-target="#adminEditBroker"
-                               asp-route-id="@b.BrokerID">
+                            <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#adminEditBroker"
+                                    data-id="@b.BrokerID">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </a>
+                            </button>
                         </td>
 
-                        <td>
+                        <td class="broker-firstName">
                             @b.FirstName
+                            <input type="hidden" class="broker-notifications" value="@b.EmailNotifications" />
                         </td>
 
-                        <td>
+                        <td class="broker-lastName">
                             @b.LastName
                         </td>
 
-                        <td>
+                        <td class="broker-email">
                             @b.Email
                         </td>
 
-                        <td>
+                        <td class="broker-status">
                             @b.Status
                         </td>
 
-                        <td>
+                        <td class="broker-type">
                             @b.Type
                         </td>
 

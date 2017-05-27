@@ -8,7 +8,41 @@
                 <h2 class="modal-title" id="settingsLabel">@Model.FirstName @Model.LastName</h2>
             </div>
             <div class="modal-body">
+                <form asp-action="BrokerEdit" method="post">
+                    <div asp-validation-summary="All" class="text-danger center-block"></div>
+                    <input type="hidden" asp-for="BrokerID" class="broker-id" value="" />
+                    <div class="form-group center-block">
 
+                        <label asp-for="FirstName">First Name:</label>
+                        <input asp-for="FirstName" class="form-control" />
+
+                        <label asp-for="LastName">Last Name:</label>
+                        <input asp-for="LastName" class="form-control" />
+
+                        <label asp-for="Email">Email:</label>
+                        <input asp-for="Email" class="form-control" />
+
+                        <label asp-for="Type">Broker Type:</label>
+                        <select class="form-control" asp-for="Type">
+                            <option>New Broker</option>
+                            <option>Broker In Transition</option>
+                        </select><br />
+
+                        <label asp-for="Status"></label>
+                        <select asp-for="Status" class="form-control">
+                            <option value="Active" selected="selected">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                        <br /><br />
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input pull-right" type="checkbox" asp-for="EmailNotifications">Email Notifications: &nbsp;&nbsp;
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+                    </div>
+                </form>
 
             </div>
         </div>

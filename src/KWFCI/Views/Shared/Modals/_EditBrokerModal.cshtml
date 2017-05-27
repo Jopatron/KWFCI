@@ -1,9 +1,5 @@
 ﻿@model KWFCI.Models.Broker
 
-@{
-    ViewBag.Title = "Brokers";
-}
-
 <div class="modal fade" id="editBroker" tabindex="-1" role="dialog" aria-labelledby="editBrokerModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -12,8 +8,40 @@
                 <h2 class="modal-title" id="settingsLabel">@Model.FirstName @Model.LastName</h2>
             </div>
             <div class="modal-body">
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="All" class="text-danger center-block"></div>
+                    <div class="form-group center-block">
 
-               
+                        <label asp-for="FirstName">First Name:</label>
+                        <input asp-for="FirstName" class="form-control" /><br />
+
+                        <label asp-for="LastName">Last Name:</label>
+                        <input asp-for="LastName" class="form-control" /><br />
+
+                        <label asp-for="Email">Email:</label>
+                        <input asp-for="Email" class="form-control" /><br />
+
+                        <label asp-for="Type">Broker Type:</label>
+                        <select class="form-control" asp-for="Type">
+                            <option>New Broker</option>
+                            <option>In Transition</option>
+                        </select><br />
+
+                        <label asp-for="Status"></label>
+                        <select asp-for="Status" class="form-control">
+                            <option value="Active" selected="selected">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                        <br /><br />
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input pull-right" type="checkbox" asp-for="EmailNotifications">Email Notifications: &nbsp;&nbsp;
+                            </label>
+                        </div>
+                            <input type="hidden" class="broker-id" asp-for="BrokerID" value=""/>
+                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -8,7 +8,29 @@
                 <h2 class="modal-title" id="settingsLabel">@Model.FirstName @Model.LastName</h2>
             </div>
             <div class="modal-body">
+                <form asp-action="StaffEdit" method="post">
+                    <div asp-validation-summary="All" class="text-danger center-block"></div>
+                    <input type="hidden" asp-for="StaffProfileID" class="staff-id" value="" />
+                    <div class="form-group center-block">
 
+                        <label asp-for="FirstName">First Name:</label>
+                        <input asp-for="FirstName" class="form-control" />
+
+                        <label asp-for="LastName">Last Name:</label>
+                        <input asp-for="LastName" class="form-control" />
+
+                        <label asp-for="Email">Email:</label>
+                        <input asp-for="Email" class="form-control" />
+
+                        <label asp-for="Role"></label>
+                        <select asp-for="Role" class="form-control">
+                            <option value="Staff" selected="selected">Staff</option>
+                            <option value="Admin">Admin</option>
+                        </select><br />
+
+                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
