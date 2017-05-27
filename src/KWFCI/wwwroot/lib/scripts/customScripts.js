@@ -189,7 +189,7 @@ $(document).ready(function () {
         $(this).button('loading');
     });
   
-    
+   
 
     $('#changeBrokerModal .list-group li').on('click', function () {
         var $newBroker = $(this).find('span').text();
@@ -222,6 +222,8 @@ $(document).ready(function () {
         var url = window.location.pathname;
         $('.return-url').val(url);
     });
+
+
     
 });
 $(window).on("load", function () {
