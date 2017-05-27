@@ -9,12 +9,12 @@
             </div>
             <div class="modal-body">
                 <form asp-action="InteractionEdit" method="post">
+                    <div asp-validation-summary="All" class="text-danger center-block"></div>
                     <input type="hidden" asp-for="InteractionID" class="interaction-id" value="" />
                     <div class="form-group center-block">
 
                         <label asp-for="Notes">Notes:</label>
                         <input asp-for="Notes" class="form-control" />
-                        <span asp-validation-for="Notes" class="text-danger"></span><br />
 
                         <label asp-for="DateCreated">Date:</label>
                         <input type="text" data-date-autoclose="true"
@@ -26,10 +26,8 @@
 
                         <label asp-for="NextStep">Next Step:</label>
                         <input asp-for="NextStep" class="form-control" />
-                        <span asp-validation-for="NextStep" class="text-danger"></span><br />
 
                         <label asp-for="Status"></label>
-                        <div><span asp-validation-for="Status" class="text-danger"></span></div>
                         <select asp-for="Status" class="form-control">
                             <option value="Active" selected="selected">Active</option>
                             <option value="Archived">Archived</option>

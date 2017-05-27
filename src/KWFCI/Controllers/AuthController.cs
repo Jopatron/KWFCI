@@ -35,25 +35,28 @@ namespace KWFCI.Controllers
         {
             if (ModelState.IsValid)
             {
-                StaffUser user = await userManager.FindByNameAsync(vm.UserName);
-                if (user != null)
+                if (vm.UserName != null)
                 {
-                    if (vm.Password != null)
+                    StaffUser user = await userManager.FindByNameAsync(vm.UserName);
+                    if (user != null)
                     {
-                        await signInManager.SignOutAsync();
-                        Microsoft.AspNetCore.Identity.SignInResult result =
-                                await signInManager.PasswordSignInAsync(
-                                    user, vm.Password, false, false);
-                        if (result.Succeeded)
+                        if (vm.Password != null)
                         {
-                            Helper.StaffUserLoggedIn = user;
-                            Helper.StaffProfileLoggedIn = Helper.DetermineProfile(staffProfRepo);
-                            //Redirects to the home index if login succeeds
-                            var role = Helper.StaffProfileLoggedIn.Role;
-                            if (role == "Staff")
-                                return Redirect("/");
-                            else if (role == "Admin")
-                                return Redirect("/Admin/Home");
+                            await signInManager.SignOutAsync();
+                            Microsoft.AspNetCore.Identity.SignInResult result =
+                                    await signInManager.PasswordSignInAsync(
+                                        user, vm.Password, false, false);
+                            if (result.Succeeded)
+                            {
+                                Helper.StaffUserLoggedIn = user;
+                                Helper.StaffProfileLoggedIn = Helper.DetermineProfile(staffProfRepo);
+                                //Redirects to the home index if login succeeds
+                                var role = Helper.StaffProfileLoggedIn.Role;
+                                if (role == "Staff")
+                                    return Redirect("/");
+                                else if (role == "Admin")
+                                    return Redirect("/Admin/Home");
+                            }
                         }
                     }
                 }

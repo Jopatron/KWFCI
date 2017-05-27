@@ -9,23 +9,20 @@
             </div>
             <div class="modal-body">
                 <form asp-action="StaffEdit" method="post">
+                    <div asp-validation-summary="All" class="text-danger center-block"></div>
                     <input type="hidden" asp-for="StaffProfileID" class="staff-id" value="" />
                     <div class="form-group center-block">
 
                         <label asp-for="FirstName">First Name:</label>
                         <input asp-for="FirstName" class="form-control" />
-                        <span asp-validation-for="FirstName" class="text-danger"></span><br />
 
                         <label asp-for="LastName">Last Name:</label>
                         <input asp-for="LastName" class="form-control" />
-                        <span asp-validation-for="LastName" class="text-danger"></span><br />
 
                         <label asp-for="Email">Email:</label>
                         <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span><br />
 
                         <label asp-for="Role"></label>
-                        <div><span asp-validation-for="Role" class="text-danger"></span></div>
                         <select asp-for="Role" class="form-control">
                             <option value="Staff" selected="selected">Staff</option>
                             <option value="Admin">Admin</option>

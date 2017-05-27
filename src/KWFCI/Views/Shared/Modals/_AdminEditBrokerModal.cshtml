@@ -9,20 +9,18 @@
             </div>
             <div class="modal-body">
                 <form asp-action="BrokerEdit" method="post">
+                    <div asp-validation-summary="All" class="text-danger center-block"></div>
                     <input type="hidden" asp-for="BrokerID" class="broker-id" value="" />
                     <div class="form-group center-block">
 
                         <label asp-for="FirstName">First Name:</label>
                         <input asp-for="FirstName" class="form-control" />
-                        <span asp-validation-for="FirstName" class="text-danger"></span><br />
 
                         <label asp-for="LastName">Last Name:</label>
                         <input asp-for="LastName" class="form-control" />
-                        <span asp-validation-for="LastName" class="text-danger"></span><br />
 
                         <label asp-for="Email">Email:</label>
                         <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span><br />
 
                         <label asp-for="Type">Broker Type:</label>
                         <select class="form-control" asp-for="Type">
@@ -31,7 +29,6 @@
                         </select><br />
 
                         <label asp-for="Status"></label>
-                        <div><span asp-validation-for="Status" class="text-danger"></span></div>
                         <select asp-for="Status" class="form-control">
                             <option value="Active" selected="selected">Active</option>
                             <option value="Inactive">Inactive</option>
