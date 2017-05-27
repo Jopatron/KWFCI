@@ -58,6 +58,84 @@ namespace KWFCI.Repositories
 
                 context.StaffProfiles.Add(profile);
 
+                firstName = "Nicole";
+                lastName = "Wedertz";
+                email = "Nicolewedertz@kw.com";
+                notify = true;
+                role = "Staff";
+                password = "Secret123!";
+
+                //Create Identity User before StaffProfile, so you can add to the profile
+                //Populates staff members
+                
+                user = await userManager.FindByEmailAsync(email);
+                if (user == null)
+                {
+                    user = new StaffUser { UserName = email };
+                    IdentityResult result = await userManager.CreateAsync(user, password);
+
+                    if (await roleManager.FindByNameAsync(role) == null)
+                    {
+                        await roleManager.CreateAsync(new IdentityRole("Staff"));
+
+                        if (result.Succeeded)
+                        {
+                            await userManager.AddToRoleAsync(user, role);
+                        }
+                    }
+                }
+
+                profile = new StaffProfile
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    EmailNotifications = notify,
+                    User = user,
+                    Role = role
+                };
+
+                context.StaffProfiles.Add(profile);
+
+                firstName = "Tom";
+                lastName = "Dye";
+                email = "tdye@kw.com";
+                notify = true;
+                role = "Staff";
+                password = "Secret123!";
+
+                //Create Identity User before StaffProfile, so you can add to the profile
+                //Populates staff members
+
+                user = await userManager.FindByEmailAsync(email);
+                if (user == null)
+                {
+                    user = new StaffUser { UserName = email };
+                    IdentityResult result = await userManager.CreateAsync(user, password);
+
+                    if (await roleManager.FindByNameAsync(role) == null)
+                    {
+                        await roleManager.CreateAsync(new IdentityRole("Staff"));
+
+                        if (result.Succeeded)
+                        {
+                            await userManager.AddToRoleAsync(user, role);
+                        }
+                    }
+                }
+
+                profile = new StaffProfile
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    EmailNotifications = notify,
+                    User = user,
+                    Role = role
+                };
+
+                context.StaffProfiles.Add(profile);
+
                 // Second identity + person, to test Authorization
                 firstName = "Liz";
                 lastName = "Lemon";
@@ -65,6 +143,44 @@ namespace KWFCI.Repositories
                 notify = true;
                 role = "Admin";
                 password = "Secret234!";
+
+                user = await userManager.FindByEmailAsync(email);
+                if (user == null)
+                {
+                    user = new StaffUser { UserName = email };
+                    IdentityResult result = await userManager.CreateAsync(user, password);
+
+                    if (await roleManager.FindByNameAsync(role) == null)
+                    {
+                        await roleManager.CreateAsync(new IdentityRole("Admin"));
+
+                        if (result.Succeeded)
+                        {
+                            await userManager.AddToRoleAsync(user, role);
+                        }
+                    }
+
+                }
+
+                profile = new StaffProfile
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    EmailNotifications = notify,
+                    User = user,
+                    Role = role
+                };
+
+                context.StaffProfiles.Add(profile);
+
+                // Second identity + person, to test Authorization
+                firstName = "Ad";
+                lastName = "Min";
+                email = "admin@kw.com";
+                notify = false;
+                role = "Admin";
+                password = "Admin123!";
 
                 user = await userManager.FindByEmailAsync(email);
                 if (user == null)
