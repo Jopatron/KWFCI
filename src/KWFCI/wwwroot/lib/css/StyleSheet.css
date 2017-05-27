@@ -3,14 +3,15 @@ body{
     height:100%;
 }
 .kw-logo{                
-    margin: 20px 0px 5px 15px;
-    float: left;
+    position: absolute;
+    top: 20px;
+    left: 30px;
 }
 .kw-logo a{
     float:right;
 }
 .kw-nav-wrapper{
-    margin-bottom:20px;
+    padding-bottom:40px;
     text-transform: uppercase;
 }
 .kw-nav-wrapper li a{
@@ -25,9 +26,9 @@ body{
 }
 .kw-nav-wrapper .navbar-nav{
     position: relative;
-    top: 55px;
-    float:unset;
-    display:inline-flex;
+    top: 45px;
+    float: unset;
+    display: inline-flex;
 }
 
 .datepicker table tr, .datepicker table{
@@ -148,13 +149,13 @@ tbody{
     border: none;
 }
 .logout{
-    position:relative;
-    top:55px;
+    position: absolute;
+    top: 55px;
     background-color: #b40101;
-    color:white;
+    color: white;
     font-size: 15px;
     text-transform: uppercase;
-    float:right;
+    right: 20px;
 }
 .kw-nav-wrapper button:hover{
     background-color: #ffebee;
