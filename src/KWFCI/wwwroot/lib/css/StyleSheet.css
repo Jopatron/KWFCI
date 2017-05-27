@@ -320,10 +320,10 @@ tbody{
     margin-bottom:0px;
 }
 
-.input-validation-error{
+.input-validation-error {
     background: #FEF1EC;
     border: 1px solid #CD0A0A;
-
+}
 #addKWTaskModal form .row,
 #editKWTaskModal form .row,
 #newKWTaskFromInteractionModal form .row{
