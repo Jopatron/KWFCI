@@ -340,7 +340,11 @@ $(document).ready(function () {
             $("#adminEditInteraction #Status").val(status);
             $('#adminEditInteraction .interaction-id').val(id);
         }
-    })
+    });
+
+    $('.resetPassword').click(function () {
+        alert("A reset link has been sent to your email account");
+    });
  
 });
 $(window).on("load", function () {

@@ -118,7 +118,7 @@ namespace KWFCI.Controllers
             }
 
             //TODO: Pop up Alert box saying the reset link has been sent to their email
-            return View("Index",profile);
+            return RedirectToAction("Index", profile);
         }
 
     }
