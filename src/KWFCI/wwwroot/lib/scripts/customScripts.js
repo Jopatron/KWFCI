@@ -188,7 +188,13 @@ $(document).ready(function () {
     
 
 
-    $("#MessageForm").submit(function () {
+    $("#MessageForm").submit(function (e) {
+        if ($('input[type=checkbox]:checked').length == 0) {
+            e.preventDefault();
+            alert("ERROR! Please select at least one checkbox");
+            $(this).valid() = false;
+            
+        }
         if ($(this).valid()) {
             $('#buttonSelector').button('loading');
         }
