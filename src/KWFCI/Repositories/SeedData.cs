@@ -312,8 +312,8 @@ namespace KWFCI.Repositories
             if (!context.Messages.Any())
             {
                 StaffProfile profile = context.StaffProfiles.First();
-                Message message = new Message { Subject = "Staff Meeting", Body = "Don't forget we have a morning meeting tomorrow", From = profile, DateSent = DateTime.Now };
-                Message message2 = new Message { Subject = "Broker Meeting", Body = "All Brokers please make sure you meet us at the office tomorrow", From = profile, DateSent = DateTime.Parse("May 4, 2017") };
+                Message message = new Message { Subject = "Staff Meeting", Body = "Don't forget we have a morning meeting tomorrow", From="test@fake.com", DateSent = DateTime.Now };
+                Message message2 = new Message { Subject = "Broker Meeting", Body = "All Brokers please make sure you meet us at the office tomorrow", From = "test@fake.com", DateSent = DateTime.Parse("May 4, 2017") };
 
                 context.Messages.Add(message);
                 context.Messages.Add(message2);

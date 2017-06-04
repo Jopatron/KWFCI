@@ -14,7 +14,7 @@ namespace KWFCI.Models
         [Required(ErrorMessage = "Body is required.")]
         [StringLength(1000, MinimumLength = 10, ErrorMessage = "Body must have between 10 and 1000 characters.")]
         public string Body { get; set; }
-        public StaffProfile From { get; set; }
+        public string From { get; set; }
         public DateTime DateSent { get; set; }
     }
 }
