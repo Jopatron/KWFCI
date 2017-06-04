@@ -41,10 +41,14 @@ $(document).ready(function () {
            
         $(".addID").attr("value", entityID);
         
-
-
-
-
+        //This code detects when the due date field is changed, grabs its value, and makes it the end-date of the alert date field
+        $('.modal-TaskDateDue').on('change', function () {
+            console.log('fired');
+            var form = $(this).closest('form');
+            //console.log(form);
+            //console.log(form.find('.modal-TaskAlertDate'));
+            $(form.find('.modal-TaskAlertDate')).attr('data-date-end-date', $(this).val());
+        });
 
 
 
@@ -160,18 +164,18 @@ $(document).ready(function () {
         //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
         //set a function for when it changes to hide/show the subsequent .priorityRow
 
-        $alertDate.on('change', function () {
-            var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
-            if ($alertDate.val() != "") {
-                if ($priorityRow.hasClass('hidden'))
-                    $priorityRow.removeClass("hidden");
-            }
-            else {
-                if (!$priorityRow.hasClass("hidden"))
-                    $priorityRow.addClass("hidden");
-            }
+        //$alertDate.on('change', function () {
+        //    var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
+        //    if ($alertDate.val() != "") {
+        //        if ($priorityRow.hasClass('hidden'))
+        //            $priorityRow.removeClass("hidden");
+        //    }
+        //    else {
+        //        if (!$priorityRow.hasClass("hidden"))
+        //            $priorityRow.addClass("hidden");
+        //    }
 
-        });
+        //});
     });
     
     $(".editTable").on('click', "#assign-task", function (ev) {

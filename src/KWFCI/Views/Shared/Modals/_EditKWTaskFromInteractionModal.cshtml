@@ -1,5 +1,10 @@
 ﻿@model KWFCI.Models.ViewModels.InteractionVM
 
+@{
+    DateTime todayDate = DateTime.Now;
+    string[] todaySplit = todayDate.ToString().Split(' ');
+    string today = todaySplit[0];
+}
 
 <div class="modal fade" id="editKWTaskFromInteractionModal" tabindex="-1" role="dialog" aria-labelledby="editKWTaskFromInteractionModal">
     <div class="modal-dialog" role="document">
@@ -20,11 +25,11 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.Task.DateDue">Date Due:</label></div>
-                            <div class="col-xs-5"><input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" asp-for="@Model.Task.DateDue" class="form-control modal-TaskDateDue" /></div>
+                            <div class="col-xs-5"><input type="text" data-date-autoclose="true" data-date-start-date="@today" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" asp-for="@Model.Task.DateDue" class="form-control modal-TaskDateDue" /></div>
                         </div>
                         <div class="row">
                             <div class="col-xs-3" style="width:20%;margin-top:7px;"><label asp-for="@Model.Task.AlertDate">Alert Date:</label></div>
-                            <div class="col-xs-5"><input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" asp-for="@Model.Task.AlertDate" class="form-control modal-TaskAlertDate" /></div>
+                            <div class="col-xs-5"><input type="text" data-date-autoclose="true" data-date-start-date="@today" data-date-end-date="" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" asp-for="@Model.Task.AlertDate" class="form-control modal-TaskAlertDate" /></div>
                         </div>
 
                         <div class="row">

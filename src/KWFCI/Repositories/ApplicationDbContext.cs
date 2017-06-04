@@ -22,6 +22,7 @@ namespace KWFCI.Repositories
             .HasOne(i => i.Interaction)
             .WithOne(n => n.Task)
             .HasForeignKey<Interaction>(t => t.TaskForeignKey);
+            
         }
     }
 }
