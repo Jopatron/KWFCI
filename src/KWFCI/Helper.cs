@@ -15,6 +15,14 @@ namespace KWFCI
         public static StaffProfile StaffProfileLoggedIn { get; set; }
         public static StaffUser StaffUserLoggedIn { get; set; }
         public static string CurrentRole { get; set; }
+        public static string Today { get; set; }
+
+        public static void GetToday()
+        {
+            DateTime todayDate = DateTime.Now;
+            string[] todaySplit = todayDate.ToString().Split(' ');
+            Today = todaySplit[0];
+        }
 
         public static StaffProfile DetermineProfile(IStaffProfileRepository adbc)
         {

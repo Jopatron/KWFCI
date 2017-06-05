@@ -352,6 +352,14 @@ $(document).ready(function () {
         alert("A reset link has been sent to your email account");
     });
 
+    //This code detects when the due date field is changed, grabs its value, and makes it the end-date of the alert date field
+    $('.modal-TaskDateDue').on('change', function () {
+        console.log('fired');
+        var form = $(this).closest('form');
+        $(form.find('.modal-TaskAlertDate')).attr('data-date-end-date', $(this).val());
+    });
+
+
 });
 $(window).on("load", function () {
     $('.editTable').DataTable();

@@ -26,6 +26,9 @@ namespace KWFCI.Controllers
         [AllowAnonymous]
         public ViewResult Login(string returnUrl)
         {
+            /*Call the GetToday method of the helper class to get and set today's date for use with datepicker validation*/
+            Helper.GetToday();
+
             return View(new LoginVM());
         }
 
