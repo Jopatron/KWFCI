@@ -94,25 +94,25 @@ $(document).ready(function () {
             else if (target.closest('button').attr("data-target") == "#editKWTaskFromInteractionModal" ) //Same as above but for edit modal, more values to populate
             {
                 var text = target.closest('td').find($('.view-TaskMessage')).val();
-                console.log(text);
+                //console.log(text);
                 $('#editKWTaskFromInteractionModal textarea').val(text);
             
                 var dateDueFull = target.closest('td').find($('.view-TaskDateDue')).val();
                 var dateDueMonth = dateDueFull.split(" ")[0];
-                console.log(dateDueMonth);
+                //console.log(dateDueMonth);
                 $('#editKWTaskFromInteractionModal .modal-TaskDateDue').val(dateDueMonth);
             
                 var alertDateFull = target.closest('td').find($('.view-TaskAlertDate')).val();
                 var alertDateMonth = alertDateFull.split(" ")[0];
-                console.log(alertDateMonth);
+                //console.log(alertDateMonth);
                 $('#editKWTaskFromInteractionModal .modal-TaskAlertDate').val(alertDateMonth);
             
                 var priority = target.closest('td').find($('.view-TaskPriority')).val();
-                console.log(priority);
+                //console.log(priority);
                 $('#editKWTaskFromInteractionModal .modal-TaskPriority').val(priority);
             
                 var taskID = target.closest('td').find($('.view-TaskKWTaskID')).val();
-                console.log(taskID);
+                //console.log(taskID);
                 $('#editKWTaskFromInteractionModal .modal-TaskKWTaskID').val(taskID);
             }
         }
@@ -122,21 +122,21 @@ $(document).ready(function () {
             if (target.attr("data-target") == "#editKWTaskFromInteractionModal" || target.attr("data-target") == "#editKWTaskModal") //Identical to if they clicked the <i> tag
             {
                 var text = target.closest('td').find($('.view-TaskMessage')).val();
-                console.log(text);
+                //console.log(text);
                 $(target.attr("data-target") +' textarea').val(text);
                 
                 var dateDueFull = target.closest('td').find($('.view-TaskDateDue')).val();
                 var dateDueMonth = dateDueFull.split(" ")[0];
-                console.log(dateDueMonth);
+                //console.log(dateDueMonth);
                 $(target.attr("data-target") + ' .modal-TaskDateDue').val(dateDueMonth);
                 
                 var alertDateFull = target.closest('td').find($('.view-TaskAlertDate')).val();
                 var alertDateMonth = alertDateFull.split(" ")[0];
-                console.log(alertDateMonth);
+                //console.log(alertDateMonth);
                 $(target.attr("data-target") + ' .modal-TaskAlertDate').val(alertDateMonth);
                 
                 var priority = target.closest('td').find($('.view-TaskPriority')).val();
-                console.log(priority);
+                //console.log(priority);
                 $(target.attr("data-target") + ' .modal-TaskPriority').val(priority);
             }
             else if (target.attr("data-target") == "#newKWTaskFromInteractionModal")
@@ -351,7 +351,7 @@ $(document).ready(function () {
     $('.resetPassword').click(function () {
         alert("A reset link has been sent to your email account");
     });
- 
+
 });
 $(window).on("load", function () {
     $('.editTable').DataTable();
