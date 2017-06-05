@@ -11,6 +11,12 @@ $(document).ready(function () {
         ev.preventDefault();
     });
 
+    //This code detects when the due date field is changed, grabs its value, and makes it the end-date of the alert date field
+    $('.modal-TaskDateDue').on('change', function () {
+        var form = $(this).closest('form');
+        $(form.find('.modal-TaskAlertDate')).attr('data-date-end-date', $(this).val());
+    });
+
     $(".editTable").click(function (event) {
         var target = $(event.target);
         //console.log(target);
@@ -41,15 +47,8 @@ $(document).ready(function () {
            
         $(".addID").attr("value", entityID);
         
-        //This code detects when the due date field is changed, grabs its value, and makes it the end-date of the alert date field
-        $('.modal-TaskDateDue').on('change', function () {
-            console.log('fired');
-            var form = $(this).closest('form');
-            //console.log(form);
-            //console.log(form.find('.modal-TaskAlertDate'));
-            $(form.find('.modal-TaskAlertDate')).attr('data-date-end-date', $(this).val());
-        });
-
+        
+        
 
 
         if (event.target.nodeName == "DIV")
