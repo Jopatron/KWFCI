@@ -154,25 +154,25 @@ $(document).ready(function () {
 
     
     
-    $('#NewKWTask_AlertDate').on('click', function (ev) { //If I click inside the modal
-        var $alertDate = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .modal-TaskAlertDate');
+    //$('#NewKWTask_AlertDate').on('click', function (ev) { //If I click inside the modal
+    //    var $alertDate = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .modal-TaskAlertDate');
         
-        //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
-        //set a function for when it changes to hide/show the subsequent .priorityRow
+    //    //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
+    //    //set a function for when it changes to hide/show the subsequent .priorityRow
 
-        $alertDate.on('change', function () {
-            var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
-            if ($alertDate.val() != "") {
-                if ($priorityRow.hasClass('hidden'))
-                    $priorityRow.removeClass("hidden");
-            }
-            else {
-                if (!$priorityRow.hasClass("hidden"))
-                    $priorityRow.addClass("hidden");
-            }
+    //    $alertDate.on('change', function () {
+    //        var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
+    //        if ($alertDate.val() != "") {
+    //            if ($priorityRow.hasClass('hidden'))
+    //                $priorityRow.removeClass("hidden");
+    //        }
+    //        else {
+    //            if (!$priorityRow.hasClass("hidden"))
+    //                $priorityRow.addClass("hidden");
+    //        }
 
-        });
-    });
+    //    });
+    //});
     
     $(".editTable").on('click', "#assign-task", function (ev) {
         var taskID = $(this).find(".assign-staff-task").attr("data-id");
