@@ -51,9 +51,6 @@ namespace KWFCI.Controllers
             if (p != null)
             {
                 StaffProfile profile = profileRepo.GetStaffProfileByID(p.StaffProfileID);
-                profile.Email = p.Email;
-                profile.User.UserName = p.Email;
-                profile.User.NormalizedUserName = p.Email.ToUpper();
                 profile.FirstName = p.FirstName;
                 profile.LastName = p.LastName;
                 profile.EmailNotifications = p.EmailNotifications;
