@@ -69,7 +69,7 @@ namespace KWFCI.Controllers
                 
             };
 
-            if (broker.Type == "New Broker")
+            if (broker.Type == "New Broker" || broker.Type == "Transfer Broker")
             {
                 var requirements = broker.CreateRequirementsList();
 
