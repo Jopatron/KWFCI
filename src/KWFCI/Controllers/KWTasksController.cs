@@ -27,6 +27,9 @@ namespace KWFCI.Controllers
         //[Route("Index")]
         public IActionResult AllKWTasks(string filter)
         {
+            /*Call the GetToday method of the helper class to get and set today's date for use with datepicker validation*/
+            Helper.GetToday();
+
             var criticalVB = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
 
             foreach (KWTask task in taskRepo.GetAllTasksByType("Task").Where(t => t.Priority == 5).ToList())

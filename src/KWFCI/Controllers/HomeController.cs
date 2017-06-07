@@ -42,6 +42,9 @@ namespace KWFCI.Controllers
             Helper.StaffProfileLoggedIn = Helper.DetermineProfile(staffProfRepo);
             /*End Login Logic*/
 
+            /*Call the GetToday method of the helper class to get and set today's date for use with datepicker validation*/
+            Helper.GetToday();
+
             /* Priority reassignment Logic */
             var tasks = taskRepo.GetAllKWTasks().Where(t => t.Type != "Onboarding");
 

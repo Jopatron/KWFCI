@@ -20,11 +20,26 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-4" style="margin-top:7px;"><label asp-for="@Model.NewKWTask.DateDue">Date Due:</label></div>
-                            <div class="col-xs-8"><input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" asp-for="@Model.NewKWTask.DateDue" class="form-control modal-TaskDateDue" /></div>
+                            <div class="col-xs-8"><input type="text"
+                                                         data-date-start-date="@KWFCI.Helper.Today" 
+                                                         data-date-autoclose="true" 
+                                                         data-date-clear-btn="true"
+                                                         data-date-today-highlight="true" 
+                                                         data-provide="datepicker" 
+                                                         asp-for="@Model.NewKWTask.DateDue" 
+                                                         class="form-control modal-TaskDateDue" /></div>
                         </div>
                         <div class="row">
                             <div class="col-xs-4" style="margin-top:7px;"><label asp-for="@Model.NewKWTask.AlertDate">Alert Date:</label></div>
-                            <div class="col-xs-8"><input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" asp-for="@Model.NewKWTask.AlertDate" class="form-control modal-TaskAlertDate" /></div>
+                            <div class="col-xs-8"><input type="text"
+                                                         data-date-start-date="@KWFCI.Helper.Today"
+                                                         data-date-end-date=""  
+                                                         data-date-autoclose="true" 
+                                                         data-date-clear-btn="true" 
+                                                         data-date-today-highlight="true" 
+                                                         data-provide="datepicker" 
+                                                         asp-for="@Model.NewKWTask.AlertDate" 
+                                                         class="form-control modal-TaskAlertDate" /></div>
                         </div>
 
                         <div class="row priorityRow">

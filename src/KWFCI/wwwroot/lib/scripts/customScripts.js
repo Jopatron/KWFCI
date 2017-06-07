@@ -94,25 +94,25 @@ $(document).ready(function () {
             else if (target.closest('button').attr("data-target") == "#editKWTaskFromInteractionModal" ) //Same as above but for edit modal, more values to populate
             {
                 var text = target.closest('td').find($('.view-TaskMessage')).val();
-                console.log(text);
+                //console.log(text);
                 $('#editKWTaskFromInteractionModal textarea').val(text);
             
                 var dateDueFull = target.closest('td').find($('.view-TaskDateDue')).val();
                 var dateDueMonth = dateDueFull.split(" ")[0];
-                console.log(dateDueMonth);
+                //console.log(dateDueMonth);
                 $('#editKWTaskFromInteractionModal .modal-TaskDateDue').val(dateDueMonth);
             
                 var alertDateFull = target.closest('td').find($('.view-TaskAlertDate')).val();
                 var alertDateMonth = alertDateFull.split(" ")[0];
-                console.log(alertDateMonth);
+                //console.log(alertDateMonth);
                 $('#editKWTaskFromInteractionModal .modal-TaskAlertDate').val(alertDateMonth);
             
                 var priority = target.closest('td').find($('.view-TaskPriority')).val();
-                console.log(priority);
+                //console.log(priority);
                 $('#editKWTaskFromInteractionModal .modal-TaskPriority').val(priority);
             
                 var taskID = target.closest('td').find($('.view-TaskKWTaskID')).val();
-                console.log(taskID);
+                //console.log(taskID);
                 $('#editKWTaskFromInteractionModal .modal-TaskKWTaskID').val(taskID);
             }
         }
@@ -122,21 +122,21 @@ $(document).ready(function () {
             if (target.attr("data-target") == "#editKWTaskFromInteractionModal" || target.attr("data-target") == "#editKWTaskModal") //Identical to if they clicked the <i> tag
             {
                 var text = target.closest('td').find($('.view-TaskMessage')).val();
-                console.log(text);
+                //console.log(text);
                 $(target.attr("data-target") +' textarea').val(text);
                 
                 var dateDueFull = target.closest('td').find($('.view-TaskDateDue')).val();
                 var dateDueMonth = dateDueFull.split(" ")[0];
-                console.log(dateDueMonth);
+                //console.log(dateDueMonth);
                 $(target.attr("data-target") + ' .modal-TaskDateDue').val(dateDueMonth);
                 
                 var alertDateFull = target.closest('td').find($('.view-TaskAlertDate')).val();
                 var alertDateMonth = alertDateFull.split(" ")[0];
-                console.log(alertDateMonth);
+                //console.log(alertDateMonth);
                 $(target.attr("data-target") + ' .modal-TaskAlertDate').val(alertDateMonth);
                 
                 var priority = target.closest('td').find($('.view-TaskPriority')).val();
-                console.log(priority);
+                //console.log(priority);
                 $(target.attr("data-target") + ' .modal-TaskPriority').val(priority);
             }
             else if (target.attr("data-target") == "#newKWTaskFromInteractionModal")
@@ -154,25 +154,25 @@ $(document).ready(function () {
 
     
     
-    $('#NewKWTask_AlertDate').on('click', function (ev) { //If I click inside the modal
-        var $alertDate = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .modal-TaskAlertDate');
+    //$('#NewKWTask_AlertDate').on('click', function (ev) { //If I click inside the modal
+    //    var $alertDate = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .modal-TaskAlertDate');
         
-        //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
-        //set a function for when it changes to hide/show the subsequent .priorityRow
+    //    //Grab the target's closest parent with an id, grab the id value, and create a new jquery object with a selector of the ID value + .modal-TaskAlertDate,
+    //    //set a function for when it changes to hide/show the subsequent .priorityRow
 
-        $alertDate.on('change', function () {
-            var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
-            if ($alertDate.val() != "") {
-                if ($priorityRow.hasClass('hidden'))
-                    $priorityRow.removeClass("hidden");
-            }
-            else {
-                if (!$priorityRow.hasClass("hidden"))
-                    $priorityRow.addClass("hidden");
-            }
+    //    $alertDate.on('change', function () {
+    //        var $priorityRow = $('#' + $(ev.target).closest('div[id]').attr('id') + ' .priorityRow');
+    //        if ($alertDate.val() != "") {
+    //            if ($priorityRow.hasClass('hidden'))
+    //                $priorityRow.removeClass("hidden");
+    //        }
+    //        else {
+    //            if (!$priorityRow.hasClass("hidden"))
+    //                $priorityRow.addClass("hidden");
+    //        }
 
-        });
-    });
+    //    });
+    //});
     
     $(".editTable").on('click', "#assign-task", function (ev) {
         var taskID = $(this).find(".assign-staff-task").attr("data-id");
@@ -351,7 +351,15 @@ $(document).ready(function () {
     $('.resetPassword').click(function () {
         alert("A reset link has been sent to your email account");
     });
- 
+
+    //This code detects when the due date field is changed, grabs its value, and makes it the end-date of the alert date field
+    $('.modal-TaskDateDue').on('change', function () {
+        console.log('fired');
+        var form = $(this).closest('form');
+        $(form.find('.modal-TaskAlertDate')).attr('data-date-end-date', $(this).val());
+    });
+
+
 });
 $(window).on("load", function () {
     $('.editTable').DataTable();

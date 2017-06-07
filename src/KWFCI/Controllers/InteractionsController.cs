@@ -29,6 +29,9 @@ namespace KWFCI.Controllers
         [Route("Brokers")]
         public IActionResult BrokerInteractions(int BrokerID)
         {
+            /*Call the GetToday method of the helper class to get and set today's date for use with datepicker validation*/
+            Helper.GetToday();
+
             ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             var broker = brokerRepo.GetBrokerByID(BrokerID);
             ViewBag.BrokerName = broker.FirstName + " " + broker.LastName;

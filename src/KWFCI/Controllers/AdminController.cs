@@ -31,6 +31,9 @@ namespace KWFCI.Controllers
         [Route("Home")]
         public IActionResult AdminHome(string Page)
         {
+            /*Call the GetToday method of the helper class to get and set today's date for use with datepicker validation*/
+            Helper.GetToday();
+
             ViewBag.Critical = taskRepo.GetAllTasksByType("Alert").Where(t => t.Priority == 5).ToList();
             ViewBag.Page = Page;
             return View();
