@@ -119,11 +119,13 @@ namespace KWFCI.Controllers
 
         [HttpPost]
         [Route("StaffDelete")]
-        public IActionResult StaffDelete(int id)
+        public async Task <IActionResult> StaffDelete(int id)
         {
             StaffProfile profile = staffRepo.GetStaffProfileByID(id);
             if (profile != null)
             {
+                StaffUser user = await userManager.FindByNameAsync(profile.Email);
+               await userManager.DeleteAsync(user);
                 staffRepo.DeleteStaff(profile);
                 return RedirectToAction("Staff");
             }
