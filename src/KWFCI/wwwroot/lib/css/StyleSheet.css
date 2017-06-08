@@ -334,7 +334,7 @@ tbody{
 #addKWTaskModal .modal-dialog,
 #editKWTaskModal .modal-dialog,
 #newKWTaskFromInteractionModal .modal-dialog{
-     width:400px;
+     width:450px;
 }
 
 #addKWTaskModal .dropdown button{
@@ -380,5 +380,16 @@ tbody{
         width:50%;
     }
 
+}
+.h2Span{
+    width: 95%;
+    font-size: 30px;
+    font-weight: 400;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+a:hover{
+    text-decoration:none;
 }
 

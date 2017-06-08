@@ -3,18 +3,18 @@
 @{
     ViewBag.Title = "Interactions";
 }
-@Html.Partial("_Onboarding",Model)
+@Html.Partial("_Onboarding", Model)
 
 <div class="row">
     <div class="col-xs-12">
         <div class="panel panel-default" style="width:100%; height:100%;">
             <div class="panel-heading text-center">
-                <span>
+                <span class="clearfix">
                     <button class="btn btn-sm pull-left btn-success kwAddButton" type="button" style="margin-top:10px; margin-bottom:10px; margin-left:20px;"
                             onclick="location.href='@Url.Action("Add", "Interactions", new { BrokerID = Model.Broker.BrokerID })'">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Interaction
                     </button>
-                    <h2 style="width:90%;">@Model.Broker.FirstName @Model.Broker.LastName</h2>
+                    <span class="h2Span">@Model.Broker.FirstName @Model.Broker.LastName</span>
                 </span>
             </div>
             <div class="panel-body">
@@ -60,15 +60,20 @@
                                 <td class="col-xs-2 col-sm-1" asp-for="@Model.NewInteraction.DateCreated">
                                     <!--Attribute necessary for datepicker to function: data-provide="datepicker"
                                         Attributes that serve as configuration options: all attributes that start with data-date- -->
-                                    <input type="text" data-date-autoclose="true" data-date-clear-btn="true" data-date-today-highlight="true" data-provide="datepicker" class="form-control interactionDate" data-id="@entityID"
-                                           @if (a.DateCreated != null) {
-                                               //Remove the time from the display  
-                                               string[] splitDate = a.DateCreated.ToString().Split(' '); string date = splitDate[0];  @: value="@date" />
-                                            }
-                                           else
-                                           {
-                                                    @:value="" />
-                                            }
+                                    <input type="text"
+                                           data-date-autoclose="true"
+                                           data-date-clear-btn="true"
+                                           data-date-today-highlight="true"
+                                           data-provide="datepicker"
+                                           class="form-control interactionDate"
+                                           data-id="@entityID"
+                                           @{ if (a.DateCreated != null) { string[] splitDate = a.DateCreated.ToString().Split(' '); string date = splitDate[0];  @: value="@date" />
+                                               }
+    else
+    {
+        @:value="" />
+                                               }
+}
 
 </td>
 
@@ -124,35 +129,32 @@
     </a>
 </td>
 </tr>
-                        }
+    }
                     </tbody>
                 </table>
             </div>
-
-
-
         </div>
     </div>
-</div>
+</div> <!--end of row-->
 
-        <form class="hidden" id="date-created-form" asp-controller="Interactions" asp-action="Edit" method="post">
-            <!--Value is populated with jQuery based on what value was entered into the date box-->
-            <input type="hidden" class="addDate" asp-for="@Model.NewInteraction.DateCreated" value="" />
-            <input type="hidden" class="addID" asp-for="@Model.NewInteraction.InteractionID" value="" />
-            <input type="hidden" asp-for="@Model.Field" value="Date Created" />
-            <input type="hidden" asp-for="@Model.BrokerID" />
-            <!--Triggered with jQuery-->
-            <button type="submit" class="hidden submitButton"></button>
-        </form>
+<form class="hidden" id="date-created-form" asp-controller="Interactions" asp-action="Edit" method="post">
+    <!--Value is populated with jQuery based on what value was entered into the date box-->
+    <input type="hidden" class="addDate" asp-for="@Model.NewInteraction.DateCreated" value="" />
+    <input type="hidden" class="addID" asp-for="@Model.NewInteraction.InteractionID" value="" />
+    <input type="hidden" asp-for="@Model.Field" value="Date Created" />
+    <input type="hidden" asp-for="@Model.BrokerID" />
+    <!--Triggered with jQuery-->
+    <button type="submit" class="hidden submitButton"></button>
+</form>
 
 
-        @Html.Partial("Modals/_ChangeBrokerModal", Model)
-        @Html.Partial("Modals/_EditKWTaskFromInteractionModal", Model)
-        @Html.Partial("Modals/_NewKWTaskFromInteractionModal", Model)
-        @Html.Partial("Modals/_EditInteractionNotesModal", Model)
-        @Html.Partial("Modals/_EditInteractionNextStepModal", Model)
-        <style>
-            table, tr, th {
-                border: 1px solid black;
-            }
-        </style>
+@Html.Partial("Modals/_ChangeBrokerModal", Model)
+@Html.Partial("Modals/_EditKWTaskFromInteractionModal", Model)
+@Html.Partial("Modals/_NewKWTaskFromInteractionModal", Model)
+@Html.Partial("Modals/_EditInteractionNotesModal", Model)
+@Html.Partial("Modals/_EditInteractionNextStepModal", Model)
+<style>
+    table, tr, th {
+        border: 1px solid black;
+    }
+</style>
